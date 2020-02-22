@@ -88,10 +88,18 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
 
-        $user->update($request->validate([
+        $result = $user->update($request->validate([
             'name' => 'required',
             'email' => 'required'
-        ]));
+         ])
+        );
+
+        if($result){
+            $request->session('success')->flash('success', "User $user->name has been updated");
+        }else{
+            $request->session('error')->flash('error', 'There was an error');
+        }
+
 
         $user->roles()->sync($request->roles);
 
