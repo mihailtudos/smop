@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+    <div class="d-flex flex-row-reverse mb-4">
+        <a class="btn btn-primary ml-3" href="{{ route('admin.') }}" role="button">Go to the dashboard</a>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
                     <div class="card-header">Edit user {{ $user -> name }}</div>
 
                     <div class="card-body">
@@ -11,8 +15,8 @@
                             @method('PUT')
                             @csrf
 
-                            <div class="form-group row">
-                                <label for="name" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group row ">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">
                                     Name
                                 </label>
 
@@ -28,7 +32,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-2 col-form-label text-md-right">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">
                                     Email
                                 </label>
 
@@ -44,7 +48,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="roles" class="col-md-2 col-form-label text-md-right">
+                                <label for="roles" class="col-md-4 col-form-label text-md-right">
                                     Roles
                                 </label>
 
@@ -58,7 +62,9 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <button class="btn btn-success" type="submit">Update</button>
+                            <div class="d-flex flex-row-reverse">
+                                <button class="btn btn-success" type="submit">Update</button>
+                            </div>
                         </form>
                     </div>
 
