@@ -1,0 +1,33 @@
+.nav-link{
+    color: white ;
+}
+.navbar {
+    background-color: #00ad81;
+}
+.navbar-nav{
+    min-height: 22px !important;
+    margin-bottom:0;
+    border-radius:0;
+}
+
+/* HEADER STARTS*/
+
+#header{
+    padding-bottom: 10px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+
+.create{
+    padding-top: 7px;
+}
+
+.card-header{
+    background-color: #00ad81;
+    color: white;
+}
+/* HEADER END */
+
+.btn-success {
+    background-color: #00ad81;
+}

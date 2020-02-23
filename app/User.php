@@ -42,6 +42,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function fields()
+    {
+        return $this->belongsToMany(Field::class);
+    }
+
+    public function supervisor() // Return supervisor
+    {
+        return $this->belongsTo('App\User', 'supervisor_id');
+    }
+
+    public function supervisee() // Return student
+    {
+        return $this->hasMany('App\User', 'supervisor_id');
+    }
+
     public function  hasAnyRoles($roles){
        if($this->roles()->whereIn('name', $roles)->first()){
            return true;

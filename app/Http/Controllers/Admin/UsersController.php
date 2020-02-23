@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Field;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -23,7 +25,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(15);
         return view('admin.users.index', compact('users'));
     }
 
@@ -34,7 +36,17 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $fields = Field::all();
+
+        $role_name = 'supervisor'; // for example.
+
+        $supervisors = User::whereHas('roles', function ($query) use($role_name) {
+
+        $query->where('name', $role_name);
+
+        })->get();
+
+        return view('admin.users.create', compact(['supervisors', 'fields']));
     }
 
     /**
@@ -45,7 +57,32 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Gate::denies('edit-users')){
+            return redirect(route('admin.users.index'));
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'field1' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('12345678'),
+        ]);
+
+        if(true){
+            $request->session('success')->flash('success', "User has been created");
+        }else{
+            $request->session('error')->flash('error', 'There was an error');
+        }
+
+        $user->fields()->sync($request->field);
+        $user->roles()->sync($request->roles);
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
