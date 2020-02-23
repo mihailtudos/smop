@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['admin', 'supervisor']);
         });
 
+        Gate::define('manage-projects', function ($user){
+            return $user->hasAnyRoles(['admin', 'supervisor']);
+        });
+
         Gate::define('edit-users', function ($user){
             return $user->hasAnyRoles(['admin', 'supervisor']);
         });

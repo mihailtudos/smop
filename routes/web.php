@@ -20,5 +20,19 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function (){
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
     Route::resource('users', 'UsersController');
 });
+
+Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware('can:manage-projects')->group(function (){
+
+    Route::get('/dashboard', function () {
+        return view('supervisor.dashboard');
+    });
+
+    Route::resource('projects', 'ProjectsController', ['except' =>'index']);
+});
+
+
