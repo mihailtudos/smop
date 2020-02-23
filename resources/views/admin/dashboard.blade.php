@@ -16,9 +16,9 @@
                                 Quick action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Create new user</a>
-                                <a class="dropdown-item" href="#">Send email</a>
-                                <a class="dropdown-item" href="#">Projects</a>
+                                <a class="dropdown-item" href="admin.users.create">Create new user</a>
+                                <a class="dropdown-item" href="admin.projects.create">Create new project</a>
+                                <a class="dropdown-item" href="admin.mentors.create">Create new mastership</a>
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@
                                     <p class="card-text">
                                         To update, edit projects details, delete or create new projects click on the below button
                                     </p>
-                                    <a href="#" class="btn btn-primary">Manage projects</a>
+                                    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Manage projects</a>
                                 </div>
                             </div>
                         </div>

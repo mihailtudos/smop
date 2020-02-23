@@ -24,6 +24,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
         return view('admin.dashboard');
     });
     Route::resource('users', 'UsersController');
+    Route::resource('projects', 'ProjectsController');
+    Route::resource('mentors', 'ProjectsController');
 });
 
 Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware('can:manage-projects')->group(function (){
@@ -35,4 +37,6 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::resource('projects', 'ProjectsController', ['except' =>'index']);
 });
 
+
+Route::get('/projects', 'ProjectsController@index');
 
