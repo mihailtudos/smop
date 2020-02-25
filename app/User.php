@@ -47,14 +47,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Field::class);
     }
 
-    public function supervisor() // Return supervisor
+    public function supervisee()
     {
-        return $this->belongsTo('App\User', 'supervisor_id');
+        return $this->belongsToMany('User', 'supervisor_student', 'supervisor_id', 'student_id')->withTimestamps();;
     }
 
-    public function supervisee() // Return student
+    public function addSupervisee(User $user)
     {
-        return $this->hasMany('App\User', 'supervisor_id');
+        $this->supervisee()->attach($user->id);
+        return true;
+    }
+
+    public function removeSupervisee(User $user)
+    {
+        $this->supervisee()->detach($user->id);
+        return true;
     }
 
     public function  hasAnyRoles($roles){

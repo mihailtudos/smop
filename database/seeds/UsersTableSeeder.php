@@ -17,9 +17,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //will drip roles table at each run in order to create new data
-        User::truncate();
-        DB::table('role_user')->truncate();
-        DB::table('field_user')->truncate();
+        //User::truncate();
+        //DB::table('role_user')->truncate();
+        //DB::table('field_user')->truncate();
 
         //get the roles from DB
         $adminRole = Role::where('name', 'admin')->first();

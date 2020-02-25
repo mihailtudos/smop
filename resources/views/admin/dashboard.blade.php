@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <header id="header">
             <div class="container">
@@ -16,8 +17,8 @@
                                 Quick action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="admin.users.create">Create new user</a>
-                                <a class="dropdown-item" href="admin.projects.create">Create new project</a>
+                                <a class="dropdown-item" href="{{route('admin.users.create')}}">Create new user</a>
+                                <a class="dropdown-item" href="{{ route('admin.projects.create') }}">Create new project</a>
                                 <a class="dropdown-item" href="admin.mentors.create">Create new mastership</a>
                             </div>
                         </div>

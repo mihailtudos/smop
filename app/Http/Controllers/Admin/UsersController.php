@@ -37,16 +37,10 @@ class UsersController extends Controller
     public function create()
     {
         $fields = Field::all();
+        $roles = Role::all();
 
-        $role_name = 'supervisor'; // for example.
 
-        $supervisors = User::whereHas('roles', function ($query) use($role_name) {
-
-        $query->where('name', $role_name);
-
-        })->get();
-
-        return view('admin.users.create', compact(['supervisors', 'fields']));
+        return view('admin.users.create', compact(['fields', 'roles']));
     }
 
     /**
@@ -57,6 +51,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));
         }
@@ -73,14 +68,14 @@ class UsersController extends Controller
             'password' => Hash::make('12345678'),
         ]);
 
+        $user->fields()->sync($request->field1);
+        $user->roles()->sync($request->roles);
+
         if(true){
             $request->session('success')->flash('success', "User has been created");
         }else{
             $request->session('error')->flash('error', 'There was an error');
         }
-
-        $user->fields()->sync($request->field);
-        $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.users.index');
     }
