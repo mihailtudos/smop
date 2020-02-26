@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Field;
 use App\Http\Controllers\Controller;
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,9 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return view('admin.projects.index');
+        $projects = Project::all();
+
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -41,8 +44,13 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate(['email'=>'exists:users,email']);
+        $student = User::where('email', '=', $request->email)->first();
+        $request['student_id'] = $student->id;
+
         $request->validate([
-            'email' => 'required|exists:users,email',
+            'student_id' => ['required', 'unique:projects,student_id'],
             'title' => 'required',
             'studyField' => 'required',
             'supervisor' => 'required'
@@ -51,7 +59,22 @@ class ProjectsController extends Controller
         $student = User::where('email', '=', $request->email)->first();
 
 
+        $project = Project::create([
+            'student_id' => $student->id,
+            'supervisor_id' => $request->supervisor,
+            'title' => $request->title,
+        ]);
+
+        if(true){
+            $request->session('success')->flash('success', "Project has been created");
+        }else{
+            $request->session('error')->flash('error', 'There was an error in the process, try again');
+        }
+
+        return redirect()->route('admin.projects.index');
     }
+
+
 
 
 
@@ -124,9 +147,9 @@ class ProjectsController extends Controller
         $data = $supervisors;
 
         $output = '<option value=""> Select ' .ucfirst($role_name).'.</option>';
-
         foreach ($data as $row) {
-            $output .= '<option value="'. $row->id.'">'.$row->name.'</option>';
+            $managedProjects = User::find($row->id)->monitoredProjects()->get()->count();
+            $output .= '<option value="'. $row->id.'">'.$row->name ."  ----- $managedProjects -----" .'</option>';
         }
         echo $output;
 

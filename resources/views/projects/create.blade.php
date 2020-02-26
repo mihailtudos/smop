@@ -51,7 +51,8 @@
                             <div class="col-md-6">
                                 <select class="custom-select" name="field1" id="field1" type="text">
                                     @foreach($fields as $field)
-                                        <option value="{{ $field->id }}">{{$field->name}}</option>
+
+                                        <option value="{{ $field->id }}">{{$field->name}} </option>
                                     @endforeach
                                 </select>
                             </div>
