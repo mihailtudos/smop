@@ -86,5 +86,42 @@
             </div>
         </main>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            $('.dynamic').change(function(){
+                if($(this).val() != '')
+                {
+                    var select = $(this).attr("id");
+                    var value = $(this).val();
+                    var dependent = $(this).data('dependent');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('admin.projectscontroller.fetch') }}",
+                        method:"POST",
+                        data:{select:select, value:value, _token:_token, dependent:dependent},
+                        success:function(result)
+                        {
+                            $('#'+dependent).html(result);
+                        }
+
+                    })
+                }
+            });
+
+            $('#studyField').change(function(){
+                $('#supervisor').val('');
+                // $('#city').val('');
+            });
+
+            $('#supervisor').change(function(){
+                // $('#city').val('');
+            });
+
+
+        });
+    </script>
 </body>
 </html>

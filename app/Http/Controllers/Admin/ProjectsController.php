@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Field;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectsController extends Controller
 {
@@ -25,8 +27,11 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        //
+        $fields = Field::all();
+
+        return view('admin.projects.create', compact('fields'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,8 +41,19 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|exists:users,email',
+            'title' => 'required',
+            'studyField' => 'required',
+            'supervisor' => 'required'
+        ]);
+
+        $student = User::where('email', '=', $request->email)->first();
+
+
     }
+
+
 
     /**
      * Display the specified resource.
@@ -83,4 +99,37 @@ class ProjectsController extends Controller
     {
         //
     }
+
+    public function fetch(Request $request)
+    {
+        //        $value =  $request->get('variable');//study value IT
+        //        $dependent = $request->get('dependent');
+
+        $field_name = $request->get('value'); //ex $field_name = 'IT';
+        $role_name = $request->get('dependent'); // for example $role_name = 'supervisor'
+
+        $supervisors = User::whereHas('roles', function ($query) use($role_name) {
+
+            $query->where('name', $role_name);
+
+        })->whereHas('fields', function ($query) use($field_name) {
+
+            $query->where('name', $field_name);
+
+        })->get();
+
+//        $select = $request->get('select'); //first field
+
+
+        $data = $supervisors;
+
+        $output = '<option value=""> Select ' .ucfirst($role_name).'.</option>';
+
+        foreach ($data as $row) {
+            $output .= '<option value="'. $row->id.'">'.$row->name.'</option>';
+        }
+        echo $output;
+
+    }
+
 }

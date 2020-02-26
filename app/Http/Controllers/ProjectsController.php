@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Field;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +27,22 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        //
+        $fields = Field::all();
+
+        $field_name = 'IT';
+        $role_name = 'supervisor'; // for example.
+
+        $supervisors = User::whereHas('roles', function ($query) use($role_name) {
+
+            $query->where('name', $role_name);
+
+        })->whereHas('fields', function ($query) use($field_name) {
+
+            $query->where('name', $field_name);
+
+        })->get();
+
+        return view('projects.create', compact('fields', 'supervisors'));
     }
 
     /**

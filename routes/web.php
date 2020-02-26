@@ -23,6 +23,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
+    Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
+
     Route::resource('users', 'UsersController');
     Route::resource('projects', 'ProjectsController');
     Route::resource('mentors', 'ProjectsController');
@@ -39,4 +41,6 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
 
 Route::get('/projects', 'ProjectsController@index');
+Route::get('/projects/create', 'ProjectsController@create');
+Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
