@@ -31,3 +31,4 @@ const app = new Vue({
     el: '#app',
 });
 
+import fontawesome from '@fortawesome/fontawesome-free/js/all.js';

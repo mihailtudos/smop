@@ -42,5 +42,6 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
 Route::get('/projects', 'ProjectsController@index')->name('projects');
 Route::get('/projects/create', 'ProjectsController@create');
+Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 

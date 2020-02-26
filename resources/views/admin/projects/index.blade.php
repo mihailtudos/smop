@@ -26,15 +26,27 @@
                         <tbody>
                         @forelse($projects as $project)
                         <tr>
-                            <td class="font-weight-bold"> {{ $project->title }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, vel. </td>
+                            <td class="font-weight-bold"><a href="{{$project->path()}}">{{ $project->title }}</a></td>
                             <td> {{ $project->student->name }} </td>
-                            <td> {{ $project->supervisor->name }} </td>
+                            <td> {{ $project->supervisor->name }}</td>
                             <td> @can('manage-action')
-                                    <a href="{{ route( 'admin.projects.edit', $project->id ) }}"><button class="btn btn-primary float-left" type="button">Edit</button></a>
+                                    <a href="{{ route( 'admin.projects.edit', $project->id ) }}">
+                                        <button class="btn btn-primary float-left float-left" type="button">
+                                            <h4 class="m-0 ">
+                                                <i class="fas fa-pen-nib"></i>
+                                            </h4>
+                                        </button>
+                                    </a>
                                     <form action="{{ route('admin.projects.destroy', $project->id) }}" method="post" class="float-left">
                                         @csrf
                                         @method('delete')
-                                        <a href="{{ route( 'admin.projects.destroy', $project->id ) }}"><button class="btn btn-danger " type="submit">Delete</button></a>
+                                        <a href="{{ route( 'admin.projects.destroy', $project->id ) }}">
+                                            <button class="btn btn-danger " type="submit">
+                                                <h4 class="m-0">
+                                                    <i class="fas fa-eraser"></i>
+                                                </h4>
+                                            </button>
+                                        </a>
                                     </form>
                                 @endcan
                             </td>
