@@ -9,18 +9,19 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-end">
-                    <h4>Create project</h4>
+                    <h4>Edit project</h4>
                 </div>
                 <div class="card-body">
-                {{--Form START--}}
-                    <form action="{{ route('admin.projects.store') }}" method="post">
+                    {{--Form START--}}
+                    <form action="{{ route('admin.projects.update', $project) }}" method="post">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">Student E-Mail</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror @error('student_id') is-invalid @enderror"  name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror @error('student_id') is-invalid @enderror"  name="email" value="{{ old('email') ?? $project->student->email }}" required autocomplete="email">
                                 <input type="hidden" name="student_id" id="student_id" value="null" >
 
                                 @error('email')
@@ -43,7 +44,7 @@
                             <label for="title" class="col-md-4 col-form-label text-md-right">Project Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required  autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') ?? $project->title }}" required  autofocus>
 
                                 @error('title')
                                 <span class="invalid-feedback" role="alert">
@@ -58,10 +59,9 @@
 
                             <div class="col-md-6">
                                 <select name="studyField" id="studyField" class="form-control @error('studyField') is-invalid @enderror  input-lg dynamic" data-dependent="supervisor">
-
                                     <option value="">Select Study Field</option>
                                     @foreach($fields as $field)
-                                        <option value="{{ $field->name }}">{{ $field->name }}</option>
+                                        <option  value="{{ $field->name }}">{{ $field->name }}</option>
                                     @endforeach
                                 </select>
 

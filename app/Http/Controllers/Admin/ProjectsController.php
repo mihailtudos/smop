@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Field;
 use App\Http\Controllers\Controller;
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Gate;
 
 class ProjectsController extends Controller
 {
+    //middleware checks if the user is auth to access the controller
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +25,9 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return view('admin.projects.index');
+        $projects = Project::all();
+
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -41,8 +51,14 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate(['email'=>'exists:users,email']);
+        $student = User::where('email', '=', $request->email)->first();
+        $request['student_id'] = $student->id;
+
+
         $request->validate([
-            'email' => 'required|exists:users,email',
+            'student_id' => ['required', 'unique:projects,student_id'],
             'title' => 'required',
             'studyField' => 'required',
             'supervisor' => 'required'
@@ -50,10 +66,20 @@ class ProjectsController extends Controller
 
         $student = User::where('email', '=', $request->email)->first();
 
+        $result = Project::create([
+            'student_id' => $student->id,
+            'supervisor_id' => $request->supervisor,
+            'title' => $request->title,
+        ]);
 
+        if($result){
+            $request->session('success')->flash('success', "Project has been created");
+        }else{
+            $request->session('error')->flash('error', 'There was an error in the process, try again');
+        }
+
+        return redirect()->route('admin.projects.index');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -72,9 +98,18 @@ class ProjectsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Project $project, User $user)
     {
-        //
+       if(Gate::denies('manage-action')) {
+           return redirect(route('admin.'));
+       }
+
+       $fields = Field::all();
+
+       return view('admin.projects.edit')->with([
+           'fields' => $fields,
+           'project' => $project,
+       ]);
     }
 
     /**
@@ -84,9 +119,30 @@ class ProjectsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Project $project)
     {
-        //
+        if(Gate::denies('manage-action')){
+            return redirect(route('admin.'));
+        }
+
+        $request->validate(['email'=>'exists:users,email']);
+        $student = User::where('email', '=', $request->email)->first();
+        $request['student_id'] = $student->id;
+
+
+
+        $result = $project->update($request->validate([
+           'student_id' => ['required'],
+           'title' => 'required'
+       ]));
+
+        if($result){
+            $request->session('success')->flash('success', "Project has been updated");
+        }else{
+            $request->session('error')->flash('error', 'There was an error in the process, try again');
+        }
+
+        return redirect()->route('admin.projects.index');
     }
 
     /**
@@ -95,9 +151,23 @@ class ProjectsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Project $project, Request $request)
     {
-        //
+        if(Gate::denies('manage-action')){
+            return redirect(route('admin.'));
+        }
+
+        //deletes the user
+        $result = $project->delete();
+
+        if($result){
+            $request->session('success')->flash('success', "Project has been updated");
+        }else{
+            $request->session('error')->flash('error', 'There was an error in the process');
+        }
+
+        //redirect to users page
+        return redirect()->route('admin.projects.index');
     }
 
     public function fetch(Request $request)
@@ -124,9 +194,9 @@ class ProjectsController extends Controller
         $data = $supervisors;
 
         $output = '<option value=""> Select ' .ucfirst($role_name).'.</option>';
-
         foreach ($data as $row) {
-            $output .= '<option value="'. $row->id.'">'.$row->name.'</option>';
+            $managedProjects = User::find($row->id)->monitoredProjects()->get()->count();
+            $output .= '<option value="'. $row->id.'">'.$row->name ."  ----- $managedProjects -----" .'</option>';
         }
         echo $output;
 

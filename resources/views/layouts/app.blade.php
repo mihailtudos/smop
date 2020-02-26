@@ -62,11 +62,19 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    @can('manage-users')
+                                    @if(Auth::user()->hasRole('admin'))
                                         <a class="dropdown-item" href="{{ route('admin.') }}">
-                                            Admin dashboard
+                                            Dashboard
                                         </a>
-                                    @endcan
+                                    @elseif(Auth::user()->hasRole('supervisor'))
+                                        <a class="dropdown-item" href="{{ route('supervisor.') }}">
+                                            Dashboard
+                                        </a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('projects') }}">
+                                            Dashboard
+                                        </a>
+                                    @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -120,6 +128,9 @@
                 // $('#city').val('');
             });
 
+            $('#student').change(function(){
+                // $('#city').val('');
+            });
 
         });
     </script>

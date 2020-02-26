@@ -47,6 +47,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Field::class);
     }
 
+    public function projects()
+    {
+        return $this->hasOne(Project::class, 'student_id');
+    }
+
+    public function monitoredProjects()
+    {
+        return $this->hasMany(Project::class, 'supervisor_id');
+    }
+
     public function supervisee()
     {
         return $this->belongsToMany('User', 'supervisor_student', 'supervisor_id', 'student_id')->withTimestamps();;

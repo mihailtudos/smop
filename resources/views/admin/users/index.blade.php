@@ -36,13 +36,26 @@
                                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                         <td>
                                             @can('edit-users')
-                                                <a href="{{ route( 'admin.users.edit', $user->id ) }}"><button class="btn btn-primary float-left" type="button">Edit</button></a>
+                                                <a href="{{ route( 'admin.users.edit', $user->id ) }}">
+                                                    <button class="btn btn-primary float-left" type="button">
+                                                        <h4 class="m-0">
+                                                            <i class="fas fa-pen-nib"></i>
+                                                        </h4>
+                                                    </button>
+                                                </a>
                                             @endcan
                                             @can('delete-users')
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" class="float-left">
                                                     @csrf
                                                     @method('delete')
-                                                    <a href="{{ route( 'admin.users.destroy', $user->id ) }}"><button class="btn btn-danger " type="submit">Delete</button></a>
+
+                                                    <a href="{{ route( 'admin.users.destroy', $user->id ) }}">
+                                                        <button class="btn btn-danger" type="submit">
+                                                            <h4 class="m-0">
+                                                                <i class="fas fa-eraser"></i>
+                                                            </h4>
+                                                        </button>
+                                                    </a>
                                                 </form>
                                             @endcan
                                         </td>
