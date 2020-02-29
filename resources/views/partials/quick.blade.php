@@ -19,8 +19,7 @@
                 Quick links
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ route('supervisor.projects.create')}}">Create new project</a>
-                <a class="dropdown-item" href="{{ route('supervisor.users.edit')}}">Edit user details</a>
+                <a class="dropdown-item" href="{{ route('supervisor.projects.index')}}">All projects</a>
             </div>
         </div>
     </div>

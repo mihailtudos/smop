@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Supervisor;
 
+use App\Http\Controllers\Controller;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectsController extends Controller
+class TasksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('supervisor_id', Auth::user()->id)->get();
-        return view('supervisor.projects.index', compact('projects'));
+        //
     }
 
     /**
@@ -32,12 +32,16 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Project $project
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
-        //
+
+        $project->addTask($request->title, Auth::user()->id);
+
+        return redirect($project->path());
     }
 
     /**
@@ -46,9 +50,9 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
-        return view('projects.show', compact('project'));
+        //
     }
 
     /**

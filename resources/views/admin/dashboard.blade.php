@@ -70,37 +70,29 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Projects recently created</div>
+                    <div class="card-header">Last five projects created</div>
                     <div class="card-body">
 
                         <table class="table table-dark">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Student</th>
+                                <th scope="col">Supervisor</th>
                                 <th scope="col">Handle</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @forelse(\App\Project::all() as $project)
+                                <tr>
+                                    <th scope="row"> {{$project->title}}</th>
+                                    <td>{{ $project->student->name }}</td>
+                                    <td>{{ $project->supervisor->name }}</td>
+                                    <td><a href="{{$project->path()}}" role="button" class="btn btn-success" ><i class="fas fa-sign-out-alt"></i></a></td>
+                                </tr>
+                            @empty
+                                <p>No projects yet</p>
+                            @endforelse
                             </tbody>
                         </table>
 

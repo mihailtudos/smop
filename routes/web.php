@@ -36,12 +36,12 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
         return view('supervisor.dashboard');
     });
 
-    Route::resource('projects', 'ProjectsController', ['except' =>'index']);
+    Route::resource('projects', 'ProjectsController'); //['except' =>'index']
+    Route::resource('projects/{project}/tasks', 'TasksController');
 });
 
 
 Route::get('/projects', 'ProjectsController@index')->name('projects');
-Route::get('/projects/create', 'ProjectsController@create');
 Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
