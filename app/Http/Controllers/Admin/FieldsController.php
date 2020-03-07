@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Level;
+use Gate;
 use Illuminate\Http\Request;
 
 class FieldsController extends Controller
@@ -20,7 +21,7 @@ class FieldsController extends Controller
      */
     public function index()
     {
-        $fields = Field::orderBy('created_at', 'desc')->paginate(5);
+        $fields = Field::orderBy('created_at', 'desc')->paginate(7);
         return view('admin.fields.index', compact('fields'));
     }
 
@@ -31,8 +32,8 @@ class FieldsController extends Controller
      */
     public function create(Request $request)
     {
-        $levels = Level::all()->count();
-         if ($levels !== 0){
+        $levels = Level::all();
+         if ($levels->count() !== 0){
              return view('admin.fields.create', compact('levels'));
          }else {
              $request->session('error')->flash('error', 'First you need to create a study grade (level) to be able to create study fields');
@@ -48,18 +49,28 @@ class FieldsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        if(Gate::denies('admin')){
+            return redirect(route('admin.users.index'));
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Field  $field
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Field $field)
-    {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:fields'],
+            'levels' => 'required',
+        ]);
+
+        $field = Field::create([
+            'name' => $request->name,
+        ]);
+
+        $field->levels()->sync($request->levels);
+
+        if($field){
+            $request->session('success')->flash('success', "New study field was successfully created!");
+        }else{
+            $request->session('error')->flash('error', 'There was an error!');
+        }
+
+        return redirect()->route('admin.fields.index');
     }
 
     /**
@@ -70,7 +81,9 @@ class FieldsController extends Controller
      */
     public function edit(Field $field)
     {
-        //
+        $levels = Level::all();
+
+        return view('admin.fields.edit',compact(['field','levels']));
     }
 
     /**
@@ -82,7 +95,20 @@ class FieldsController extends Controller
      */
     public function update(Request $request, Field $field)
     {
-        //
+        $result = $field->update($request->validate([
+                'name' => 'required|unique:fields,name'
+            ])
+        );
+
+        if($result){
+            $request->session('success')->flash('success', "Field $field->name has been updated!");
+        }else{
+            $request->session('error')->flash('error', 'There was an error!');
+        }
+
+        $field->levels()->sync($request->levels);
+
+        return redirect()->route('admin.fields.index');
     }
 
     /**
@@ -91,8 +117,16 @@ class FieldsController extends Controller
      * @param  \App\Field  $field
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Field $field)
+    public function destroy(Field $field, Request $request)
     {
-        //
+        $result = $field->delete();
+
+        if($result){
+            $request->session('success')->flash('success', "Study field {$field->name} was successfully deleted!");
+        }else{
+            $request->session('error')->flash('error', 'There was an error!');
+        }
+
+        return redirect()->route('admin.fields.index');
     }
 }

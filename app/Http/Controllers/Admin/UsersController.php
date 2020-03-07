@@ -71,7 +71,7 @@ class UsersController extends Controller
         $user->fields()->sync($request->field1);
         $user->roles()->sync($request->roles);
 
-        if(true){
+        if($user){
             $request->session('success')->flash('success', "User has been created");
         }else{
             $request->session('error')->flash('error', 'There was an error');

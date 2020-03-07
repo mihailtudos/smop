@@ -6,14 +6,15 @@
 
     <div class="card-body">
 
-        <form action="{{ route('admin.fields.store') }}" method="post">
+        <form action="{{ route('admin.fields.update', $field) }}" method="post">
             @csrf
+            @method('PUT')
 
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">Field Name<span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required  autofocus>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $field->name }}" required  autofocus>
                     <small id="emailHelp" class="form-text text-muted">The study field has to be unique (IT, Bussiness, etc) </small>
 
                     @error('name')
@@ -31,7 +32,7 @@
                 <div class="col-md-6 mt-2">
                     @foreach($levels as $level)
                         <div class="form-check">
-                            <input type="checkbox" name="levels[]" value="{{ $level->id }}">
+                            <input type="checkbox" name="levels[]" value="{{ $level->id }}" @if($field->levels->pluck('id')->contains($level->id)) checked @endif>
                             <label>{{ $level->name }}</label>
                         </div>
                     @endforeach
@@ -48,7 +49,7 @@
 
             <div class="form-group row mr-4 d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">
-                    Create
+                    Update
                 </button>
             </div>
         </form>

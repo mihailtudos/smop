@@ -13,9 +13,9 @@
         <table class="table text-center">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Field name</th>
-                <th scope="col">Level</th>
-                <th scope="col">Action</th>
+                <th scope="col">Study Field</th>
+                <th scope="col">Degree Levels</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
