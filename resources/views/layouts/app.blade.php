@@ -22,8 +22,10 @@
 </head>
 <body>
     <div id="app">
+
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
+
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -39,6 +41,8 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -50,6 +54,24 @@
                                 </li>
                             @endif
                         @else
+                            {{-- dropw down for emails --}}
+                            <li class="nav-item dropdown ">
+                                <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="text-xxl-center fas fa-envelope-open-text"></i> <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-center" href="{{ route('emails.index') }}">
+                                       Inbox
+                                    </a>
+                                    <a class="dropdown-item text-center" href="{{ route('emails.index') }}">
+                                       Inb] []=ox
+                                    </a>
+
+
+                                </div>
+                            </li>
+                            {{-- drop down for logout,registration, etc--}}
                             <li class="nav-item dropdown ">
                                 <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
