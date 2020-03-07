@@ -44,12 +44,14 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
 Route::middleware('can:manage-projects')->group(function () {
     Route::resource('/suggestions', 'ProjectSuggestionController', ['except' =>'index']);
-
 });
+
+
 Route::get('/suggestions', 'ProjectSuggestionController@index');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@index');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::get('/projects/{project}', 'ProjectsController@show');
+Route::resource('/emails', 'EmailsController');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
 
