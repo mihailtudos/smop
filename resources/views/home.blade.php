@@ -46,14 +46,17 @@
                 </div>
                 <div class="">
                     <ul class="list-group ">
-                        <li class="list-group-item text-center font-weight-bolder">
-                            <a href=" {{auth()->user()->projects->path()}} "><h5>Workshop</h5></a>
-
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">Created: <span class=" badge-success badge-pill">{{$post->created_at->diffForHumans()}}</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-end">Updated: <span class=" badge-success badge-pill">{{$post->updated_at->diffForHumans()}}</span></li>
+                        @if(auth()->user()->projects)
+                            <li class="list-group-item text-center font-weight-bolder">
+                                <a href=" {{auth()->user()->projects->path()}} "><h5>Workshop</h5></a>
+                            </li>
+                        @endif
+                        <li class="list-group-item d-flex justify-content-between">Created: <span
+                                class=" badge-success badge-pill">{{$post->created_at->diffForHumans()}}</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-end">Updated: <span
+                                class=" badge-success badge-pill">{{$post->updated_at->diffForHumans()}}</span></li>
                     </ul>
                 </div>
             </div>
-    </div>
+        </div>
 @endsection

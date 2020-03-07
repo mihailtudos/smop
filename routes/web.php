@@ -13,18 +13,24 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function (){
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
     Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
+    Route::prefix('users')->group(function () {
+        Route::get('import/create', 'UsersController@importCreate')->name('users.import.create');
+        Route::post('import', 'UsersController@importStore')->name('users.import.store');
+    });
+
     Route::resource('users', 'UsersController');
-    Route::resource('fields', 'FieldsController', ['except'=>'show']);
-    Route::resource('levels', 'LevelsController', ['except'=>'show']);
+    Route::resource('fields', 'FieldsController', ['except' => 'show']);
+    Route::resource('levels', 'LevelsController', ['except' => 'show']);
     Route::resource('projects', 'ProjectsController');
     Route::resource('mentors', 'ProjectsController');
     Route::resource('posts', 'PostsController');

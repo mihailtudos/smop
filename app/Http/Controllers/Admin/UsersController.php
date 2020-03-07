@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Field;
 use App\Http\Controllers\Controller;
+use App\Imports\UsersImport;
 use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
@@ -157,5 +159,17 @@ class UsersController extends Controller
 
         //redirect to users page
         return redirect()->route('admin.users.index');
+    }
+
+    public function importCreate()
+    {
+        return view('admin.users.import.create');
+    }
+
+    public function importStore(Request $request)
+    {
+        Excel::import(new UsersImport(), $request->file('file'));
+
+        return redirect(route('admin.users.index'));
     }
 }
