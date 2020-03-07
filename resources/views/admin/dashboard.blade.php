@@ -30,46 +30,35 @@
 
 
         <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header font-weight-bold"><h4>Dashboard</h4></div>
+            <div class="col-md-3 ">
+                <!-- Side bar-cards -->
+                @include('partials.sideMenu')
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="card dashCard">
+                    <div class="card-header font-weight-bold"><h4>Noticeboard</h4></div>
                     <div class="card-body">
+                        <div class="row">
+                            @forelse($posts = \App\Post::orderBy('created_at', 'desc')->paginate(3) as $post)
+                                @include('partials.postCard')
+                            @empty
+                                <h4>No posts have been created yet</h4>
+                            @endforelse
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <h5 class="card-header"></h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage users</h5>
-                                    <p class="card-text">
-                                        To update permissions, edit account details, delete or create new users click on the below  button
-                                    </p>
-                                    <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Manage users</a>
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="card">
-                                <h5 class="card-header"></h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage projects</h5>
-                                    <p class="card-text">
-                                        To update, edit projects details, delete or create new projects click on the below button
-                                    </p>
-                                    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Manage projects</a>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-center">
+                            {{ $posts->links() }}
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+        <div class="row justify-content-end">
+            <div class="col-md-9">
+                <div class="card dashCard">
                     <div class="card-header">Last five projects created</div>
                     <div class="card-body">
 

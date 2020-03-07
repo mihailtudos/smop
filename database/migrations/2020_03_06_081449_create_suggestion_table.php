@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFieldUserTable extends Migration
+class CreateSuggestionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateFieldUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('field_user', function (Blueprint $table) {
+        Schema::create('project_suggestions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('field_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('title');
+            $table->text('description');
+            $table->text('body');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,6 +32,6 @@ class CreateFieldUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_user');
+        Schema::dropIfExists('suggestion');
     }
 }

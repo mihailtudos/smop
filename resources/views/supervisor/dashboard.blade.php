@@ -44,7 +44,7 @@
                                         <p class="card-text">
                                             To update, edit projects details, delete or create new projects click on the below button
                                         </p>
-                                        <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Manage projects</a>
+                                        <a href="{{ route('supervisor.projects.index') }}" class="btn btn-primary">Manage projects</a>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                 <td>Otto</td>
                             </tr>
                             @empty
-                                <p>Wasn't found any task</p>
+                                <p>No activity recorded</p>
                             @endforelse
                             </tbody>
                         </table>

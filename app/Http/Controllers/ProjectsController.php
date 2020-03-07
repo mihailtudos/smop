@@ -15,8 +15,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('supervisor_id', Auth::user()->id)->get();
-        return view('supervisor.projects.index', compact('projects'));
+
     }
 
     /**
@@ -28,6 +27,8 @@ class ProjectsController extends Controller
     {
         //
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -48,7 +49,11 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        if ($project->student->id === auth()->user()->id or $project->supervisor->id === auth()->user()->id or auth()->user()->hasRole('admin')){
+            return view('projects.show', compact('project'));
+        }else {
+            return redirect()->route('home');
+        }
     }
 
     /**

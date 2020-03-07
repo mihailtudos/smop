@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -26,8 +23,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
     Route::resource('users', 'UsersController');
+    Route::resource('fields', 'FieldsController');
+    Route::resource('levels', 'LevelsController');
     Route::resource('projects', 'ProjectsController');
     Route::resource('mentors', 'ProjectsController');
+    Route::resource('posts', 'PostsController');
 });
 
 Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware('can:manage-projects')->group(function (){
@@ -40,8 +40,16 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::resource('projects/{project}/tasks', 'TasksController');
 });
 
+//admin and supervisor common routes
 
-Route::get('/projects', 'ProjectsController@index')->name('projects');
-Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
+Route::middleware('can:manage-projects')->group(function () {
+    Route::resource('/suggestions', 'ProjectSuggestionController', ['except' =>'index']);
+
+});
+Route::get('/suggestions', 'ProjectSuggestionController@index');
+Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@index');
+Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/projects/{project}', 'ProjectsController@show');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
+
 

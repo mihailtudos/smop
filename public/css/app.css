@@ -72,7 +72,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: white;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -5234,7 +5234,7 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #3490dc;
+  color: #000;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
@@ -5267,8 +5267,8 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  background-color: #00ad81;
+  border-color: #00ad81;
 }
 
 .page-item.disabled .page-link {
@@ -5772,8 +5772,8 @@ a.badge-dark.focus {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  background-color: #00ad81;
+  border-color: #00ad81;
 }
 
 .list-group-item + .list-group-item {
