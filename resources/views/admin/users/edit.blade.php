@@ -54,7 +54,8 @@
                                 <div class="col-md-6">
                                     @foreach($roles as $role)
                                         <div class="form-check">
-                                            <input type="checkbox" name="roles[]" value="{{ $role->id }}"
+                                            {{--    change radio type to checkbox in order to accept many roles--}}
+                                            <input type="radio" name="roles[]" value="{{ $role->id }}"
                                                    @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
                                             <label>{{ $role->name }}</label>
                                         </div>

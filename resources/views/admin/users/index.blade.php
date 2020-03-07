@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-end">
                        <h4>Users List</h4>
-                        <div><a class="btn btn-primary" href="{{ route('admin.users.create') }}" role="button">Create</a></div>
+                        <div><a class="btn btn-success border-dark" href="{{ route('admin.users.create') }}" role="button">Create</a></div>
                     </div>
 
                     <div class="card-body">

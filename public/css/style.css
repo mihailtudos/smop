@@ -35,3 +35,155 @@
 .card-header-completed {
     background-color: #1b1e21;
 }
+
+/*Card*/
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #108d6f;
+    border-color: #108d6f;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #00ad81;
+    border-color: #00ad81;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #00ad81;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#team .card {
+    border: none;
+    background: #ffffff;
+}
+
+.image-flip:hover .backside,
+.image-flip.hover .backside {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    border-radius: .25rem;
+}
+
+.image-flip:hover .frontside,
+.image-flip.hover .frontside {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.mainflip {
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -moz-transition: 1s;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.frontside {
+    position: relative;
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    z-index: 2;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+}
+
+.backside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+}
+
+.frontside,
+.backside {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 1s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 1s;
+    -o-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+.frontside .card,
+.backside .card {
+    min-height: 312px;
+}
+
+.backside .card a {
+    font-size: 18px;
+    color: #00ad81 !important;
+}
+
+.frontside .card .card-title,
+.backside .card .card-title {
+    color: #00ad81 !important;
+}
+
+.frontside .card .card-body img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.studentIcon{
+    font-size: 48px;
+}
+
+.dashCard{
+    -webkit-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+    box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
+}
+
+.dashCardMini{
+    -webkit-box-shadow: 7px 10px 15px -6px rgba(130,130,130,0.74);
+    -moz-box-shadow: 7px 10px 15px -6px rgba(130,130,130,0.74);
+    box-shadow: 7px 10px 15px -6px rgba(130,130,130,0.74);
+}
+
+.badge-success{
+    background-color: #00ad81;
+}
+
+.postIcon {
+    font-size: 2.5rem;
+}

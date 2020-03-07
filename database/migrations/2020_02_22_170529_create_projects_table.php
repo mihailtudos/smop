@@ -18,8 +18,12 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('student_id')->unique();
             $table->unsignedBigInteger('supervisor_id');
             $table->string('title');
+            $table->text('description');
             $table->boolean('completed')->default(false);
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

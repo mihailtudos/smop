@@ -13,9 +13,10 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('fields');
         Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
+            $table->text('name')->unique();;
             $table->timestamps();
         });
     }

@@ -71,7 +71,7 @@
                                             Dashboard
                                         </a>
                                     @else
-                                        <a class="dropdown-item" href="{{ route('projects') }}">
+                                        <a class="dropdown-item" href="">
                                             Dashboard
                                         </a>
                                     @endif
@@ -133,6 +133,10 @@
             });
 
         });
+
+        setTimeout(function() {
+            $('#error').fadeOut('fast');
+        }, 3000); // <-- time in milliseconds
     </script>
 </body>
 </html>

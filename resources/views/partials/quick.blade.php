@@ -8,15 +8,16 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ route('admin.users.create')}}">Create new user</a>
                 <a class="dropdown-item" href="{{ route('admin.projects.create')}}">Create new project</a>
+                <a class="dropdown-item" href="{{ route('admin.posts.create')}}">Create new post</a>
             </div>
         </div>
     </div>
 @elseif(Auth::user()->hasRole('supervisor'))
-    <div class="d-flex flex-row-reverse mb-4">
+    <div class="d-flex flex-row-reverse mb-4 pt-4">
         <a class="btn btn-primary ml-3" href="{{ route('supervisor.') }}" role="button">Go to the dashboard</a>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quick links
+                Quick action
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ route('supervisor.projects.index')}}">All projects</a>
@@ -25,10 +26,10 @@
     </div>
 @else
     <div class="d-flex flex-row-reverse mb-4">
-        <a class="btn btn-primary ml-3" href="{{ route('projects') }}" role="button">Go to the dashboard</a>
+        <a class="btn btn-primary ml-3" href="" role="button">Go to the dashboard</a>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quick links
+                Quick action
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 {{--                <a class="dropdown-item" href="{{ route('supervisor.projects.create')}}">Create new project</a>--}}

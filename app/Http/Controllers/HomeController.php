@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -30,6 +31,8 @@ class HomeController extends Controller
         } elseif (auth()->user()->hasRole('supervisor')){
             return redirect()->route('supervisor.');
         }
-        return view('home');
+
+        $posts = Post::latest()->paginate(15);
+        return view('home', compact('posts'));
     }
 }

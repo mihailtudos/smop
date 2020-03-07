@@ -13,7 +13,6 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         //will drip roles table at each run in order to create new data
-        Role::truncate();
 
         //roles created on run
         Role::create(['name'=>'admin']);

@@ -2,8 +2,7 @@
 
 @section('content')
 
-
-    @include('partials.quick')
+        @include('partials.quick')
 
     <div class="row justify-content-center">
 
@@ -12,11 +11,8 @@
                 <div class="card-header">Users List</div>
 
                 <div class="card-body">
-                <h1>Hello</h1>
-
-
+                @yield('contentIndex')
                 </div>
-
             </div>
         </div>
     </div>

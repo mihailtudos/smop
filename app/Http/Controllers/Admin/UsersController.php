@@ -132,7 +132,6 @@ class UsersController extends Controller
             $request->session('error')->flash('error', 'There was an error');
         }
 
-
         $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.users.index');

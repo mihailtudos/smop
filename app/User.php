@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function supervisee()
     {
-        return $this->belongsToMany('User', 'supervisor_student', 'supervisor_id', 'student_id')->withTimestamps();;
+        return $this->hasMany('User','student_id','user_id');
     }
 
     public function addSupervisee(User $user)
@@ -78,7 +78,6 @@ class User extends Authenticatable
        if($this->roles()->whereIn('name', $roles)->first()){
            return true;
        }
-
        return false;
     }
 
@@ -89,4 +88,15 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function suggestions()
+    {
+        return $this->hasMany(ProjectSuggestion::class);
+    }
+
 }
