@@ -14,8 +14,8 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Study Level</th>
-                <th scope="col">Fields</th>
-                <th scope="col">Action</th>
+                <th scope="col">Study Fields</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>

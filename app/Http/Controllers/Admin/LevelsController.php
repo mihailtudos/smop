@@ -19,7 +19,7 @@ class LevelsController extends Controller
      */
     public function index()
     {
-        $levels = Level::orderBy('created_at', 'desc')->paginate(5);
+        $levels = Level::orderBy('created_at', 'desc')->paginate(7);
         return view('admin.levels.index', compact('levels'));
     }
 
@@ -53,17 +53,6 @@ class LevelsController extends Controller
         }
 
         return redirect()->route('admin.levels.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Level  $level
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Level $level)
-    {
-        //
     }
 
     /**

@@ -23,8 +23,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
     Route::resource('users', 'UsersController');
-    Route::resource('fields', 'FieldsController');
-    Route::resource('levels', 'LevelsController');
+    Route::resource('fields', 'FieldsController', ['except'=>'show']);
+    Route::resource('levels', 'LevelsController', ['except'=>'show']);
     Route::resource('projects', 'ProjectsController');
     Route::resource('mentors', 'ProjectsController');
     Route::resource('posts', 'PostsController');
