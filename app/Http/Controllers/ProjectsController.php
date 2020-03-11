@@ -15,7 +15,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-
+        dd('sda');
     }
 
     /**

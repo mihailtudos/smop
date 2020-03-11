@@ -14,8 +14,10 @@
                 <img class="card-img-top w-100" src="{{ '/storage/'.$post->image }} "
                       alt="Card image cap">
                 <div class="card-body">
-                    <div>
-                        {{$post->body}}
+                    <div class="text-center">
+                        <p>
+                            {{$post->body}}
+                        </p>
                     </div>
                     <div class="d-flex justify-content-end">
                         <p>Created {{$post->created_at->diffForHumans() .' by '. $post->user->name}}</p>

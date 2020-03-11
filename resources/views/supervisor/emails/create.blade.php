@@ -6,15 +6,21 @@
 
     <div class="card-body">
 
-        <form class="" action="{{ route('emails.store') }}" method="post">
+        <form class="" action="{{ route('supervisor.emails.store') }}" method="post">
             @csrf
+            <label for="to" class="col-form-label">To<span class="text-danger">*</span></label>
             <div class="form-group">
+                    <label for="studentsCheck" class="ml-3 mr-2 col-form-label" style="padding-right:0px;"> Students </label>
+                    <input type="checkbox" id="studentsCheck"  onclick="myFunction()">
+                    <label for="coordinatorCheck" class="ml-3 mr-2 col-form-label" style="padding-right:0px;"> Coordinator </label>
+                    <input type="checkbox" id="coordinatorCheck"  onclick="ccCoordinator()">
 
-                <label for="recipient-name" class="col-form-label">To<span class="text-danger">*</span></label>
                 <div class="col-md-6">
-                    <select class="custom-select @error('to') is-invalid @enderror" name="to" id="to" type="text" required autofocus>
-                        <option value="{{auth()->user()->projects->supervisor->email}}">Supervisor</option>
-                        <option value="{{App\User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first()->email}}">Coordinator</option>
+                    <input class="form-control mb-2" style="display:none;"  type="text" name="coordinatorTo" id="coordinatorTo" value="{{$coordinator->email}}">
+                    <select style="display: none"  class="custom-select @error('to') is-invalid @enderror" name="students[]" id="to" type="text"  multiple autofocus>
+                        @foreach($students as $student)
+                        <option value="{{\App\User::find($student->student_id)->email}}">{{\App\User::find( $student->student_id)->name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -24,18 +30,14 @@
                 </span>
                 @enderror
             </div>
-            <div class="form-group">
-                <label for="cc" class="col-form-label">CC</label>
 
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input type="checkbox" name="coordinator" id="coordinator" value="{{$coordinator->email}}">
-                        <label class="form-check-label">Coordinator</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="supervisor" id="supervisor" value="{{$supervisor->email}}">
-                        <label>Supervisor</label>
-                    </div>
+
+            <label for="cc" class="col-form-label">CC<span class="text-danger">*</span></label>
+            <div class="form-group">
+
+
+                <div id="coordinatorDiv" class="col-md-6">
+                        <input class=" form-control" style="display:none;"  type="text" name="coordinatorCc" id="coordinatorCc" value="{{$coordinator->email}}">
                 </div>
 
                 @error('cc')

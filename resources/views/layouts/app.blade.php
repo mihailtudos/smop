@@ -56,20 +56,7 @@
                         @else
                             {{-- dropw down for emails --}}
                             <li class="nav-item dropdown ">
-                                <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="text-xxl-center fas fa-envelope-open-text"></i> <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item text-center" href="{{ route('emails.index') }}">
-                                       Inbox
-                                    </a>
-                                    <a class="dropdown-item text-center" href="{{ route('emails.index') }}">
-                                       Inb] []=ox
-                                    </a>
-
-
-                                </div>
+                               @include('partials.emailDrop')
                             </li>
                             {{-- drop down for logout,registration, etc--}}
                             <li class="nav-item dropdown ">
@@ -159,6 +146,46 @@
         setTimeout(function() {
             $('#error').fadeOut('fast');
         }, 3000); // <-- time in milliseconds
+
+
+    </script>
+    <script>
+        function myFunction() {
+            var studentsCheck = document.getElementById("studentsCheck");
+            var coordinatorCheck  = document.getElementById("coordinatorCheck");
+            var to = document.getElementById("to");
+
+            if (studentsCheck.checked == true){
+                to.style.display = "block";
+                coordinatorTo.style.display = "none";
+            } else if (studentsCheck.checked == false && coordinatorCheck==true){
+                coordinatorTo.style.display = "block";
+                coordinatorCc.style.display = "none";
+            }
+            else {
+                to.style.display = "none";
+                coordinatorTo.style.display = "block";
+                coordinatorCc.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        function ccCoordinator() {
+            var studentsCheck  = document.getElementById("studentsCheck");
+            var coordinatorCheck  = document.getElementById("coordinatorCheck");
+
+
+            if (coordinatorCheck.checked == true && studentsCheck.checked == true ){
+                coordinatorCc.style.display = "block";
+                coordinatorTo.style.display = "none";
+            } else if(coordinatorCheck.checked == true) {
+                coordinatorTo.style.display = "block";
+            }
+            else {
+                coordinatorTo.style.display = "none";
+                coordinatorCc.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>

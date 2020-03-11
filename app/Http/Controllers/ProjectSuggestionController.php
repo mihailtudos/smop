@@ -25,7 +25,7 @@ class ProjectSuggestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('common.projectSuggestions.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class ProjectSuggestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

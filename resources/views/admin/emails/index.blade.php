@@ -19,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($fields as $field)
+            @forelse({{\App\Field::all()}} as $field)
                 <tr>
                     <td> {{ $field->name  }}</td>
                     <td> {{ implode(', ', $field->levels()->get()->pluck('name')->toArray())  }}</td>

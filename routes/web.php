@@ -34,6 +34,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('projects', 'ProjectsController');
     Route::resource('mentors', 'ProjectsController');
     Route::resource('posts', 'PostsController');
+    Route::resource('emails', 'EmailsController');
+
 });
 
 Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware('can:manage-projects')->group(function (){
@@ -44,6 +46,7 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
+    Route::resource('emails', 'EmailsController');
 });
 
 //admin and supervisor common routes
@@ -55,9 +58,9 @@ Route::middleware('can:manage-projects')->group(function () {
 
 Route::get('/suggestions', 'ProjectSuggestionController@index');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@index');
-Route::get('/posts/{post}', 'PostsController@show');
 Route::get('/projects/{project}', 'ProjectsController@show');
 Route::resource('/emails', 'EmailsController');
+Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
 

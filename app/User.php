@@ -100,4 +100,9 @@ class User extends Authenticatable
         return $this->hasMany(ProjectSuggestion::class);
     }
 
+    public function emails()
+    {
+        return $this->hasMany(Email::class)->orderBy('created_at', 'DESC');
+    }
+
 }

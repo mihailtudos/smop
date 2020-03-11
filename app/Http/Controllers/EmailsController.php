@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Email;
+use App\User;
+use Gate;
 use Illuminate\Http\Request;
 
 class EmailsController extends Controller
 {
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class EmailsController extends Controller
      */
     public function index()
     {
-        dd('sasad');
+        $emails = Email::orderBy('created_at', 'desc')->paginate(7);
+
+        return view('emails.index', compact('emails'));
     }
 
     /**
@@ -24,7 +32,9 @@ class EmailsController extends Controller
      */
     public function create()
     {
-        //
+        $supervisor = auth()->user()->projects->supervisor;
+        $coordinator = User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first();
+        return view('emails.create', compact(['coordinator', 'supervisor']));
     }
 
     /**
@@ -35,7 +45,10 @@ class EmailsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'subject' => 'required'
+        ]);
+        dd($request->all());
     }
 
     /**

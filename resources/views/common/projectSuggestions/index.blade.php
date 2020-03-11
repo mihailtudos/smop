@@ -12,7 +12,7 @@
                     <h4>Projects Suggestion List</h4>
                     @can('manage-projects')
                         <div>
-                            <a class="btn btn-success border-dark" href="{{ route('admin.projects.create') }}" role="button">Create</a>
+                            <a class="btn btn-success border-dark" href="{{ route('suggestions.create') }}" role="button">Create</a>
                         </div>
                     @endcan
                 </div>

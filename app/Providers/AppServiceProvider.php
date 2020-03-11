@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['admin']);
         });
 
+        Gate::define('supervise', function ($user){
+            return $user->hasAnyRoles(['supervisor']);
+        });
+
         Gate::define('manage-action', function ($user){
             return $user->hasAnyRoles(['admin']);
         });
@@ -49,6 +53,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete-users', function ($user){
             return $user->hasRole('admin');
 
+        });
+
+        Gate::define('student', function ($user){
+            return $user->hasAnyRoles(['student']);
         });
     }
 }

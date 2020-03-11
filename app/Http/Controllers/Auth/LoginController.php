@@ -48,11 +48,13 @@ class LoginController extends Controller
         } elseif (Auth::user()->hasRole('supervisor')){
             $this->redirectTo = route('supervisor.');
             return $this->redirectTo;
-        } elseif (Auth::user()->hasRole('student')){
+        }
+        elseif (Auth::user()->hasRole('student')){
 
             $this->redirectTo = route('studentProjects', Auth::user()->projects);
             return $this->redirectTo;
-        }else{
+        }
+        else{
             $this->redirectTo = route('home');
             return $this->redirectTo;
         }

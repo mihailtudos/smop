@@ -33,7 +33,7 @@
                                 <label for="description" class="col-md-2 col-form-label text-md-right">Description<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autofocus>
+                                    <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required >
 
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                                 <label for="body" class="col-md-2 col-form-label text-md-right">Body<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="10" value="{{ old('title') }}" required autofocus></textarea>
+                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="10" value="{{ old('title') }}" required ></textarea>
 
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">

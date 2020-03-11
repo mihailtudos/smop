@@ -1,5 +1,5 @@
 
-<div class="my-4 d-flex justify-content-between">
+<div class="mt-2 mb-4 d-flex justify-content-between">
     <div class=" ">
         <h1><i class="fas fa-cogs"></i> <small>Welcome to your {{ auth()->user()->roles->first()->name }}  </small></span> Dashboard </h1>
     </div>
