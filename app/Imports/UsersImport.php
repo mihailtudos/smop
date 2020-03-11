@@ -3,11 +3,14 @@
 namespace App\Imports;
 
 use App\Field;
+use App\Mail\Users\UserRegisteredByImportMailable;
 use App\Role;
 use App\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -36,17 +39,23 @@ class UsersImport implements ToCollection, WithHeadingRow
             }
 
             Validator::make($row->toArray(), $rules)->validate();
-            //$password = Hash::make(Str::random(8));
-            $password = Hash::make('qwerty');
+            $passwordString = Str::random(8);
 
             $user = User::create([
                 'name'     => $row['name'],
                 'email'    => $row['email'],
-                'password' => $password,
+                'password' => Hash::make($passwordString),
             ]);
 
             $user->fields()->attach(Field::whereName($row['field'])->pluck('id'));
             $user->roles()->attach(Role::whereName($row['role'])->pluck('id'));
+
+            $mailTo[] = ['user' => $user, 'password' => $passwordString];
+        }
+
+        foreach ($mailTo as $userAndPassword) {
+            Mail::to($userAndPassword['user'])
+                ->send(new UserRegisteredByImportMailable($userAndPassword['user'], $userAndPassword['password']));
         }
     }
 }

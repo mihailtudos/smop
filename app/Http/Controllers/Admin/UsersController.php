@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Imports\UsersImport;
+use App\Mail\Users\UserRegisteredMailable;
 use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
@@ -53,29 +56,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
-        if(Gate::denies('edit-users')){
+        if (Gate::denies('edit-users')) {
             return redirect(route('admin.users.index'));
         }
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name'   => ['required', 'string', 'max:255'],
+            'email'  => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'field1' => 'required',
         ]);
 
+        $passwordString = Str::random(8);
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make('12345678'),
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($passwordString),
         ]);
 
         $user->fields()->sync($request->field1);
         $user->roles()->sync($request->roles);
 
-        if($user){
+        if ($user) {
             $request->session('success')->flash('success', "User has been created");
-        }else{
+            Mail::to($user)->send(new UserRegisteredMailable($user, $passwordString));
+        } else {
             $request->session('error')->flash('error', 'There was an error');
         }
 
