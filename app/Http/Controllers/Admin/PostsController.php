@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
-use Intervention\Image\Facades\Image;
 use Gate;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -50,10 +50,10 @@ class PostsController extends Controller
             'image' => 'image',
         ]);
 
-        if ($request->has('image')){
+        if ($request->has('image')) {
             $imagePath = $request['image']->store('uploads', 'public');
-        }else {
-                $imagePath = 'uploads/banner.jpg';
+        } else {
+            $imagePath = 'uploads/banner.jpg';
         }
 
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
