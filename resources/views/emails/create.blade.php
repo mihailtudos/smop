@@ -9,36 +9,19 @@
         <form class="" action="{{ route('emails.store') }}" method="post">
             @csrf
             <div class="form-group">
-
                 <label for="recipient-name" class="col-form-label">To<span class="text-danger">*</span></label>
                 <div class="col-md-6">
-                    <select class="custom-select @error('to') is-invalid @enderror" name="to" id="to" type="text" required autofocus>
+                    <select class="custom-select @error('to') is-invalid @enderror" name="to[]" id="to" type="text"
+                            required autofocus multiple>
                         <option value="{{auth()->user()->projects->supervisor->email}}">Supervisor</option>
-                        <option value="{{App\User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first()->email}}">Coordinator</option>
+                        <option
+                            value="{{App\User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first()->email}}">
+                            Coordinator
+                        </option>
                     </select>
                 </div>
 
                 @error('to')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="cc" class="col-form-label">CC</label>
-
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input type="checkbox" name="coordinator" id="coordinator" value="{{$coordinator->email}}">
-                        <label class="form-check-label">Coordinator</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="supervisor" id="supervisor" value="{{$supervisor->email}}">
-                        <label>Supervisor</label>
-                    </div>
-                </div>
-
-                @error('cc')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
