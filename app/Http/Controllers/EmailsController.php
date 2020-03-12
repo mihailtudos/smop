@@ -66,6 +66,7 @@ class EmailsController extends Controller
             EmailLog::create(['from_user_id' => $fromUser->id, 'to_user_id' => $toUser->id]);
         }
 
+
         return redirect()->route('emails.create');
     }
 }

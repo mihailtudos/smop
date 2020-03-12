@@ -22,6 +22,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
         return view('admin.dashboard');
     });
     Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
+    Route::post('emails/dynamic', 'EmailsController@fetch')->name('emailscontroller.fetch');
 
     Route::prefix('users')->group(function () {
         Route::get('import/create', 'UsersController@importCreate')->name('users.import.create');

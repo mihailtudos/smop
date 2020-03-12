@@ -57,7 +57,7 @@
                             <label for="studyField" class="col-md-4 col-form-label text-md-right">Study Field</label>
 
                             <div class="col-md-6">
-                                <select name="studyField" id="studyField" class="form-control @error('studyField') is-invalid @enderror  input-lg dynamic" data-dependent="supervisor">
+                                <select name="studyField" id="studyField" class="form-control @error('studyField') is-invalid @enderror input-lg dynamic" data-dependent="supervisor">
 
                                     <option value="">Select Study Field</option>
                                     @foreach($fields as $field)

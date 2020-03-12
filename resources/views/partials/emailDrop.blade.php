@@ -3,11 +3,9 @@
 </a>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
     <a class="dropdown-item text-center"
-    @can('admin') href="{{ route('emails.index') }}" @endcan
-    @can('supervise') href="{{ route('emails.index') }}" @endcan
      href="{{ route('emails.index') }}">Inbox</a>
     <a class="dropdown-item text-center"
-        @can('admin') href="{{ route('emails.create') }}" @endcan
+        @can('admin') href="{{ route('admin.emails.create') }}" @endcan
         @can('supervise') href="{{ route('supervisor.emails.create') }}" @endcan
         @can('student') href="{{ route('emails.create') }}" @endcan>Send emails</a>
 </div>

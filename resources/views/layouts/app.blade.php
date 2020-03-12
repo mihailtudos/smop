@@ -55,6 +55,7 @@
                             @endif
                         @else
                             {{-- dropw down for emails --}}
+
                             <li class="nav-item dropdown ">
                                @include('partials.emailDrop')
                             </li>
@@ -109,22 +110,51 @@
         $(document).ready(function(){
 
             $('.dynamic').change(function(){
+
                 if($(this).val() != '')
                 {
                     var select = $(this).attr("id");
                     var value = $(this).val();
                     var dependent = $(this).data('dependent');
+                    var students = $("#supervisor").data('dependent');
                     var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{ route('admin.projectscontroller.fetch') }}",
-                        method:"POST",
-                        data:{select:select, value:value, _token:_token, dependent:dependent},
-                        success:function(result)
-                        {
-                            $('#'+dependent).html(result);
-                        }
 
-                    })
+
+                    if(students == 'supervisor'){
+                        alert('sss');
+                        $.ajax({
+                            url:"{{ route('admin.projectscontroller.fetch') }}",
+                            method:"POST",
+                            data:{select:select, value:value, _token:_token, dependent:dependent},
+                            success:function(result)
+                            {
+                                $('#'+dependent).html(result);
+                            }
+
+                        })
+                    } else {
+                        dependent = 'supervisor';
+                        students = 'student';
+
+                        $.ajax({
+                            url:"{{ route('admin.emailscontroller.fetch') }}",
+                            method:"POST",
+
+                            data:{select:select, value:value, _token:_token, dependent:dependent, students:students},
+
+                            success:function(result)
+                            {
+                                $('#'+students).html(result['students']);
+                                $('#'+dependent).html(result['supervisors']);
+                            }
+
+                        })
+                    }
+
+
+
+
+
                 }
             });
 
@@ -133,13 +163,13 @@
                 // $('#city').val('');
             });
 
-            $('#supervisor').change(function(){
-                // $('#city').val('');
-            });
-
-            $('#student').change(function(){
-                // $('#city').val('');
-            });
+            // $('#supervisor').change(function(){
+            //     // $('#city').val('');
+            // });
+            //
+            // $('#student').change(function(){
+            //     // $('#city').val('');
+            // });
 
         });
 
@@ -195,22 +225,46 @@
         }
     </script>
     <script>
-        function ccCoordinator() {
-            var studentsCheck  = document.getElementById("studentsCheck");
+        function showOptions() {
+
+            var studentsCheck = document.getElementById("studentsCheck");
             var coordinatorCheck  = document.getElementById("coordinatorCheck");
-            var coordinatorEmail = $("#coordinatorEmail").val();
+            var errorMessageDestination  = document.getElementById("errorMessageDestination");
+            var students = document.getElementById("student");
+            var supervisor = document.getElementById("supervisor");
 
-            if (coordinatorCheck.checked == true && studentsCheck.checked == true ){
-                coordinatorCc.style.display = "block";
 
-                coordinatorTo.style.display = "none";
-            } else if(coordinatorCheck.checked == true) {
-                coordinatorTo.style.display = "block";
-                $("#coordinatorTo").val(coordinatorEmail);
+            if (studentsCheck.checked == true && coordinatorCheck.checked == false){
+                students.style.display = "block";
+                supervisor.style.display = "none";
+                $("#supervisor").val('');
+            } else if (studentsCheck.checked == true && coordinatorCheck.checked == true){
+                students.style.display = "block";
+                supervisor.style.display = "block";
+            }   else if (studentsCheck.checked == false && coordinatorCheck.checked == true){
+                students.style.display = "none";
+                $("#students").val([]);
+                supervisor.style.display = "block";
+            } else {
+                students.style.display = "none";
+                $("#students").val([]);
+                $("#supervisor").val([]);
+                supervisor.style.display = "none";
             }
-            else {
-                coordinatorTo.style.display = "none";
-                coordinatorCc.style.display = "none";
+
+
+        }
+
+        function checkValidation() {
+            if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
+                if(studentsCheck.checked == true){
+                    $("#to").prop('required', true);
+                }
+                errorMessageDestination.style.display = "none";
+                $("#coordinatorTo").prop('required', false);
+            } else {
+                errorMessageDestination.style.display = "block";
+                $("#coordinatorTo").prop('required', true);
             }
         }
     </script>
