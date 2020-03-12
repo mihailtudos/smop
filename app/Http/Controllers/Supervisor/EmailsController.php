@@ -36,6 +36,14 @@ class EmailsController extends Controller
 
     public function store(Request $request)
     {
+     /*
+      * 3 cases possible
+      *
+      * 1. if coordinatorTo and coordinatorCc == null then send messages only to students
+      * 2. if coordinatorTo is set then send email only to coordinator
+      * 3. if coordinatorCc is set then send email to students[] and coordinator included in cc
+      *     for all cases include the auth()->user()->email in the sending list so the user gets a copy of the email!!!
+     */
         dd($request->all());
     }
 }

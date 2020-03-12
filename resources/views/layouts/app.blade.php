@@ -150,22 +150,47 @@
 
     </script>
     <script>
-        function myFunction() {
+        function addCoordinator() {
             var studentsCheck = document.getElementById("studentsCheck");
             var coordinatorCheck  = document.getElementById("coordinatorCheck");
+            var errorMessageDestination  = document.getElementById("errorMessageDestination");
             var to = document.getElementById("to");
+            var coordinatorEmail = $("#coordinatorEmail").val();
 
-            if (studentsCheck.checked == true){
+
+            if (studentsCheck.checked == true && coordinatorCheck.checked == false){
                 to.style.display = "block";
                 coordinatorTo.style.display = "none";
-            } else if (studentsCheck.checked == false && coordinatorCheck==true){
+                $("#coordinatorTo").val('');
+            } else if (studentsCheck.checked == true && coordinatorCheck.checked == true){
+                to.style.display = "block";
+                $('#coordinatorTo').val(coordinatorEmail);
                 coordinatorTo.style.display = "block";
-                coordinatorCc.style.display = "none";
-            }
-            else {
+            }   else if (studentsCheck.checked == false && coordinatorCheck.checked == true){
                 to.style.display = "none";
+                $("select").val([]);
+                $('#coordinatorTo').val(coordinatorEmail);
                 coordinatorTo.style.display = "block";
-                coordinatorCc.style.display = "none";
+            } else {
+                to.style.display = "none";
+                $("select").val([]);
+                coordinatorTo.style.display = "none";
+                $("#coordinatorTo").val('');
+            }
+
+
+        }
+
+        function checkValidation() {
+            if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
+                if(studentsCheck.checked == true){
+                    $("#to").prop('required', true);
+                }
+                errorMessageDestination.style.display = "none";
+                $("#coordinatorTo").prop('required', false);
+            } else {
+                errorMessageDestination.style.display = "block";
+                $("#coordinatorTo").prop('required', true);
             }
         }
     </script>
@@ -173,13 +198,15 @@
         function ccCoordinator() {
             var studentsCheck  = document.getElementById("studentsCheck");
             var coordinatorCheck  = document.getElementById("coordinatorCheck");
-
+            var coordinatorEmail = $("#coordinatorEmail").val();
 
             if (coordinatorCheck.checked == true && studentsCheck.checked == true ){
                 coordinatorCc.style.display = "block";
+
                 coordinatorTo.style.display = "none";
             } else if(coordinatorCheck.checked == true) {
                 coordinatorTo.style.display = "block";
+                $("#coordinatorTo").val(coordinatorEmail);
             }
             else {
                 coordinatorTo.style.display = "none";
