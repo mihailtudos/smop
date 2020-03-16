@@ -47,7 +47,7 @@
                                 <label for="body" class="col-md-2 col-form-label text-md-right">Body<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="10" value="{{ old('title') }}" required ></textarea>
+                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="10"  required >{{ old('title') }}</textarea>
 
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
                                 <label for="body" class="col-md-2 col-form-label text-md-right">Image</label>
 
                                 <div class="col-md-10">
-                                    <input id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
+                                    <input onchange="validateSize(this)" id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
 
                                     @error('image')
                                     <span class="invalid-feedback" role="alert">

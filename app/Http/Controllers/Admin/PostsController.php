@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
@@ -47,7 +48,7 @@ class PostsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'body' => 'required',
-            'image' => 'image',
+            'image' => 'image|sometimes|mimes:jpeg,bmp,png,jpg|max:2500',
         ]);
 
         if ($request->has('image')) {
@@ -137,8 +138,19 @@ class PostsController extends Controller
      */
     public function destroy(Post $post, Request $request)
     {
+
+
+        if ($post->image != 'uploads/banner.jpg' and Storage::exists( 'public/'. $post->image)) {
+            Storage::delete('public/' .$post->image);
+        }
+
         //deletes the user
         $response = $post->delete();
+
+
+
+
+        $post->delete();
 
         if($response){
             $request->session('success')->flash('success', "The post has been deleted successfully!");
