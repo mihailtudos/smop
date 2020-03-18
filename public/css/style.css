@@ -1,8 +1,8 @@
 .nav-link{
     color: white ;
 }
-.navbar {
-    background-color: #00ad81;
+.navbar, .main-color-bg {
+    background-color: #00ad81 !important;
 }
 .navbar-nav{
     min-height: 22px !important;

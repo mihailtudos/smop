@@ -9,15 +9,17 @@
         <form class="" action="{{ route('emails.store') }}" method="post">
             @csrf
             <div class="form-group">
-                <label for="recipient-name" class="col-form-label">To<span class="text-danger">*</span></label>
+                <label for="to" class="col-form-label">To<span class="text-danger">*</span></label>
                 <div class="col-md-6">
-                    <select class="custom-select @error('to') is-invalid @enderror" name="to[]" id="to" type="text"
-                            required autofocus multiple>
-                        <option value="{{auth()->user()->projects->supervisor->email}}">Supervisor</option>
-                        <option
-                            value="{{App\User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first()->email}}">
-                            Coordinator
-                        </option>
+                    <select class="custom-select @error('to') is-invalid @enderror" name="to[]" id="to" type="text" required autofocus multiple>
+                        @foreach($coordinators as $coordinator)
+                            <option value="{{$coordinator->email}}">{{$coordinator->name}}</option>
+                        @endforeach
+                        @if($supervisors)
+                            @foreach($supervisors as $supervisor)
+                                <option value="{{$supervisor->email}}">{{$supervisor->name}}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
 

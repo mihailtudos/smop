@@ -35,19 +35,19 @@ class UsersTableSeeder extends Seeder
        $admin = User::create([
            'name' => 'Admin User',
            'email' => 'admin@admin.com',
-           'password' => Hash::make('qwerty')
+           'password' => Hash::make('12345678')
        ]);
         //Creates user of supervisor role
         $supervisor = User::create([
            'name' => 'Supervisor User',
            'email' => 'super@admin.com',
-           'password' => Hash::make('qwerty')
+           'password' => Hash::make('12345678')
        ]);
         //Creates user of student role
        $student = User::create([
            'name' => 'Student User',
            'email' => 'student@admin.com',
-           'password' => Hash::make('qwerty')
+           'password' => Hash::make('12345678')
        ]);
 
         //attaches user filed to an user though the roles relationship

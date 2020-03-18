@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Field;
 use App\ProjectSuggestion;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProjectSuggestionController extends Controller
 {
@@ -25,7 +27,10 @@ class ProjectSuggestionController extends Controller
      */
     public function create()
     {
-        return view('common.projectSuggestions.create');
+
+
+        $fields = Field::all();
+        return view('common.projectSuggestions.create',compact('fields'));
     }
 
     /**
@@ -34,8 +39,42 @@ class ProjectSuggestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request)
     {
+
+        $data = $request->validate([
+            'title' => 'required|min:5',
+            'description' => 'required|min:15',
+            'body' => 'required|min:100',
+            'field' => 'required',
+            'image' => 'image|sometimes|mimes:jpeg,bmp,png,jpg|max:2500',
+        ]);
+
+        if ($request->has('image')) {
+            $imagePath = $request['image']->store('uploads', 'public');
+        } else {
+
+            $imagePath = 'uploads/banner.jpg';
+        }
+
+        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
+        $image->save();
+
+        $suggestion = auth()->user()->suggestions()->create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'body' => $data['body'],
+            'field' => $data['field'],
+            'image' => $imagePath,
+        ]);
+
+        if($suggestion){
+            $request->session('success')->flash('success', "New suggestion has been successfully published!");
+        }else{
+            $request->session('error')->flash('error', 'There was an error!');
+        }
+
+        return redirect('/suggestions');
 
     }
 

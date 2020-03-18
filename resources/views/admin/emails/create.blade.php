@@ -26,6 +26,7 @@
                          <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+
                 </div>
             </div>
 
@@ -35,22 +36,26 @@
                     <div class="form-group">
                         <label for="studentsCheck" class="ml-3 mr-2 col-form-label" style="padding-right:0px;"> Students </label>
                         <input type="checkbox" id="studentsCheck"  onclick="showOptions()">
-                        <select style="display: none"  class="custom-select @error('student') is-invalid @enderror" name="student[]" id="student" type="text" multiple >
-
+                        <select style="display: none" name="student[]" id="student" class="form-control @error('student') is-invalid @enderror input-lg"   type="text" multiple >
                         </select>
-                        <small id="errorMessageDestination" style="display: none" class="text-danger">Destination field is required</small>
+                        @error('student')
+                        <span class="invalid-feedback" role="alert">
+                            <p>Please select a destination</p>
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="coordinatorCheck" class="ml-3 mr-2 col-form-label" style="padding-right:0px;"> Supervisor </label>
                         <input type="checkbox" id="coordinatorCheck"  onclick="showOptions()">
-                        <select style="display: none"  name="supervisor[]" id="supervisor" class="form-control @error('supervisor') is-invalid @enderror input-lg "  multiple>
+                        <select style="display: none" name="supervisor[]" id="supervisor" class="form-control @error('supervisor') is-invalid @enderror input-lg " multiple>
                         </select>
                     </div>
                 </div>
-            </div>
+                <small id="errorMessageDestination" style="display: none" class="text-danger">No destination set</small>
 
+            </div>
 
             <div class="form-group ">
                 <label for="subject" class="col-form-label @error('subject') is-invalid @enderror">Subject<span class="text-danger">*</span></label>
@@ -65,7 +70,7 @@
 
             <div class="form-group">
                 <label for="message" class="col-form-label @error('message') is-invalid @enderror">Message<span class="text-danger">*</span></label>
-                <textarea class="form-control" id="message" name="message" required>{{ old('message') }}</textarea>
+                <textarea class="form-control" id="message" rows="8" cols="10" name="message" required>{{ old('message') }}</textarea>
 
                 @error('message')
                 <span class="invalid-feedback" role="alert">
@@ -74,11 +79,8 @@
                 @enderror
             </div>
 
-
-
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" onclick="checkValidation()">Send email</button>
+                <button type="submit"  class="btn btn-primary">Send email</button>
             </div>
         </form>
 

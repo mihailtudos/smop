@@ -24,8 +24,7 @@ class EmailsController extends Controller
      */
     public function index()
     {
-        $emails = Email::orderBy('created_at', 'desc')->paginate(7);
-
+        $emails = auth()->user()->emails();
         return view('emails.index', compact('emails'));
     }
 
@@ -36,9 +35,15 @@ class EmailsController extends Controller
      */
     public function create()
     {
-        $supervisor = auth()->user()->projects->supervisor;
-        $coordinator = User::with(['roles'=>function($q){$q->where('name', 'admin');}])->first();
-        return view('emails.create', compact(['coordinator', 'supervisor']));
+        if(auth()->user()->projects == null){
+            $supervisors = null;
+        }else {
+            $supervisors = auth()->user()->projects->supervisor;
+        }
+
+        $coordinators = User::whereHas('roles', function($q){$q->where('name', 'admin');})->get();
+
+        return view('emails.create', compact(['coordinators', 'supervisors']));
     }
 
     /**
@@ -56,7 +61,7 @@ class EmailsController extends Controller
             'message' => 'required|min:3',
         ]);
 
-        $data     = $request->all();
+        $data   = $request->all();
         $fromUser = Auth::user();
 
         foreach ($data['to'] as $email) {
@@ -67,6 +72,6 @@ class EmailsController extends Controller
         }
 
 
-        return redirect()->route('emails.create');
+        return redirect()->route('emails.index');
     }
 }

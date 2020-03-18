@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Imports\UsersImport;
+use App\Level;
 use App\Mail\Users\UserRegisteredMailable;
 use App\Role;
 use App\User;
@@ -41,11 +42,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $fields = Field::all();
+        $degrees = Level::all();
         $roles = Role::all();
 
-
-        return view('admin.users.create', compact(['fields', 'roles']));
+        return view('admin.users.create', compact(['degrees', 'roles']));
     }
 
     /**
@@ -56,26 +56,32 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
         if (Gate::denies('edit-users')) {
             return redirect(route('admin.users.index'));
         }
 
         $request->validate([
-            'name'   => ['required', 'string', 'max:255'],
-            'email'  => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'field1' => 'required',
+            'name'          => ['required', 'string', 'max:255'],
+            'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'degree'        => 'sometimes',
+            'degreeFields'  => 'sometimes',
+            'role'          => 'required',
         ]);
 
         $passwordString = Str::random(8);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($passwordString),
-        ]);
 
-        $user->fields()->sync($request->field1);
-        $user->roles()->sync($request->roles);
+            $user = User::create([
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => Hash::make($passwordString),
+            ]);
+
+            $user->levels()->sync($request->degree);
+            $user->fields()->sync($request->degreeFields);
+            $user->roles()->sync($request->role);
+
 
         if ($user) {
             $request->session('success')->flash('success', "User has been created");
@@ -133,13 +139,13 @@ class UsersController extends Controller
          ])
         );
 
+
+        $user->roles()->sync($request->roles);
         if($result){
             $request->session('success')->flash('success', "User $user->name has been updated");
         }else{
             $request->session('error')->flash('error', 'There was an error');
         }
-
-        $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.users.index');
     }
@@ -176,5 +182,21 @@ class UsersController extends Controller
         Excel::import(new UsersImport(), $request->file('file'));
 
         return redirect(route('admin.users.index'));
+    }
+
+    public function fetch(Request $request)
+    {
+        $degreeId = $request->get('degreeId'); //ex $field_name = 'IT';
+        $role_name = $request->get('dependent'); // for example $role_name = 'supervisor'
+
+        $supervisors = Level::find($degreeId)->fields;
+        $data = $supervisors;
+
+        $output = '<option value=""> Select ' .ucfirst($role_name).'.</option>';
+        foreach ($data as $row) {
+            $output .= '<option value="'. $row->id.'">'.$row->name .'</option>';
+        }
+        echo $output;
+
     }
 }

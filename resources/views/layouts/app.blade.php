@@ -48,11 +48,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+{{--                            @if (Route::has('register'))--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
                         @else
                             {{-- dropw down for emails --}}
 
@@ -66,29 +66,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    @if(Auth::user()->hasRole('admin'))
-                                        <a class="dropdown-item" href="{{ route('admin.') }}">
-                                            Dashboard
-                                        </a>
-                                    @elseif(Auth::user()->hasRole('supervisor'))
-                                        <a class="dropdown-item" href="{{ route('supervisor.') }}">
-                                            Dashboard
-                                        </a>
-                                    @else
-                                        <a class="dropdown-item" href="">
-                                            Dashboard
-                                        </a>
-                                    @endif
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                                    @include('partials.dropDownMenu')
                                 </div>
                             </li>
                         @endguest
@@ -105,6 +83,7 @@
         </main>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    {{--    ajax requiest --}}
     <script>
         $(document).ready(function(){
 
@@ -120,7 +99,7 @@
 
 
                     if(students == 'supervisor'){
-                        alert('sss');
+
                         $.ajax({
                             url:"{{ route('admin.projectscontroller.fetch') }}",
                             method:"POST",
@@ -172,11 +151,6 @@
 
         });
 
-        setTimeout(function() {
-            $('#error').fadeOut('fast');
-        }, 3000); // <-- time in milliseconds
-
-
     </script>
     <script>
         function validateSize(file) {
@@ -199,89 +173,86 @@
             var studentsCheck = document.getElementById("studentsCheck");
             var coordinatorCheck  = document.getElementById("coordinatorCheck");
             var errorMessageDestination  = document.getElementById("errorMessageDestination");
-            var to = document.getElementById("to");
+            var students = document.getElementById("students");
             var coordinatorEmail = $("#coordinatorEmail").val();
 
 
             if (studentsCheck.checked == true && coordinatorCheck.checked == false){
-                to.style.display = "block";
-                coordinatorTo.style.display = "none";
-                $("#coordinatorTo").val('');
+                students.style.display = "block";
+                $("#students").attr("required", true);
+                coordinator.style.display = "none";
+                $("#coordinator").removeAttr("required").val('');
             } else if (studentsCheck.checked == true && coordinatorCheck.checked == true){
-                to.style.display = "block";
-                $('#coordinatorTo').val(coordinatorEmail);
-                coordinatorTo.style.display = "block";
+                students.style.display = "block";
+                $('#coordinator').val(coordinatorEmail).attr("required", true).css("display", "block");
             }   else if (studentsCheck.checked == false && coordinatorCheck.checked == true){
-                to.style.display = "none";
+                $('#coordinator').val(coordinatorEmail).attr("required", true).css("display", "block");
+                students.style.display = "none";
+                $("#students").removeAttr("required");
                 $("select").val([]);
-                $('#coordinatorTo').val(coordinatorEmail);
-                coordinatorTo.style.display = "block";
             } else {
-                to.style.display = "none";
+                $('#coordinator').val('').removeAttr("required").css("display", "none");
+                $("#students").removeAttr("required");
+                students.style.display = "none";
                 $("select").val([]);
-                coordinatorTo.style.display = "none";
-                $("#coordinatorTo").val('');
             }
 
 
         }
 
-        function checkValidation() {
-            if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
-                if(studentsCheck.checked == true){
-                    $("#to").prop('required', true);
-                }
-                errorMessageDestination.style.display = "none";
-                $("#coordinatorTo").prop('required', false);
-            } else {
-                errorMessageDestination.style.display = "block";
-                $("#coordinatorTo").prop('required', true);
-            }
-        }
+        // function checkValidation() {
+        //     if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
+        //         if(studentsCheck.checked == true){
+        //             errorMessageDestination.style.display = "none";
+        //             alert('sda');
+        //         }
+        //     } else {
+        //         errorMessageDestination.style.display = "block";
+        //         $("#coordinator").prop('required', true);
+        //     }
+        // }
     </script>
     <script>
         function showOptions() {
 
             var studentsCheck = document.getElementById("studentsCheck");
-            var coordinatorCheck  = document.getElementById("coordinatorCheck");
-            var errorMessageDestination  = document.getElementById("errorMessageDestination");
+            var supervisorCheck  = document.getElementById("coordinatorCheck");
             var students = document.getElementById("student");
             var supervisor = document.getElementById("supervisor");
 
 
-            if (studentsCheck.checked == true && coordinatorCheck.checked == false){
+            if (studentsCheck.checked == true && supervisorCheck.checked == false){
                 students.style.display = "block";
                 supervisor.style.display = "none";
+                $("#student").attr("required", true);
                 $("#supervisor").val('');
-            } else if (studentsCheck.checked == true && coordinatorCheck.checked == true){
+                $("#supervisor").removeAttr("required");
+            } else if (studentsCheck.checked == true && supervisorCheck.checked == true){
+                $("#student").attr("required", true);
+                $("#supervisor").attr("required", true);
                 students.style.display = "block";
                 supervisor.style.display = "block";
-            }   else if (studentsCheck.checked == false && coordinatorCheck.checked == true){
+            }   else if (studentsCheck.checked == false && supervisorCheck.checked == true){
+                $("#student").val([]);
+                $("#student").removeAttr("required");
                 students.style.display = "none";
-                $("#students").val([]);
+                $("#supervisor").attr("required", true);
                 supervisor.style.display = "block";
-            } else {
+            } else if (studentsCheck.checked == false && supervisorCheck.checked == false){
+                $("#student").removeAttr("required");
+                $("#supervisor").removeAttr("required");
                 students.style.display = "none";
-                $("#students").val([]);
-                $("#supervisor").val([]);
                 supervisor.style.display = "none";
+                $("#student").val([]);
+                $("#supervisor").val([]);
+            }else {
+
             }
 
 
         }
 
-        function checkValidation() {
-            if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
-                if(studentsCheck.checked == true){
-                    $("#to").prop('required', true);
-                }
-                errorMessageDestination.style.display = "none";
-                $("#coordinatorTo").prop('required', false);
-            } else {
-                errorMessageDestination.style.display = "block";
-                $("#coordinatorTo").prop('required', true);
-            }
-        }
     </script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 </html>

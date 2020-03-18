@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectSuggestion extends Model
 {
     protected $guarded = [];
-
-    public function path()
-    {
-        return "suggestions/{$this->id}";
-    }
+    protected $table = 'project_suggestions';
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
+
+//    public function user()
+//    {
+//        return $this->belongsTo(User::class)->orderBy('created_at', 'desc')->paginate(7);
+//    }
 }

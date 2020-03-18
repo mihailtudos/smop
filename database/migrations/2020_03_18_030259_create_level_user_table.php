@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuggestionsTable extends Migration
+class CreateLevelUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateSuggestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('suggestions', function (Blueprint $table) {
+        Schema::create('level_user', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('level_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('field_level_id');
-            $table->string('title');
-            $table->text('description');
-            $table->text('body');
             $table->timestamps();
 
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('field_level_id')->references('id')->on('field_level')->onDelete('cascade');
         });
     }
 
@@ -34,6 +31,6 @@ class CreateSuggestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suggestions');
+        Schema::dropIfExists('level_user');
     }
 }

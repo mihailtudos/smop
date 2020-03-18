@@ -23,9 +23,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     });
     Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
     Route::post('emails/dynamic', 'EmailsController@fetch')->name('emailscontroller.fetch');
+    Route::get('dynamic', 'UsersController@fetch')->name('userscontroller.fetch');
 
     Route::prefix('users')->group(function () {
         Route::get('import/create', 'UsersController@importCreate')->name('users.import.create');
+        Route::post('dynamic', 'UsersController@fetch')->name('userscontroller.fetch');
         Route::post('import', 'UsersController@importStore')->name('users.import.store');
     });
 
@@ -33,13 +35,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('fields', 'FieldsController', ['except' => 'show']);
     Route::resource('levels', 'LevelsController', ['except' => 'show']);
     Route::resource('projects', 'ProjectsController');
-    Route::resource('mentors', 'ProjectsController');
     Route::resource('posts', 'PostsController');
     Route::resource('emails', 'EmailsController');
 
 });
 
-Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware('can:manage-projects')->group(function (){
+Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware(['can:manage-projects', 'auth'])->group(function (){
 
     Route::get('/dashboard', function () {
         return view('supervisor.dashboard');
@@ -48,7 +49,10 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
     Route::resource('emails', 'EmailsController');
+    Route::resource('profiles', 'ProfilesController');
 });
+
+
 
 //admin and supervisor common routes
 

@@ -138,8 +138,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post, Request $request)
     {
-
-
+        //delete stored image if post image is not the default img
         if ($post->image != 'uploads/banner.jpg' and Storage::exists( 'public/'. $post->image)) {
             Storage::delete('public/' .$post->image);
         }
@@ -147,18 +146,15 @@ class PostsController extends Controller
         //deletes the user
         $response = $post->delete();
 
-
-
-
         $post->delete();
 
+        //return flash message
         if($response){
             $request->session('success')->flash('success', "The post has been deleted successfully!");
         }else{
             $request->session('error')->flash('error', 'There was an error!');
         }
-
-        //redirect to users page
+        //redirect to index posts page
         return redirect()->route('admin.posts.index');
     }
 }

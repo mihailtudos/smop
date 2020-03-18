@@ -20,6 +20,8 @@ class User extends Authenticatable
         'password',
     ];
 
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -46,6 +48,11 @@ class User extends Authenticatable
     public function fields()
     {
         return $this->belongsToMany(Field::class)->withTimestamps();
+    }
+
+    public function levels()
+    {
+        return $this->belongsToMany(Level::class)->withTimestamps();
     }
 
     public function projects()
@@ -97,12 +104,13 @@ class User extends Authenticatable
 
     public function suggestions()
     {
-        return $this->hasMany(ProjectSuggestion::class);
+//      return $this->hasMany(ProjectSuggestion::class)->orderBy('created_at', 'desc')->paginate(7);
+        return $this->hasMany(ProjectSuggestion::class)->orderBy('created_at', 'DESC');
     }
 
     public function emails()
     {
-        return $this->hasMany(Email::class)->orderBy('created_at', 'DESC');
+        return $this->hasMany('App\EmailLog',  'from_user_id')->orderBy('created_at', 'desc')->paginate(15);
     }
 
 }
