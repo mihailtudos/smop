@@ -32,6 +32,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     });
 
     Route::resource('users', 'UsersController');
+    Route::resource('subjects', 'SubjectsController');
     Route::resource('fields', 'FieldsController', ['except' => 'show']);
     Route::resource('levels', 'LevelsController', ['except' => 'show']);
     Route::resource('projects', 'ProjectsController');
@@ -52,14 +53,9 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::resource('profiles', 'ProfilesController');
 });
 
-
-
-//admin and supervisor common routes
-
-Route::middleware('can:manage-projects')->group(function () {
-    Route::resource('/suggestions', 'ProjectSuggestionController', ['except' =>'index']);
+Route::namespace('Student')->prefix('student')->name('student.')->middleware('auth')->group(function () {
+    Route::resource('/topics', 'TopicsController');
 });
-
 
 Route::get('/suggestions', 'ProjectSuggestionController@index');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@index');

@@ -3,9 +3,12 @@
 namespace App\Imports;
 
 use App\Field;
+use App\Level;
 use App\Mail\Users\UserRegisteredByImportMailable;
+use App\Mail\Users\UserRegisteredMailable;
 use App\Role;
 use App\User;
+use http\Env\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +30,7 @@ class UsersImport implements ToCollection, WithHeadingRow
             'name'  => 'required|string|min:3',
             'role'  => 'required|string|in:supervisor,student',
             'field' => 'required|exists:' . (new Field())->getTable() . ',name',
+            'level' => 'required|exists:' . (new Level())->getTable() . ',name',
         ];
 
         $columns = array_keys($rules);
@@ -47,7 +51,9 @@ class UsersImport implements ToCollection, WithHeadingRow
                 'password' => Hash::make($passwordString),
             ]);
 
+
             $user->fields()->attach(Field::whereName($row['field'])->pluck('id'));
+            $user->levels()->attach(Level::whereName($row['level'])->pluck('id'));
             $user->roles()->attach(Role::whereName($row['role'])->pluck('id'));
 
             $mailTo[] = ['user' => $user, 'password' => $passwordString];
@@ -57,5 +63,6 @@ class UsersImport implements ToCollection, WithHeadingRow
             Mail::to($userAndPassword['user'])
                 ->send(new UserRegisteredByImportMailable($userAndPassword['user'], $userAndPassword['password']));
         }
+
     }
 }

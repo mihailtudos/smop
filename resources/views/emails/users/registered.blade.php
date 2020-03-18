@@ -1,20 +1,20 @@
 @component('mail::message')
-    Greetings {{$user->name}},
+Greetings {{$user->name}},
 
-    An account has been registered for you:
+An account has been registered for you:
 
-    Login email: {{$user->email}}
-    Password: {{$password}}
+Login email: {{$user->email}}
+Password: {{$password}}
 
-    @component('mail::button', ['url' => route('login')])
-        Login
-    @endcomponent
+@component('mail::button', ['url' => route('login')])
+Login
+@endcomponent
 
-    If you'd like you can reset your password
-    @component('mail::button', ['url' => route('password.request')])
-        Reset Password
-    @endcomponent
+It's safe to keep the given password, but if you wish you can change it by clicking on the below button!
+@component('mail::button', ['url' => route('password.request')])
+Reset Password
+@endcomponent
 
-    Thanks,
-    {{ config('app.name') }}
+Thanks,
+{{ config('app.name') }}
 @endcomponent

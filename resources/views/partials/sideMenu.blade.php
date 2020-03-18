@@ -14,7 +14,11 @@
         </span></a>
     @endcan
 
-    <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{\App\ProjectSuggestion::count()}}</span></a>
+    @can('student')
+        <a href="{{ route('student.topics.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Topic <span class="badge badge-success badge-pill">{{ auth()->user()->topics->count() }}</span></a>
+    @endcan
+
+        <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{\App\ProjectSuggestion::count()}}</span></a>
 
     @if(auth()->user()->projects)
         <a @can('manage-projects') href="{{ '/'.auth()->user()->roles->first()->name .'/projects' }}" @endcan @cannot('manage-projects') href="{{ route('studentProjects', auth()->user()->projects)  }}" @endcannot  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Projects <span class="badge badge-success badge-pill">{{\App\Project::count()}}</span></a>

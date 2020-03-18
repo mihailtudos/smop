@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Field;
+use Gate;
 use App\ProjectSuggestion;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 class ProjectSuggestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +32,12 @@ class ProjectSuggestionController extends Controller
      */
     public function create()
     {
-
-
+        dd(auth()->user()->fields);
         $fields = Field::all();
+        if(Gate::denies('manage-projects')){
+            return view('common.projectSuggestions.submit',compact('fields'));
+        }
+
         return view('common.projectSuggestions.create',compact('fields'));
     }
 

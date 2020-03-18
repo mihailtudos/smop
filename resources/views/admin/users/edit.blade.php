@@ -15,9 +15,7 @@
                             @csrf
 
                             <div class="form-group row ">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">
-                                    Name
-                                </label>
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Name<span class="text-danger">*</span></label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autofocus>
@@ -32,7 +30,7 @@
 
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">
-                                    Email
+                                    Email<span class="text-danger">*</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -48,7 +46,7 @@
 
                             <div class="form-group row">
                                 <label for="roles" class="col-md-4 col-form-label text-md-right">
-                                    Roles
+                                    Roles<span class="text-danger">*</span>
                                 </label>
 
                                 <div class="col-md-6">

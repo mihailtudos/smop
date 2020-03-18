@@ -104,13 +104,17 @@ class User extends Authenticatable
 
     public function suggestions()
     {
-//      return $this->hasMany(ProjectSuggestion::class)->orderBy('created_at', 'desc')->paginate(7);
-        return $this->hasMany(ProjectSuggestion::class)->orderBy('created_at', 'DESC');
+        return $this->hasMany(ProjectSuggestion::class)->orderBy('created_at', 'DESC')->paginate(7);
     }
 
     public function emails()
     {
         return $this->hasMany('App\EmailLog',  'from_user_id')->orderBy('created_at', 'desc')->paginate(15);
+    }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
     }
 
 }

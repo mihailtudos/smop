@@ -16,10 +16,11 @@ class FieldTableSeeder extends Seeder
         //will drip roles table at each run in order to create new data
 
         //roles created on run
-        $fieldOfIT = Field::create(['name'=>'IT']);
-        $fieldOfManagement = Field::create(['name'=>'Management']);
-        $fieldOfBM = Field::create(['name'=>'BM']);
-
+        $fieldOfIT          = Field::create(['name'=>'Computing and Technology']);
+        $fieldOfComputing   = Field::create(['name'=>'Computing']);
+        $fieldOfBusiness    = Field::create(['name'=>'Business']);
+        $fieldOfMarketing   = Field::create(['name'=>'Marketing']);
+        $fieldOfMBA         = Field::create(['name'=>'MBA']);
 
 
         $levelBSc = Level::where('name', 'BSc')->first();
@@ -28,9 +29,13 @@ class FieldTableSeeder extends Seeder
 
         $fieldOfIT->levels()->attach($levelBSc);
         $fieldOfIT->levels()->attach($levelMSc);
-        $fieldOfBM->levels()->attach($levelMSc);
-        $fieldOfManagement->levels()->attach($levelQA);
-        $fieldOfBM->levels()->attach($levelQA);
+        $fieldOfBusiness->levels()->attach($levelMSc);
+        $fieldOfBusiness->levels()->attach($levelBSc);
+        $fieldOfComputing->levels()->attach($levelMSc);
+        $fieldOfComputing->levels()->attach($levelBSc);
+        $fieldOfMarketing->levels()->attach($levelBSc);
+        $fieldOfMarketing->levels()->attach($levelMSc);
+        $fieldOfMBA->levels()->attach($levelMSc);
 
 
 

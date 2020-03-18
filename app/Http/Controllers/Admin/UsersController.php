@@ -6,6 +6,7 @@ use App\Field;
 use App\Http\Controllers\Controller;
 use App\Imports\UsersImport;
 use App\Level;
+use App\Mail\Users\UserRegisteredByImportMailable;
 use App\Mail\Users\UserRegisteredMailable;
 use App\Role;
 use App\User;
@@ -153,8 +154,9 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(User $user)
     {
@@ -179,7 +181,13 @@ class UsersController extends Controller
 
     public function importStore(Request $request)
     {
-        Excel::import(new UsersImport(), $request->file('file'));
+        $user = Excel::import(new UsersImport(), $request->file('file'));
+
+        if ($user) {
+            $request->session('success')->flash('success', "All records has been saved!");
+        } else {
+            $request->session('error')->flash('error', 'There was an error!');
+        }
 
         return redirect(route('admin.users.index'));
     }

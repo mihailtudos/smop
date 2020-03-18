@@ -143,10 +143,9 @@ class PostsController extends Controller
             Storage::delete('public/' .$post->image);
         }
 
-        //deletes the user
+        //deletes the post
         $response = $post->delete();
 
-        $post->delete();
 
         //return flash message
         if($response){
