@@ -3,30 +3,7 @@
 @section('content')
 
     <div class="container">
-        <header id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"><small>
-                               Welcome to admin  </small></span> Dashboard </h1>
-                    </div>
-                    <div class="col-md-2">
-
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Quick action
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{route('admin.users.create')}}">Create new user</a>
-                                <a class="dropdown-item" href="{{ route('admin.projects.create') }}">Create new project</a>
-                                <a class="dropdown-item" href="admin.mentors.create">Create new mastership</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </header>
+        @include('partials.breadcrumb')
 
 
         <div class="row justify-content-center mb-4">

@@ -10,12 +10,22 @@ class Subject extends Model
 
     public function fields()
     {
-        return $this->belongsToMany(Field::class);
+        return $this->belongsToMany(Field::class)->withTimestamps();
     }
-
 
     public function topics()
     {
         return $this->belongsToMany(Topic::class)->withTimestamps();
     }
+
+    public function suggestions()
+    {
+        return $this->belongsToMany(ProjectSuggestion::class)->withTimestamps();
+    }
+
+    public function pathToSuggestions()
+    {
+        return '/suggestions/subjects/'. $this->id;
+    }
 }
+

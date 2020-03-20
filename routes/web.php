@@ -32,7 +32,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     });
 
     Route::resource('users', 'UsersController');
-    Route::resource('subjects', 'SubjectsController');
+    Route::resource('subjects', 'SubjectsController', ['except' =>'show']);
     Route::resource('fields', 'FieldsController', ['except' => 'show']);
     Route::resource('levels', 'LevelsController', ['except' => 'show']);
     Route::resource('projects', 'ProjectsController');
@@ -41,7 +41,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 });
 
-Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware(['can:manage-projects', 'auth'])->group(function (){
+Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middleware(['can:manage-projects'])->group(function (){
 
     Route::get('/dashboard', function () {
         return view('supervisor.dashboard');
@@ -55,12 +55,21 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
 Route::namespace('Student')->prefix('student')->name('student.')->middleware('auth')->group(function () {
     Route::resource('/topics', 'TopicsController');
+    Route::resource('/diary/records', 'DiaryController');
 });
 
-Route::get('/suggestions', 'ProjectSuggestionController@index');
-Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@index');
+Route::middleware('can:admin-supervise')->group(function () {
+    Route::resource('/suggestions', 'ProjectSuggestionController', ['except' =>'show']);
+    Route::post('/suggestions/dynamic', 'ProjectSuggestionController@fetch')->name('suggestions.fetch');
+});
+
 Route::get('/projects/{project}', 'ProjectsController@show');
+Route::get('/posts/{post}', 'PostsController@show');
 Route::resource('/emails', 'EmailsController');
+Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');
+Route::get('/suggestions/fields/{field}', 'SuggestionsController@byFields')->name('fields.suggestions.list');
+Route::get('/suggestions/subjects/{subject}', 'SuggestionsController@bySubject')->name('subject.suggestions.list');
+//Route::get('suggestions/subjects/{subject}', 'SuggestionsController@subject')->name('subject.suggestions');
 Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 

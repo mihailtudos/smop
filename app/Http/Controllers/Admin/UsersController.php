@@ -32,7 +32,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(15);
+        $users = User::orderBy('created_at', 'desc')->paginate(10);;
         return view('admin.users.index', compact('users'));
     }
 
@@ -57,10 +57,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
-        if (Gate::denies('edit-users')) {
-            return redirect(route('admin.users.index'));
-        }
 
         $request->validate([
             'name'          => ['required', 'string', 'max:255'],
@@ -113,7 +109,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if(Gate::denies('edit-users')){
+        if(Gate::denies('admin-supervise')){
             return redirect(route('admin.users.index'));
         }
         $roles = Role::all();

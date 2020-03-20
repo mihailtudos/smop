@@ -2,20 +2,20 @@
 
 @section('createCard')
 
-    <h5 class="card-header">Edit Course</h5>
+    <h5 class="card-header">Create New Field</h5>
 
     <div class="card-body">
 
-        <form action="{{ route('admin.fields.update', $field) }}" method="post">
+        <form action="{{ route('admin.subjects.update', $subject) }}" method="post">
             @csrf
             @method('PUT')
 
             <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">Course Name<span class="text-danger">*</span></label>
+                <label for="name" class="col-md-4 col-form-label text-md-right">Subject Name<span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $field->name) }}" required  autofocus>
-                    <small id="emailHelp" class="form-text text-muted">The study field has to be unique (Computer Science, Business, etc.). </small>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $subject->name }}" required  autofocus>
+                    <small id="emailHelp" class="form-text text-muted">The subject field has to be unique (Networking, Cyber Security, etc.). </small>
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -27,17 +27,17 @@
 
 
             <div class="form-group row">
-                <label for="level_id" class="col-md-4 col-form-label text-md-right">Degree levels<span class="text-danger">*</span></label>
+                <label for="fields" class="col-md-4 col-form-label text-md-right">Fields<span class="text-danger">*</span></label>
 
                 <div class="col-md-6 mt-2">
-                    @foreach($degrees as $degree)
+                    @foreach($fields as $field)
                         <div class="form-check">
-                            <input type="radio" name="level_id" value="{{ $degree->id }}" @if($degree->fields->pluck('id')->contains($degree->id)) checked @endif required>
-                            <label>{{ $degree->name }}</label>
+                            <input type="checkbox" name="fields[]" value="{{ $field->id }}" @if($subject->fields->pluck('id')->contains($field->id)) checked @endif>
+                            <label>{{ $field->name }}</label>
                         </div>
                     @endforeach
 
-                        @error('degree')
+                        @error('fields')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -48,7 +48,7 @@
 
 
             <div class="form-group row mr-4 d-flex justify-content-end">
-                <a role="button" href="{{ route('admin.fields.index') }}" class="btn btn-secondary mr-2">
+                <a role="button" href=" {{ route('admin.subjects.index') }}" class="btn btn-secondary mr-2">
                     Cancel
                 </a>
                 <button type="submit" class="btn btn-primary">

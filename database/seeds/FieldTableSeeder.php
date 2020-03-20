@@ -13,33 +13,24 @@ class FieldTableSeeder extends Seeder
      */
     public function run()
     {
-        //will drip roles table at each run in order to create new data
-
-        //roles created on run
-        $fieldOfIT          = Field::create(['name'=>'Computing and Technology']);
-        $fieldOfComputing   = Field::create(['name'=>'Computing']);
-        $fieldOfBusiness    = Field::create(['name'=>'Business']);
-        $fieldOfMarketing   = Field::create(['name'=>'Marketing']);
-        $fieldOfMBA         = Field::create(['name'=>'MBA']);
-
-
         $levelBSc = Level::where('name', 'BSc')->first();
         $levelMSc = Level::where('name', 'MSc')->first();
         $levelQA = Level::where('name', 'QA partner')->first();
 
-        $fieldOfIT->levels()->attach($levelBSc);
-        $fieldOfIT->levels()->attach($levelMSc);
-        $fieldOfBusiness->levels()->attach($levelMSc);
-        $fieldOfBusiness->levels()->attach($levelBSc);
-        $fieldOfComputing->levels()->attach($levelMSc);
-        $fieldOfComputing->levels()->attach($levelBSc);
-        $fieldOfMarketing->levels()->attach($levelBSc);
-        $fieldOfMarketing->levels()->attach($levelMSc);
-        $fieldOfMBA->levels()->attach($levelMSc);
-
-
-
-
+        $levelBSc->fields()->create(['name' => 'BSc Computing and Technology']);
+        $levelBSc->fields()->create(['name' => 'BSc Computer Science']);
+        $levelBSc->fields()->create(['name' => 'BSc Business']);
+        $levelBSc->fields()->create(['name' => 'BSc Marketing']);
+        $levelMSc->fields()->create(['name' => 'MSc MBA']);
+        $levelMSc->fields()->create(['name' => 'MSc Computing and Technology']);
+        $levelMSc->fields()->create(['name' => 'MSc Computer Science']);
+        $levelMSc->fields()->create(['name' => 'MSc Business']);
+        $levelMSc->fields()->create(['name' => 'MSc Marketing']);
+        $levelQA->fields()->create(['name' => 'QA Computing and Technology']);
+        $levelQA->fields()->create(['name' => 'QA Computer Science']);
+        $levelQA->fields()->create(['name' => 'QA Business']);
+        $levelQA->fields()->create(['name' => 'QA Marketing']);
+        $levelQA->fields()->create(['name' => 'QA MBA']);
 
     }
 }

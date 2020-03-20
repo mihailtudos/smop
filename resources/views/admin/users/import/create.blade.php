@@ -47,9 +47,14 @@
 
                         <div class="form-group row mb-0 ">
                             <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
+
                                 <button type="submit" class="btn btn-primary">
                                     Upload
                                 </button>
+                                <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                                    Cancel
+                                </button>
+
                             </div>
                         </div>
                     </form>

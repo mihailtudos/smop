@@ -88,10 +88,9 @@
 
 
             <div class="form-group ">
-                <label for="body" class="col-form-label text-md-right">Area of interest<span class="text-danger">*</span></label>
+                <label for="subject" class="col-form-label text-md-right">Area of interest<span class="text-danger">*</span></label>
 
                 <div class="">
-
                     <select name="subject[]" id="subject" class="form-control @error('subject') is-invalid @enderror input-lg" required multiple>
                         @forelse($subjects as $subject)
                             <option value="{{$subject->id}}">{{ $subject->name }}</option>
@@ -112,7 +111,7 @@
 
 
             <div class="form-group ">
-                <label for="body" class=" col-form-label text-md-right">Image</label>
+                <label for="image" class=" col-form-label text-md-right">Image</label>
 
                 <div class="">
                     <div class="input-group">

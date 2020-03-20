@@ -66,20 +66,17 @@ class TopicsController extends Controller
 
         if ($request->has('image')) {
             $imagePath = $request['image']->store('uploads', 'public');
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(3500, 700);
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(2200, 1000);
             $image->save();
         } else {
             $imagePath = 'uploads/banner.jpg';
         }
 
 
-
-
-
-        if (auth()->user()->levels->first()->id){
-            $degree = auth()->user()->levels->first();
+        if (auth()->user()->levels->first()==null){
+            return redirect()->route('home')->with('error', 'Contact your admin to assign you a study field');
         } else {
-            $degree = Level::where('name', 'Bsc')->first();
+            $degree = auth()->user()->levels->first();
         }
 
         if (auth()->user()->fields->first()){

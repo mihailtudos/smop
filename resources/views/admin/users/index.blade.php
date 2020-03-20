@@ -22,32 +22,30 @@
 
                             <table class="table">
                                 <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
+                                <tr >
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Action</th>
+                                    <th class="text-center" scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($users as $user)
                                     <tr>
-                                        <th scope="row">{{ $user->id  }}</th>
                                         <td> {{ $user->name  }}</td>
                                         <td> {{ $user->email  }}</td>
                                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
-                                        <td>
-                                            @can('edit-users')
-                                                <a href="{{ route( 'admin.users.edit', $user->id ) }}">
+                                        <td class="d-flex justify-content-end">
+
+                                                <a href="{{ route( 'admin.users.edit', $user ) }}" class="mr-2">
                                                     <button class="btn btn-primary float-left" type="button">
                                                         <h4 class="m-0">
                                                             <i class="fas fa-pen-nib"></i>
                                                         </h4>
                                                     </button>
                                                 </a>
-                                            @endcan
-                                            @can('delete-users')
+
+                                            @can('admin')
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" class="float-left">
                                                     @csrf
                                                     @method('delete')

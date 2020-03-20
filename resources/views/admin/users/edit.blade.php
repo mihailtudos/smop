@@ -61,7 +61,11 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">
+
                                 <button class="btn btn-success" type="submit">Update</button>
+                                <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                                    Cancel
+                                </button>
                             </div>
                         </form>
                     </div>

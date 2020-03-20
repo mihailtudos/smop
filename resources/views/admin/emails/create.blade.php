@@ -80,6 +80,10 @@
             </div>
 
             <div class="modal-footer">
+
+                <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                    Cancel
+                </button>
                 <button type="submit"  class="btn btn-primary">Send email</button>
             </div>
         </form>

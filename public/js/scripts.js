@@ -4,8 +4,6 @@ function fillDegreeFields() {
     var _token = $('input[name="_token"]').val();
     var dependent = $('#degree').data('dependent');
 
-
-
     $.ajax({
         url:"/admin/users/dynamic",
         method:"POST",
@@ -18,6 +16,7 @@ function fillDegreeFields() {
 
     })
 }
+
 function validateSize(file) {
     var FileSize = file.files[0].size / 1024 / 1024; // in MB
 
@@ -52,4 +51,23 @@ function validateSizeWithFileTitle(file) {
         var fileName = $('#image').val().split('\\').pop().toLowerCase();
         $('#imageCustom').text(fileName);
     }
+}
+
+function fillSubjectsField() {
+    var fieldIds = $("#fields").val();
+    var _token = $('input[name="_token"]').val();
+    var dependent = $('#fields').data('dependent');
+
+    alert(fieldIds);
+    $.ajax({
+        url:"/suggestions/dynamic",
+        method:"POST",
+        data:{ fieldIds:fieldIds, _token:_token, dependent:dependent },
+
+        success:function(result)
+        {
+            $('#'+dependent).html(result);
+        }
+
+    })
 }

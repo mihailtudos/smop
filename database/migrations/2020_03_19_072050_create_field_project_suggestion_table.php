@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFieldLevelTable extends Migration
+class CreateFieldProjectSuggestionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateFieldLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create('field_level', function (Blueprint $table) {
+        Schema::create('field_project_suggestion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('level_id');
+            $table->unsignedBigInteger('project_suggestion_id');
             $table->unsignedBigInteger('field_id');
             $table->timestamps();
 
-            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
+            $table->foreign('project_suggestion_id')->references('id')->on('project_suggestions')->onDelete('cascade');
             $table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade');
         });
     }
@@ -31,6 +31,6 @@ class CreateFieldLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_level');
+        Schema::dropIfExists('field_suggestion');
     }
 }

@@ -6,9 +6,7 @@
                 Quick links
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ route('admin.users.create')}}">Create new user</a>
-                <a class="dropdown-item" href="{{ route('admin.projects.create')}}">Create new project</a>
-                <a class="dropdown-item" href="{{ route('admin.posts.create')}}">Create new post</a>
+                @include('partials.adminQuickLinks')
             </div>
         </div>
     </div>
@@ -20,7 +18,7 @@
                 Quick action
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ route('supervisor.projects.index')}}">All projects</a>
+                @include('partials.supervisorQuickLinks')
             </div>
         </div>
     </div>

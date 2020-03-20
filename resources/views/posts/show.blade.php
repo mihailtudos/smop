@@ -4,7 +4,7 @@
     {{--Quick links--}}
          @include('partials.quick')
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card dashCard">
                 <div class="card-header text-center ">
                     <div>

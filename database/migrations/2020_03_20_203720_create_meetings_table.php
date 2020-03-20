@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFieldsTable extends Migration
+class CreateMeetingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('fields');
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('meetings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('level_id');
-            $table->string('name')->unique();
             $table->timestamps();
-
-            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
         });
     }
 
@@ -31,6 +26,6 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('meetings');
     }
 }

@@ -27,9 +27,9 @@ class UsersTableSeeder extends Seeder
         $studentRole = Role::where('name', 'student')->first();
 
 
-        $ITRole = Field::where('name', 'IT')->first();
-        $BMRole = Field::where('name', 'BM')->first();
-        $ManagementRole = Field::where('name', 'Management')->first();
+        $ITRole = Field::where('name', 'BSc Computing and Technology')->first();
+        $BMRole = Field::where('name', 'BSc Business')->first();
+        $ManagementRole = Field::where('name', 'BSc Marketing')->first();
 
         //Creates user of admin role
        $admin = User::create([
@@ -43,6 +43,12 @@ class UsersTableSeeder extends Seeder
            'email' => 'super@admin.com',
            'password' => Hash::make('12345678')
        ]);
+
+        $supervisor1 = User::create([
+           'name' => 'Supervisor User1',
+           'email' => 'super1@admin.com',
+           'password' => Hash::make('12345678')
+       ]);
         //Creates user of student role
        $student = User::create([
            'name' => 'Student User',
@@ -50,14 +56,39 @@ class UsersTableSeeder extends Seeder
            'password' => Hash::make('12345678')
        ]);
 
+        $student1 = User::create([
+            'name' => 'Student User1',
+            'email' => 'student1@admin.com',
+            'password' => Hash::make('12345678')
+        ]);
+        $student2 = User::create([
+            'name' => 'Student User2',
+            'email' => 'student2@admin.com',
+            'password' => Hash::make('12345678')
+        ]);
+        $student3 = User::create([
+            'name' => 'Student User3',
+            'email' => 'student4@admin.com',
+            'password' => Hash::make('12345678')
+        ]);
+
         //attaches user filed to an user though the roles relationship
         $admin->fields()->attach($ITRole);
-        $supervisor->fields()->attach($BMRole);
-        $student->fields()->attach($ManagementRole);
+        $admin->fields()->attach($ITRole);
+        $supervisor->fields()->attach($ITRole);
+        $supervisor1->fields()->attach($ITRole);
+        $student->fields()->attach($ITRole);
+        $student1->fields()->attach($ITRole);
+        $student2->fields()->attach($BMRole);
+        $student3->fields()->attach($ManagementRole);
 
        //attaches user role to an user though the roles relationship
         $admin->roles()->attach($adminRole);
         $supervisor->roles()->attach($supervisorRole);
+        $supervisor1->roles()->attach($supervisorRole);
         $student->roles()->attach($studentRole);
+        $student1->roles()->attach($studentRole);
+        $student2->roles()->attach($studentRole);
+        $student3->roles()->attach($studentRole);
     }
 }

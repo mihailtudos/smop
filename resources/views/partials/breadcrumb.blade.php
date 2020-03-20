@@ -11,9 +11,15 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                @can('student')
+                    @include('partials.userQuickLinks')
+                @endcan
+                @can('admin')
+                    @include('partials.adminQuickLinks')
+                @endcan
+                @can('supervise')
+                    @include('partials.supervisorQuickLinks')
+                @endcan
             </div>
         </div>
     </div>

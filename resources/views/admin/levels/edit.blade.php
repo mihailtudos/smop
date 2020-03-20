@@ -2,7 +2,7 @@
 
 @section('createCard')
 
-    <h5 class="card-header">Create New Study Degree Level</h5>
+    <h5 class="card-header">Edit Study Degree Level</h5>
 
     <div class="card-body">
 
@@ -27,7 +27,9 @@
             </div>
 
             <div class="form-group row mr-4 d-flex justify-content-end">
-
+                    <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                        Cancel
+                    </button>
                     <button type="submit" class="btn btn-primary">
                         Update
                     </button>

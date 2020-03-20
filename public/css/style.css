@@ -180,8 +180,11 @@ section .section-title {
     box-shadow: 7px 10px 15px -6px rgba(130,130,130,0.74);
 }
 
-.badge-success{
-    background-color: #00ad81;
+.page-item.active .page-link,  .badge-success, .nav-link.active{
+    background-color: #00ad81 !important;
+}
+.styledNavLink{
+    color: #1b1e21;
 }
 
 .postIcon {

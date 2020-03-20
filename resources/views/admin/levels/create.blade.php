@@ -25,10 +25,12 @@
             </div>
 
             <div class="form-group row mr-4 d-flex justify-content-end">
-
-                    <button type="submit" class="btn btn-primary">
-                        Create
-                    </button>
+                <a href="{{ route('admin.levels.index') }}" role="button" class="btn btn-secondary mr-2">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    Create
+                </button>
             </div>
         </form>
 
