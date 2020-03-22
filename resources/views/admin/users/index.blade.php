@@ -13,7 +13,7 @@
                     <div class="card-header d-flex justify-content-between align-items-end">
                        <h4>Users List</h4>
                         <div>
-                            <a class="btn btn-success border-dark" href="{{ route('admin.users.import.create') }}" role="button">Upload</a>
+                            <a class="btn btn-secondary border-dark" href="{{ route('admin.users.import.create') }}" role="button">Upload</a>
                             <a class="btn btn-success border-dark" href="{{ route('admin.users.create') }}" role="button">Create</a>
                         </div>
                     </div>

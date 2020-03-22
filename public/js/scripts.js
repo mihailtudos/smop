@@ -19,7 +19,6 @@ function fillDegreeFields() {
 
 function validateSize(file) {
     var FileSize = file.files[0].size / 1024 / 1024; // in MB
-
     var ext = $('#image').val().split('.').pop().toLowerCase();
 
     if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {

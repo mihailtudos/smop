@@ -25,6 +25,10 @@ class TopicsController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->fields == null){
+            return redirect('home')->with('error', 'Contact your coordinator to assign you a field before creating a topic');
+        }
+
         $topics = auth()->user()->topics;
         return view('student.topics.index', compact('topics'));
     }

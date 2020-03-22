@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(LevelsTableSeeder::class);
          $this->call(FieldTableSeeder::class);
          $this->call(SubjectsTableSeeder::class);
+         $this->call(DiryRecordsTableSeeder::class);
     }
 }

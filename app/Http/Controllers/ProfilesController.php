@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\student;
+namespace App\Http\Controllers;
 
-use App\Diary;
-use App\Http\Controllers\Controller;
+use App\Profile;
 use Illuminate\Http\Request;
 
-class DiaryController extends Controller
+class ProfilesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,21 +45,26 @@ class DiaryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Diary  $diary
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Diary $diary)
+    public function show(Profile $profile)
     {
-        //
+        if (auth()->user()->checkProfile($profile->id)){
+            return view('profiles.show', compact('profile'));
+        }
+
+        return redirect()->back()->with('error', 'Access denied!!!');
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Diary  $diary
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function edit(Diary $diary)
+    public function edit(Profile $profile)
     {
         //
     }
@@ -65,22 +73,34 @@ class DiaryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Diary  $diary
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diary $diary)
+    public function update(Request $request, Profile $profile)
     {
-        //
+        dd($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Diary  $diary
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diary $diary)
+    public function destroy(Profile $profile)
     {
         //
+    }
+
+    public function addsubject(Request $request, Profile $profile)
+    {
+
+        $data = $request->validate([
+           'subject' => 'required'
+        ]);
+
+        $profile->subjects()->attach($data['subject']);
+
+        return redirect()->back()->with('success', 'Subject ability attached!');
     }
 }

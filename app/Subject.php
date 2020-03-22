@@ -23,6 +23,11 @@ class Subject extends Model
         return $this->belongsToMany(ProjectSuggestion::class)->withTimestamps();
     }
 
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class)->withTimestamps();
+    }
+
     public function pathToSuggestions()
     {
         return '/suggestions/subjects/'. $this->id;

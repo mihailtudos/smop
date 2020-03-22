@@ -4,16 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Diary extends Model
+class Profile extends Model
 {
     protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function path()
+    public function subjects()
     {
-        return '/student/diaries/'. $this->id;
+        return $this->belongsToMany(Subject::class)->withTimestamps();
     }
 }

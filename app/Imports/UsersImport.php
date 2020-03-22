@@ -55,8 +55,9 @@ class UsersImport implements ToCollection, WithHeadingRow
             $user->fields()->attach(Field::whereName($row['field'])->pluck('id'));
             $user->levels()->attach(Level::whereName($row['level'])->pluck('id'));
             $user->roles()->attach(Role::whereName($row['role'])->pluck('id'));
-
+            $user->profile()->create([]);
             $mailTo[] = ['user' => $user, 'password' => $passwordString];
+
         }
 
         foreach ($mailTo as $userAndPassword) {

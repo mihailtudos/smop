@@ -37,6 +37,9 @@ class UsersTableSeeder extends Seeder
            'email' => 'admin@admin.com',
            'password' => Hash::make('12345678')
        ]);
+
+        $admin->profile()->create([]);
+
         //Creates user of supervisor role
         $supervisor = User::create([
            'name' => 'Supervisor User',
@@ -44,33 +47,45 @@ class UsersTableSeeder extends Seeder
            'password' => Hash::make('12345678')
        ]);
 
+        $supervisor->profile()->create([]);
+
         $supervisor1 = User::create([
            'name' => 'Supervisor User1',
            'email' => 'super1@admin.com',
            'password' => Hash::make('12345678')
        ]);
+        $supervisor1->profile()->create([]);
+
+
         //Creates user of student role
        $student = User::create([
            'name' => 'Student User',
            'email' => 'student@admin.com',
            'password' => Hash::make('12345678')
        ]);
+        $student->profile()->create([]);
 
         $student1 = User::create([
             'name' => 'Student User1',
             'email' => 'student1@admin.com',
             'password' => Hash::make('12345678')
         ]);
+        $student1->profile()->create([]);
+
         $student2 = User::create([
             'name' => 'Student User2',
             'email' => 'student2@admin.com',
             'password' => Hash::make('12345678')
         ]);
+        $student2->profile()->create([]);
+
         $student3 = User::create([
             'name' => 'Student User3',
             'email' => 'student4@admin.com',
             'password' => Hash::make('12345678')
         ]);
+        $student3->profile()->create([]);
+
 
         //attaches user filed to an user though the roles relationship
         $admin->fields()->attach($ITRole);

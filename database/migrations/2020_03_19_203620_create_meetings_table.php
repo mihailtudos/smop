@@ -15,7 +15,17 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('supervisor_id');
+            $table->string('title');
+            $table->string('location');
+            $table->date('date');
+            $table->time('time');
+            $table->text('notes');
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

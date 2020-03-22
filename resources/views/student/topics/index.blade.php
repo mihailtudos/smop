@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-end">
-                    <h4>Submitted Topics List</h4>
+                    <h4>Submitted Topics</h4>
                     @can('student')
                         <div>
                             <a class="btn btn-success border-dark" href="{{ route('student.topics.create') }}" role="button">Create</a>

@@ -9,7 +9,6 @@
         <a href="{{  '/'.auth()->user()->roles->first()->name .'/users'   }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-users-cog"></i> Users <span class="badge badge-success badge-pill">{{\App\User::count()}}</span></a>
         <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{\App\ProjectSuggestion::count()}}</span></a>
     @endcan
-
     @can('supervise')
         <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{auth()->user()->suggestions()->count()}}</span></a>
     @endcan
@@ -20,7 +19,7 @@
         <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#suggestionsModal">
             <i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{ \App\ProjectSuggestion::all()->count() }}</span>
         </button>
-        <a href="{{ route('student.records.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-calendar-day"></i> Diary <span class="badge badge-success badge-pill">{{ auth()->user()->topics->count() }}</span></a>
+        <a href="{{ route('student.diaries.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-calendar-day"></i> Diary <span class="badge badge-success badge-pill">{{ auth()->user()->diaries->count() }}</span></a>
 
         <!-- Modal -->
         @include('partials.modalSuggestions')

@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['student']);
         });
 
+
         Gate::define('admin', function ($user){
             return $user->hasAnyRoles(['admin']);
         });

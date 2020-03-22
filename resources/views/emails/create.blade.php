@@ -21,6 +21,7 @@
                             @endforeach
                         @endif
                     </select>
+                    <small id="emailHelp" class="form-text text-muted">If supervisor is not in the list <a role="button" href="#" class="list-inline" onclick="$('#to').val($('#to option:first').val());"> contact </a> your coordinator to assign you one.</small>
                 </div>
 
                 @error('to')
@@ -55,7 +56,7 @@
 
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a role="button" class="btn btn-secondary text-white" onclick="window.history.go(-1); return false;">Close</a>
                 <button type="submit" class="btn btn-primary">Send email</button>
             </div>
         </form>

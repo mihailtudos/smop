@@ -68,16 +68,17 @@ class UsersController extends Controller
 
         $passwordString = Str::random(8);
 
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($passwordString),
+        ]);
 
-            $user = User::create([
-                'name'     => $request->name,
-                'email'    => $request->email,
-                'password' => Hash::make($passwordString),
-            ]);
+        $user->levels()->sync($request->degree);
+        $user->fields()->sync($request->degreeFields);
+        $user->roles()->sync($request->role);
 
-            $user->levels()->sync($request->degree);
-            $user->fields()->sync($request->degreeFields);
-            $user->roles()->sync($request->role);
+        $user->profile()->create([]);
 
 
         if ($user) {
@@ -132,7 +133,7 @@ class UsersController extends Controller
 
         $result = $user->update($request->validate([
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required|unique:users'
          ])
         );
 
@@ -167,7 +168,7 @@ class UsersController extends Controller
         $user->delete();
 
         //redirect to users page
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
     }
 
     public function importCreate()

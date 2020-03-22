@@ -57,8 +57,13 @@ class PostsController extends Controller
             $imagePath = 'uploads/banner.jpg';
         }
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
-        $image->save();
+        if ($request->has('image')) {
+            $imagePath = $request['image']->store('uploads', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(2200, 1000);
+            $image->save();
+        } else {
+            $imagePath = 'uploads/banner.jpg';
+        }
 
 
         $post = auth()->user()->posts()->create([

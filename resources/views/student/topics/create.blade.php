@@ -91,7 +91,8 @@
                 <label for="subject" class="col-form-label text-md-right">Area of interest<span class="text-danger">*</span></label>
 
                 <div class="">
-                    <select name="subject[]" id="subject" class="form-control @error('subject') is-invalid @enderror input-lg" required multiple>
+                    <select name="subject[]" id="subject" class="form-control @error('subject') is-invalid @enderror input-lg" required >
+                        <option value="">Choose an area of interest</option>
                         @forelse($subjects as $subject)
                             <option value="{{$subject->id}}">{{ $subject->name }}</option>
                         @empty
@@ -136,6 +137,9 @@
                     <button type="submit" class="btn btn-primary">
                         Create
                     </button>
+                    <a role="button" href="{{ route('student.topics.index') }}" class="btn btn-secondary mr-2 text-white">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </form>

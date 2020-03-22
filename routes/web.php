@@ -50,12 +50,11 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
     Route::resource('emails', 'EmailsController');
-    Route::resource('profiles', 'ProfilesController');
 });
 
 Route::namespace('Student')->prefix('student')->name('student.')->middleware('auth')->group(function () {
     Route::resource('/topics', 'TopicsController');
-    Route::resource('/diary/records', 'DiaryController');
+    Route::resource('/diaries', 'DiariesController');
 });
 
 Route::middleware('can:admin-supervise')->group(function () {
@@ -64,6 +63,9 @@ Route::middleware('can:admin-supervise')->group(function () {
 });
 
 Route::get('/projects/{project}', 'ProjectsController@show');
+Route::get('/profiles/{profile}', 'ProfilesController@show')->name('profile.');
+Route::PUT('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
+Route::PUT('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject')->name('profile.updateSubject');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::resource('/emails', 'EmailsController');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');

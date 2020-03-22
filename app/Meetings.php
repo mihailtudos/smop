@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Supervisor;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Meetings extends Model
 {
     //
 }

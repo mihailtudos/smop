@@ -64,7 +64,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class, 'supervisor_id');
     }
-
     public function supervisee()
     {
         return $this->hasMany('User','student_id','user_id');
@@ -116,5 +115,40 @@ class User extends Authenticatable
     {
         return $this->hasMany(Topic::class);
     }
+
+    public function diaries()
+    {
+        return $this->hasMany(Diary::class);
+    }
+
+    public function meetings()
+    {
+        return $this->hasMany(Meetings::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function path()
+    {
+        if ($this->hasAnyRoles(['admin', 'supervisor', 'student'])){
+            return '/profiles/'.$this->id;
+        } else {
+            return route('home');
+        }
+    }
+
+    public function checkProfile($profile)
+    {
+        if ($this->hasRole('admin') or $this->profile->id == $profile or $this->monitoredProjects->pluck('student_id')->contains($profile)){
+            return true;
+        }
+
+        return false;
+    }
+
+
 
 }
