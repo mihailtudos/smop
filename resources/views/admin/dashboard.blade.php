@@ -7,13 +7,13 @@
 
 
         <div class="row justify-content-center mb-4">
-            <div class="col-md-3 ">
+            <div class="col-md-4 mt-2 ">
                 <!-- Side bar-cards -->
                 @include('partials.sideMenu')
 
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="card dashCard">
                     <div class="card-header font-weight-bold"><h4>Noticeboard</h4></div>
                     <div class="card-body">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="row justify-content-end">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="card dashCard">
                     <div class="card-header">Last five projects created</div>
                     <div class="card-body">

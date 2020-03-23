@@ -96,6 +96,14 @@ class User extends Authenticatable
         return false;
     }
 
+    public function userWithLevel($level)
+    {
+        if($this->levels()->where('id', $level)->get()){
+            return true;
+        }
+        return false;
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
@@ -142,13 +150,32 @@ class User extends Authenticatable
 
     public function checkProfile($profile)
     {
-        if ($this->hasRole('admin') or $this->profile->id == $profile or $this->monitoredProjects->pluck('student_id')->contains($profile)){
-            return true;
-        }
 
+        if ($this->hasRole('admin')){
+            return true;
+        } else if ($this->hasRole('supervisor')){
+            if ($this->profile->id == $profile or $this->monitoredProjects->pluck('student_id')->contains($profile)){
+                return true;
+            }
+                return false;
+        } else if ($this->hasRole('student')) {
+            if ($this->profile->id == $profile){
+                return true;
+            }
+            return false;
+        }
         return false;
     }
 
+    public function ethicalForm()
+    {
+        return $this->hasOne(EthicForm::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class)->orderBy('created_at', 'desc');
+    }
 
 
 }

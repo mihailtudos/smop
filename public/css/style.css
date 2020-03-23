@@ -169,6 +169,9 @@ section .section-title {
 }
 
 .dashCard{
+    border-radius: 0.5rem;
+    margin-top: 3%;
+    margin-bottom: 3%;
     -webkit-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
     -moz-box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
     box-shadow: 0px 0px 56px -10px rgba(0,0,0,1);
@@ -204,6 +207,7 @@ section .section-title {
     background: #fff;
 }
 .profile-img{
+    margin-top: 15px;
     text-align: center;
 }
 .profile-img img{
@@ -230,7 +234,7 @@ section .section-title {
     color: #333;
 }
 .profile-head h6{
-    color: #0062cc;
+    color: #00ad81;
 }
 .profile-edit-btn{
     border: none;
@@ -260,7 +264,7 @@ section .section-title {
 }
 .profile-head .nav-tabs .nav-link.active{
     border: none;
-    border-bottom:2px solid #0062cc;
+    border-bottom:2px solid #00ad81;
 }
 .profile-work{
     padding: 14%;
@@ -286,5 +290,9 @@ section .section-title {
 }
 .profile-tab p{
     font-weight: 600;
-    color: #0062cc;
+    color: #00ad81;
+}
+
+.profile-img{
+
 }

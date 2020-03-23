@@ -197,46 +197,12 @@
         // }
     </script>
     <script>
-        function showOptions() {
-
-            var studentsCheck = document.getElementById("studentsCheck");
-            var supervisorCheck  = document.getElementById("coordinatorCheck");
-            var students = document.getElementById("student");
-            var supervisor = document.getElementById("supervisor");
-
-
-            if (studentsCheck.checked == true && supervisorCheck.checked == false){
-                students.style.display = "block";
-                supervisor.style.display = "none";
-                $("#student").attr("required", true);
-                $("#supervisor").val('');
-                $("#supervisor").removeAttr("required");
-            } else if (studentsCheck.checked == true && supervisorCheck.checked == true){
-                $("#student").attr("required", true);
-                $("#supervisor").attr("required", true);
-                students.style.display = "block";
-                supervisor.style.display = "block";
-            }   else if (studentsCheck.checked == false && supervisorCheck.checked == true){
-                $("#student").val([]);
-                $("#student").removeAttr("required");
-                students.style.display = "none";
-                $("#supervisor").attr("required", true);
-                supervisor.style.display = "block";
-            } else if (studentsCheck.checked == false && supervisorCheck.checked == false){
-                $("#student").removeAttr("required");
-                $("#supervisor").removeAttr("required");
-                students.style.display = "none";
-                supervisor.style.display = "none";
-                $("#student").val([]);
-                $("#supervisor").val([]);
-            }else {
-
-            }
-
-
-        }
-
+        $('.date').datepicker({
+            autoclose: true,
+            dateFormat: "yy-mm-dd"
+        });
     </script>
+
     <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 </html>

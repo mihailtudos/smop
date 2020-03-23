@@ -12,6 +12,7 @@ use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -32,8 +33,20 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(10);;
-        return view('admin.users.index', compact('users'));
+        $fields = Field::all();
+
+        $users = User::whereHas('levels', function($q){
+            $q->where('level_id', request('field'));
+        })->paginate(10);
+
+        if (request()->has('field')){
+            $users = Field::where('id', request('field'))->first()->users()->paginate(10);
+        }else {
+            $users = User::orderBy('created_at', 'desc')->paginate(10);
+        }
+
+        return view('admin.users.index', compact('users', 'fields'));
+
     }
 
     /**

@@ -21,15 +21,6 @@ class UsersTableSeeder extends Seeder
 //        DB::table('role_user')->truncate();
 //        DB::table('field_user')->truncate();
 
-        //get the roles from DB
-        $adminRole = Role::where('name', 'admin')->first();
-        $supervisorRole = Role::where('name', 'supervisor')->first();
-        $studentRole = Role::where('name', 'student')->first();
-
-
-        $ITRole = Field::where('name', 'BSc Computing and Technology')->first();
-        $BMRole = Field::where('name', 'BSc Business')->first();
-        $ManagementRole = Field::where('name', 'BSc Marketing')->first();
 
         //Creates user of admin role
        $admin = User::create([
@@ -86,18 +77,35 @@ class UsersTableSeeder extends Seeder
         ]);
         $student3->profile()->create([]);
 
+        $computingfield = Field::where('name', 'BSc Computing and Technology')->first();
+        $businessfield = Field::where('name', 'BSc Business')->first();
+        $marketingfield = Field::where('name', 'BSc Marketing')->first();
 
         //attaches user filed to an user though the roles relationship
-        $admin->fields()->attach($ITRole);
-        $admin->fields()->attach($ITRole);
-        $supervisor->fields()->attach($ITRole);
-        $supervisor1->fields()->attach($ITRole);
-        $student->fields()->attach($ITRole);
-        $student1->fields()->attach($ITRole);
-        $student2->fields()->attach($BMRole);
-        $student3->fields()->attach($ManagementRole);
+        $admin->fields()->attach($computingfield);
+        $supervisor->fields()->attach($computingfield);
+        $supervisor1->fields()->attach($businessfield);
+        $student->fields()->attach($computingfield);
+        $student1->fields()->attach($computingfield);
+        $student2->fields()->attach($businessfield);
+        $student3->fields()->attach($marketingfield);
 
-       //attaches user role to an user though the roles relationship
+        $admin->levels()->attach($admin->fields->first()->level);
+        $supervisor->levels()->attach($admin->fields->first()->level);
+        $supervisor1->levels()->attach($admin->fields->first()->level);
+        $student->levels()->attach($admin->fields->first()->level);
+        $student1->levels()->attach($admin->fields->first()->level);
+        $student2->levels()->attach($admin->fields->first()->level);
+        $student3->levels()->attach($admin->fields->first()->level);
+
+
+        //get the roles from DB
+        $adminRole = Role::where('name', 'admin')->first();
+        $supervisorRole = Role::where('name', 'supervisor')->first();
+        $studentRole = Role::where('name', 'student')->first();
+
+
+        //attaches user role to an user though the roles relationship
         $admin->roles()->attach($adminRole);
         $supervisor->roles()->attach($supervisorRole);
         $supervisor1->roles()->attach($supervisorRole);

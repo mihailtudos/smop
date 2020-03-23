@@ -31,6 +31,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
         Route::post('import', 'UsersController@importStore')->name('users.import.store');
     });
 
+    Route::prefix('projects')->group(function () {
+        Route::post('assign/{topic}', 'ProjectsController@assign')->name('projects.assign');
+    });
+
     Route::resource('users', 'UsersController');
     Route::resource('subjects', 'SubjectsController', ['except' =>'show']);
     Route::resource('fields', 'FieldsController', ['except' => 'show']);
@@ -55,6 +59,7 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 Route::namespace('Student')->prefix('student')->name('student.')->middleware('auth')->group(function () {
     Route::resource('/topics', 'TopicsController');
     Route::resource('/diaries', 'DiariesController');
+    Route::resource('/ethics/form', 'EthicFormsController');
 });
 
 Route::middleware('can:admin-supervise')->group(function () {
@@ -64,8 +69,9 @@ Route::middleware('can:admin-supervise')->group(function () {
 
 Route::get('/projects/{project}', 'ProjectsController@show');
 Route::get('/profiles/{profile}', 'ProfilesController@show')->name('profile.');
-Route::PUT('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
-Route::PUT('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject')->name('profile.updateSubject');
+Route::put('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
+Route::put('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject')->name('profile.updateSubject');
+Route::get('/profiles/{profile}/detachSubject', 'ProfilesController@detachSubject')->name('profile.detachSubject');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::resource('/emails', 'EmailsController');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');

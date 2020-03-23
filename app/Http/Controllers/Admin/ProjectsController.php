@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Topic;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -200,6 +201,11 @@ class ProjectsController extends Controller
         }
         echo $output;
 
+    }
+
+    public function assign(Request $request, Topic $topic)
+    {
+        dd('hello');
     }
 
 }

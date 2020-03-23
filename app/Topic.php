@@ -18,8 +18,16 @@ class Topic extends Model
         return $this->belongsToMany(Subject::class)->withTimestamps();
     }
 
+    public function owner($user)
+    {
+
+    }
+
     public function path()
     {
-        return 'topics/'. $this->id;
+        if (auth()->user()->hasRole('admin') or auth()->user()->id == $this->user_id){
+            return '/student/topics/'. $this->id;
+        }
+            return redirect()->back()->with('error', 'Not allowed to access this page!');
     }
 }

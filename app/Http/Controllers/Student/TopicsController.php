@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\ActivityTitle;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Level;
@@ -78,7 +79,7 @@ class TopicsController extends Controller
 
 
         if (auth()->user()->levels->first()==null){
-            return redirect()->route('home')->with('error', 'Contact your admin to assign you a study field');
+            return redirect()->route('home')->with('error', 'Contact your admin to assign you a degree lavel');
         } else {
             $degree = auth()->user()->levels->first();
         }
@@ -103,6 +104,10 @@ class TopicsController extends Controller
         ]);
 
         $topic->subjects()->sync($request->subject);
+
+        auth()->user()->activities()->create([
+            'activity_title_id' =>  ActivityTitle::where('activity_title', 'new topic submitted')->first()->id
+        ]);
 
         if ($topic) {
             $request->session('success')->flash('success', "Topic has been submitted successfully");

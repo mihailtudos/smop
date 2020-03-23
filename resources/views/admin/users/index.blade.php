@@ -11,8 +11,23 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-end">
-                       <h4>Users List</h4>
-                        <div>
+                        <div class="mt-3">
+                            <div class="dropdown">
+
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Filter
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                                    @foreach($fields as $field)
+                                    <a class="dropdown-item" href="/admin/users/?field={{ $field->id }}">{{ $field->name }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Users list</h4>
+
+                        <div class="float-right">
                             <a class="btn btn-secondary border-dark" href="{{ route('admin.users.import.create') }}" role="button">Upload</a>
                             <a class="btn btn-success border-dark" href="{{ route('admin.users.create') }}" role="button">Create</a>
                         </div>
@@ -22,17 +37,17 @@
 
                             <table class="table">
                                 <thead class="thead-dark">
-                                <tr >
+                                <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Role</th>
-                                    <th class="text-center" scope="col">Action</th>
+                                    <th class="text-right pr-5" scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($users as $user)
                                     <tr>
-                                        <td> {{ $user->name  }}</td>
+                                        <td><a href="{{ $user->path() }}">{{ $user->name  }}</a> </td>
                                         <td> {{ $user->email  }}</td>
                                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                         <td class="d-flex justify-content-end">
