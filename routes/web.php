@@ -29,6 +29,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
         Route::get('import/create', 'UsersController@importCreate')->name('users.import.create');
         Route::post('dynamic', 'UsersController@fetch')->name('userscontroller.fetch');
         Route::post('import', 'UsersController@importStore')->name('users.import.store');
+        Route::get('inactive', 'UsersController@inactiveIndex')->name('users.inactive.index');
     });
 
     Route::prefix('projects')->group(function () {

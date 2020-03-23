@@ -33,11 +33,11 @@
                                 <label for="description" class="col-md-2 col-form-label text-md-right">Description<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required >
+                                    <textarea id="description"  class="form-control @error('description') is-invalid @enderror" name="description" required >{{ old('description') }}</textarea>
 
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>s
                                     </span>
                                     @enderror
                                 </div>

@@ -14,7 +14,7 @@
                         @foreach($profile->user->topics as $topic)
                            <li>
                                <a class="text-primary" href="{{ $topic->path() }}">
-                                   <h6>{{ $topic->title }}</h6>
+                                   <h6>{{ Str::limit($topic->title, '100') }}</h6>
                                </a>
                            </li>
                         @endforeach
@@ -92,25 +92,31 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div>
-                    <table class="table text-center">
+            <div class="tab-pane  fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="overflow-auto" style="height: 380px">
+                    <table class="table text-center ">
                         <thead>
                         <tr>
                             <th scope="col">Last</th>
                             <th scope="col">Handle</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        @forelse($profile->user->activities as $activity)
-                        <tr>
-                            <th scope="row">{{ $activity->created_at->format('d-m-yy') }}</th>
-                            <td>{{ $activity->activityTitle->activity_title }}</td>
-                        </tr>
-
-                        @empty
-
-                        @endforelse
+                        <tbody >
+                        @if($profile->user->activities->first() != null)
+                            @foreach($profile->user->activities as $activity)
+                            <tr>
+                                <th scope="row">{{ $activity->created_at->format('d-m-yy') }}</th>
+                                <td>{{ $activity->activityTitle->activity_title }}</td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <th scope="row">{{ $profile->created_at->format('d-m-yy') }}</th>
+                                <td>{{ 'account created' }}</td>
+                            </tr>
+                        @else
+                            <th scope="row">{{ $profile->created_at->format('d-m-yy') }}</th>
+                            <td>{{ 'account created' }}</td>
+                        @endif
                         </tbody>
                     </table>
                 </div>

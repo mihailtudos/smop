@@ -33,6 +33,10 @@ class UsersController extends Controller
      */
     public function index()
     {
+        if (\request()->has('inactive')){
+            return redirect()->route('admin.users.inactive.index');
+        }
+
         $fields = Field::all();
 
         $users = User::whereHas('levels', function($q){
@@ -48,6 +52,8 @@ class UsersController extends Controller
         return view('admin.users.index', compact('users', 'fields'));
 
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -146,7 +152,7 @@ class UsersController extends Controller
 
         $result = $user->update($request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users'
+            'email' => 'required|unique:users,email,'.$user->id
          ])
         );
 
@@ -175,13 +181,15 @@ class UsersController extends Controller
         }
 
         //detaches all roles
-        $user->roles()->detach();
+        //$user->roles()->detach();
 
         //deletes the user
+        $user->profile()->delete();
         $user->delete();
 
         //redirect to users page
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
+
     }
 
     public function importCreate()
@@ -215,6 +223,35 @@ class UsersController extends Controller
             $output .= '<option value="'. $row->id.'">'.$row->name .'</option>';
         }
         echo $output;
+    }
 
+    public function inactiveIndex()
+    {
+        $users = User::onlyTrashed()->orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.users.indexInactive', compact('users'));
+    }
+
+    public function recover()
+    {
+
+    }
+
+    public function forceDelete(User $user)
+    {
+        if(Gate::denies('delete-users')){
+            return redirect(route('admin.users.index'));
+        }
+        $user->forceDelete();
+
+//        //detaches roles, levels, fields
+//        $user->roles()->detach();
+//        $user->levels()->detach();
+//        $user->fields()->detach();
+//
+//        //deletes the user, his profile,
+//        $user->profile()->forceDelete();
+
+        //redirect to users page
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
     }
 }

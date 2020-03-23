@@ -8,7 +8,7 @@
 
 
         <div class="row justify-content-center mb-4">
-            <div class="col-md-3 ">
+            <div class="col-md-3 mt-3 ">
                 <!-- Side bar-cards -->
                 @include('partials.sideMenu')
 

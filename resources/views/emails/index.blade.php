@@ -8,7 +8,6 @@
         </div>
     </div>
     <div class="card-body">
-
         <table class="table text-center">
             <thead class="thead-dark">
             <tr>

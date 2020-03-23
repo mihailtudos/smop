@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Activity;
+use App\ActivityTitle;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Project;
@@ -53,17 +55,17 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(['email'=>'exists:users,email']);
-        $student = User::where('email', '=', $request->email)->first();
-        $request['student_id'] = $student->id;
-
-
         $request->validate([
             'student_id' => ['required', 'unique:projects,student_id'],
             'title' => 'required',
             'studyField' => 'required',
-            'supervisor' => 'required'
+            'supervisor' => 'required',
+            'email'=>'exists:users,email',
         ]);
+
+        $student = User::where('email', '=', $request->email)->first();
+        $request['student_id'] = $student->id;
+
 
         $student = User::where('email', '=', $request->email)->first();
 
@@ -205,7 +207,29 @@ class ProjectsController extends Controller
 
     public function assign(Request $request, Topic $topic)
     {
-        dd('hello');
+        if(!auth()->user()->hasRole('admin') and $topic->project->count() == 0 and $topic->user->projects != null){
+            return redirect()->back()->with('error', 'Unauthorised request!');
+        }
+        $data = $request->validate([
+            'supervisor' => 'required'
+        ]);
+
+        $project = Project::create([
+            'supervisor_id'     =>$data['supervisor'],
+            'student_id'        =>$topic->user_id,
+            'title'             =>$topic->title,
+            'description'       =>$topic->description,
+            'topic_id'          =>$topic->id
+        ]);
+
+        if(ActivityTitle::where('activity_title', 'assigned to project')->first() != null){
+            $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
+
+            $project->student->activities()->create([ 'activity_title_id' => $activity ]);
+            $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
+        }
+
+        return redirect()->back()->with('success', 'Supervisor assigned and new project created!');
     }
 
 }

@@ -1,15 +1,6 @@
-@extends('layouts.app')
+@extends('partials.index')
 
-@section('content')
-
-    {{-- Quick links section --}}
-    @include('partials.quick')
-
-    {{--    --}}
-    <div class="row justify-content-center">
-
-            <div class="col-md-8">
-                <div class="card">
+@section('contentIndex')
                     <div class="card-header d-flex justify-content-between align-items-end">
                         <div class="mt-3">
                             <div class="dropdown">
@@ -22,6 +13,9 @@
                                     @foreach($fields as $field)
                                     <a class="dropdown-item" href="/admin/users/?field={{ $field->id }}">{{ $field->name }}</a>
                                     @endforeach
+                                        <div>
+                                            <a class="dropdown-item" href="/admin/users/?inactive=all">Inactive users</a>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -38,10 +32,10 @@
                             <table class="table">
                                 <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
-                                    <th class="text-right pr-5" scope="col">Action</th>
+                                    <th scope="col">name</th>
+                                    <th scope="col">email</th>
+                                    <th scope="col">role</th>
+                                    <th class="text-right pr-5" scope="col">action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,7 +43,7 @@
                                     <tr>
                                         <td><a href="{{ $user->path() }}">{{ $user->name  }}</a> </td>
                                         <td> {{ $user->email  }}</td>
-                                        <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
+                                        <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toarray()) }}</td>
                                         <td class="d-flex justify-content-end">
 
                                                 <a href="{{ route( 'admin.users.edit', $user ) }}" class="mr-2">
@@ -77,7 +71,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <p>No users found</p>
+                                    <p>no users found</p>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -85,8 +79,4 @@
                             {{ $users->links() }}
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
 @endsection

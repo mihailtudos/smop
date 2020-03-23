@@ -7,12 +7,13 @@
         <a href="{{ route('admin.fields.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-book-reader"></i> Fields <span class="badge badge-success badge-pill">{{\App\Field::count()}}</span></a>
         <a href="{{  route('admin.subjects.index')   }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-door-open" ></i> Subjects <span class="badge badge-success badge-pill">{{\App\Subject::count()}}</span></a>
         <a href="{{  route('admin.users.index')   }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-users-cog"></i> Users <span class="badge badge-success badge-pill">{{\App\User::count()}}</span></a>
-        <a href="{{route('admin.projects.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Projects <span class="badge badge-success badge-pill">{{\App\ProjectSuggestion::count()}}</span></a>
+        <a href="{{route('admin.projects.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Projects <span class="badge badge-success badge-pill">{{\App\Project::count()}}</span></a>
         <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{\App\ProjectSuggestion::count()}}</span></a>
     @endcan
 
     @can('supervise')
         <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{auth()->user()->suggestions()->count()}}</span></a>
+        <a href="{{ route('supervisor.projects.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Projects <span class="badge badge-success badge-pill">{{auth()->user()->monitoredProjects()->count()}}</span></a>
     @endcan
 
     @can('student')

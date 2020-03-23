@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = [];
 
     public function user()
@@ -16,5 +19,13 @@ class Profile extends Model
     public function subjects()
     {
         return $this->belongsToMany(Subject::class)->withTimestamps();
+    }
+
+    public function checkAvailability()
+    {
+        if ($this->availability > 0 and $this->user->monitoredProjects->count()+1 <= $this->availability){
+            return true;
+        }
+        return false;
     }
 }

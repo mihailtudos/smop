@@ -37,4 +37,9 @@ class Project extends Model
     {
         return $this->hasOne(EthicForm::class);
     }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
 }

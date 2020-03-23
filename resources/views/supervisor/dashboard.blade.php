@@ -17,7 +17,7 @@
 
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-9 mt-n3">
                 <div class="card dashCard">
                     <div class="card-header font-weight-bold"><h4>Noticeboard</h4></div>
                     <div class="card-body">
@@ -53,7 +53,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse(\App\Project::all() as $project)
+                            @forelse(auth()->user()->monitoredProjects as $project)
                                 <tr>
                                     <th scope="row"> {{$project->title}}</th>
                                     <td>{{ $project->student->name }}</td>

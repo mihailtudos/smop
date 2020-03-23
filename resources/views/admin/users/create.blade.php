@@ -72,9 +72,7 @@
                             <label for="degreeFields" class="col-md-4 col-form-label text-md-right">Fields<span class="text-danger">*</span></label>
 
                             <div class="col-md-6">
-                                <select name="degreeFields[]" id="degreeFields" class="custom-select" class="form-control @error('degreeFields') is-invalid @enderror input-lg dynamic">
-
-                                </select>
+                                <select name="degreeFields[]" id="degreeFields" class="custom-select" class="form-control @error('degreeFields') is-invalid @enderror input-lg dynamic" required></select>
 
                                 @error('degreeFields')
                                 <span class="invalid-feedback" role="alert">

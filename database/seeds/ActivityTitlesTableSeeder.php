@@ -28,5 +28,9 @@ class ActivityTitlesTableSeeder extends Seeder
             'activity_title'=>'updated topic'
         ]);
 
+        ActivityTitle::create([
+            'activity_title'=>'assigned to project'
+        ]);
+
     }
 }

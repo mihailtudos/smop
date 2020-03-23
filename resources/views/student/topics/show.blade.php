@@ -11,6 +11,7 @@
                         <h3> {{$topic->title}} </h3>
                     </div>
                     @if(auth()->user()->hasRole('admin') or $topic->user->id == auth()->user()->id)
+                        @if($topic->isTopicTaken())
                         <div class="ml-4">
                             <a role="button" href="{{ route( 'student.topics.edit', $topic->id ) }}">
                                 <h4 class="mt-1">
@@ -18,6 +19,7 @@
                                 </h4>
                             </a>
                         </div>
+                        @endif
                     @endif
                 </div>
                 <img class="card-img-top w-100" src="{{ '/storage/'.$topic->image }} "
@@ -30,7 +32,7 @@
                                {{$topic->description}}
                            </p>
                        </div>
-                        <div class="mb-5">
+x§                        <div class="mb-5">
                             <h1 class="text-left">Methodology</h1>
                             <p>
                                 {{$topic->methodology}}
@@ -52,15 +54,11 @@
                     <div class="d-flex justify-content-end">
                         <p>Created {{$topic->created_at->diffForHumans() .' by '}} <strong><a href="{{ $topic->user->path() }}">{{ $topic->user->name }}</a></strong></p>
                     </div>
-                    @if(auth()->user()->hasRole('admin'))
-
-
-
+                    @if(auth()->user()->hasRole('admin') and $topic->user->projects == null)
                         <div class="jumbotron">
                             <div class="d-flex justify-content-center">
                                 <h3 class="mb-5 text-center">Assign supervisor to the topic proposed by the student</h3>
                             </div>
-
                                 <form action="{{ route('admin.projects.assign', $topic) }}" method="post">
                                     @csrf
 
@@ -71,7 +69,9 @@
                                             <select name="supervisor" id="supervisor" class="custom-select" class="form-control @error('supervisor') is-invalid @enderror input-lg"  required>
                                                 <option value="">Select supervisor</option>
                                                 @foreach($topic->subjects->first()->profiles as $supervisor)
-                                                    <option value="{{ $supervisor->user->id }}">{{$supervisor->user->name}}</option>
+                                                    @if($supervisor->checkAvailability())
+                                                        <option value="{{ $supervisor->user->id }}">{{$supervisor->user->name}}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
 
@@ -81,12 +81,10 @@
                                                 </span>
                                             @enderror
                                         </div>
-
                                         <div>
                                             <button class="btn btn-success" type="submit">Assign</button>
                                         </div>
                                     </div>
-
                                 </form>
                         </div>
                     @endif

@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('student_id')->unique();
             $table->unsignedBigInteger('supervisor_id');
+            $table->unsignedBigInteger('topic_id')->unique()->nullable()->default(null);
             $table->string('title');
             $table->text('description');
             $table->boolean('completed')->default(false);
@@ -24,6 +25,7 @@ class CreateProjectsTable extends Migration
 
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
         });
     }
 

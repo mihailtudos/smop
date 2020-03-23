@@ -41,6 +41,9 @@ class TopicsController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->hasRole('student') or auth()->user()->topics->count() >= 3 or auth()->user()->projects != null){
+            return redirect()->back()->with('error', 'You are not allowed to create more topics!');
+        }
 
         if (auth()->user()->fields->first()){
             $subjects = auth()->user()->fields->first()->subjects;
@@ -59,6 +62,10 @@ class TopicsController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->hasRole('student') or auth()->user()->topics->count() >= 3 or auth()->user()->projects != null){
+            return redirect()->back()->with('error', 'You are not allowed to create more topics!');
+        }
+
         $data = $request->validate([
             'title'         => 'required|min:15',
             'description'   => 'required|min:150|max:1500',
@@ -138,6 +145,9 @@ class TopicsController extends Controller
      */
     public function edit(Topic $topic)
     {
+        if ($topic->project != null){
+            return redirect()->back()->with('error', 'The topic was already assigned and cannot be modified anymore!');
+        }
         $subjects = auth()->user()->fields->first()->subjects;
         return view('student.topics.edit', compact('topic','subjects'));
     }
@@ -201,6 +211,9 @@ class TopicsController extends Controller
      */
     public function destroy(Topic $topic, Request $request)
     {
+        if ($topic->project != null and !auth()->user()->hasRole('admin')){
+            return redirect()->back()->with('error', 'The topic was already assigned and cannot be deleted anymore!');
+        }
         //delete stored image if post image is not the default img
         if ($topic->image != 'uploads/banner.jpg' and Storage::exists( 'public/'. $topic->image)) {
             Storage::delete('public/' .$topic->image);
