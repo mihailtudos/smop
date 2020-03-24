@@ -36,3 +36,4 @@
 {{--        <a @can('manage-projects') href="{{ '/'.auth()->user()->roles->first()->name .'/projects' }}" @endcan @cannot('manage-projects') href="{{ route('studentProjects', auth()->user()->projects)  }}" @endcannot  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Projects <span class="badge badge-success badge-pill">{{\App\Project::count()}}</span></a>--}}
 {{--    @endif--}}
 </div>
+

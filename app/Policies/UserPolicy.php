@@ -41,7 +41,9 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('student');
+        return in_array($user->roles->first()->name, [
+            'admin',
+        ]);
     }
 
     /**
@@ -65,10 +67,9 @@ class UserPolicy
      */
     public function delete(User $user, Users $users)
     {
-        if ($user->hasRole('student')){
-            return true;
-        }
-        return false;
+        return in_array($user->roles->first()->name, [
+            'admin',
+        ]);
     }
 
     /**
@@ -80,10 +81,9 @@ class UserPolicy
      */
     public function restore(User $user, Users $users)
     {
-        if ($user->hasRole('admin')){
-            return true;
-        }
-        return false;
+        return in_array($user->roles->first()->name, [
+            'admin',
+        ]);
     }
 
     /**
@@ -95,9 +95,8 @@ class UserPolicy
      */
     public function forceDelete(User $user, Users $users)
     {
-        if ($user->hasRole('student')){
-            return true;
-        }
-        return false;
+        return in_array($user->roles->first()->name, [
+            'admin',
+        ]);
     }
 }

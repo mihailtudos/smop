@@ -6,12 +6,16 @@ use App\ActivityTitle;
 use App\Field;
 use App\Http\Controllers\Controller;
 use App\Level;
+use App\Notifications\UserTopicsSubmitted;
+use App\Role;
 use App\Subject;
 use App\Topic;
+use App\User;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+
 
 class TopicsController extends Controller
 {
@@ -118,6 +122,14 @@ class TopicsController extends Controller
 
         if ($topic) {
             $request->session('success')->flash('success', "Topic has been submitted successfully");
+            if (auth()->user()->topics->count() == 2 and Role::where('name', 'admin')->first()->users->count() != 0){
+                foreach (Role::where('name', 'admin')->first()->users as $admin){
+                    $admin->notify(new UserTopicsSubmitted([
+                        'name' => $topic->user->name,
+                        'link' => $topic->user->profile->path(),
+                    ]));
+                }
+            }
         } else {
             $request->session('error')->flash('error', 'There was an error');
         }

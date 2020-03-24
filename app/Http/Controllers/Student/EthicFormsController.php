@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Student;
 
 use App\EthicForm;
 use App\Http\Controllers\Controller;
+use App\Policies\EthicFormPolicy;
+use App\User;
 use Illuminate\Http\Request;
 
 class EthicFormsController extends Controller
@@ -30,6 +32,7 @@ class EthicFormsController extends Controller
      */
     public function create()
     {
+
         return view('student.ethicalForm.create');
     }
 
@@ -41,6 +44,7 @@ class EthicFormsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', EthicFormPolicy::class);
             $user = auth()->user();
         if ($user->hasRole('student') and $user->projects != null){
             $data = $request->validate([

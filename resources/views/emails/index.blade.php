@@ -31,6 +31,5 @@
             {{ $emails->links() }}
         </div>
 
-
     </div>
 @endsection

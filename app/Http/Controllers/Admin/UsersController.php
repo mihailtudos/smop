@@ -8,6 +8,7 @@ use App\Imports\UsersImport;
 use App\Level;
 use App\Mail\Users\UserRegisteredByImportMailable;
 use App\Mail\Users\UserRegisteredMailable;
+use App\Profile;
 use App\Role;
 use App\User;
 use Gate;
@@ -76,6 +77,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+//        $this->authorize('create', User::class);
 
         $request->validate([
             'name'          => ['required', 'string', 'max:255'],
@@ -180,11 +182,10 @@ class UsersController extends Controller
             return redirect(route('admin.users.index'));
         }
 
-        //detaches all roles
-        //$user->roles()->detach();
 
         //deletes the user
         $user->profile()->delete();
+        $user->topics()->delete();
         $user->delete();
 
         //redirect to users page
@@ -231,27 +232,38 @@ class UsersController extends Controller
         return view('admin.users.indexInactive', compact('users'));
     }
 
-    public function recover()
-    {
-
-    }
-
-    public function forceDelete(User $user)
+    public function restore($id)
     {
         if(Gate::denies('delete-users')){
             return redirect(route('admin.users.index'));
         }
+
+        $user = User::where('id', $id)->withTrashed()->first();
+        $userRestored = $user->restore();
+
+        $profile = Profile::where('user_id', $user->id)->withTrashed()->first()->restore();
+
+        if($profile and $userRestored){
+           return redirect()->back()->with('success', 'User account was successfully restored');
+       }
+            return redirect()->back()->with('error', 'User account could not be restored');
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+
+    public function forcedelete($id)
+    {
+        if(Gate::denies('delete-users')){
+            return redirect(route('admin.users.index'));
+        }
+
+        $user = User::where('id', $id)->withTrashed()->first();
+
         $user->forceDelete();
 
-//        //detaches roles, levels, fields
-//        $user->roles()->detach();
-//        $user->levels()->detach();
-//        $user->fields()->detach();
-//
-//        //deletes the user, his profile,
-//        $user->profile()->forceDelete();
-
-        //redirect to users page
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
+        return redirect()->route('admin.users.inactive.index')->with('success', 'User deleted successfully!');
     }
 }

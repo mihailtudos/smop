@@ -33,11 +33,6 @@ class Project extends Model
         return $this->tasks()->create(compact(['title', 'user_id']));
     }
 
-    public function ethicalForm()
-    {
-        return $this->hasOne(EthicForm::class);
-    }
-
     public function topic()
     {
         return $this->belongsTo(Topic::class);

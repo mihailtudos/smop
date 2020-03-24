@@ -30,6 +30,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
         Route::post('dynamic', 'UsersController@fetch')->name('userscontroller.fetch');
         Route::post('import', 'UsersController@importStore')->name('users.import.store');
         Route::get('inactive', 'UsersController@inactiveIndex')->name('users.inactive.index');
+        Route::delete('{user}/forced', 'UsersController@forceDelete')->name('users.forced');
+        Route::put('restore/{user}', 'UsersController@restore')->name('users.restore');
     });
 
     Route::prefix('projects')->group(function () {

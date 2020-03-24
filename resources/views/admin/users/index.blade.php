@@ -58,14 +58,11 @@
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" class="float-left">
                                                     @csrf
                                                     @method('delete')
-
-                                                    <a href="{{ route( 'admin.users.destroy', $user->id ) }}">
                                                         <button class="btn btn-danger" type="submit">
                                                             <h4 class="m-0">
                                                                 <i class="fas fa-eraser"></i>
                                                             </h4>
                                                         </button>
-                                                    </a>
                                                 </form>
                                             @endcan
                                         </td>

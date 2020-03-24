@@ -28,4 +28,9 @@ class Profile extends Model
         }
         return false;
     }
+
+    public function path()
+    {
+        return 'profiles/'. $this->user->id;
+    }
 }

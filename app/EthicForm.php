@@ -12,9 +12,4 @@ class EthicForm extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function project()
-    {
-        return $this->belongsTo(Project::class);
-    }
 }
