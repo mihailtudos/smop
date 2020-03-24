@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
 class Project extends Model
 {
+    use Notifiable;
+
     protected $guarded = [];
 
     public function path()

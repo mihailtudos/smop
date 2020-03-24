@@ -6,6 +6,7 @@ use App\Activity;
 use App\ActivityTitle;
 use App\Field;
 use App\Http\Controllers\Controller;
+use App\Notifications\ProjectAssigned;
 use App\Project;
 use App\Topic;
 use App\User;
@@ -210,6 +211,7 @@ class ProjectsController extends Controller
         if(!auth()->user()->hasRole('admin') and $topic->project->count() == 0 and $topic->user->projects != null){
             return redirect()->back()->with('error', 'Unauthorised request!');
         }
+
         $data = $request->validate([
             'supervisor' => 'required'
         ]);
@@ -226,8 +228,16 @@ class ProjectsController extends Controller
             $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
 
             $project->student->activities()->create([ 'activity_title_id' => $activity ]);
+            $project->student->notify(new ProjectAssigned([
+                'title' => $project->title,
+                'link' => $project->path(),
+            ]));
+
+            $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
             $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
         }
+
+
 
         return redirect()->back()->with('success', 'Supervisor assigned and new project created!');
     }
