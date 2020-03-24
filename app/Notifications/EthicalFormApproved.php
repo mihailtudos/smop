@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProjectAssigned extends Notification implements ShouldQueue
+class EthicalFormApproved extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected $arr;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(array $arr)
+    public function __construct()
     {
-        $this->arr = $arr;
+        //
     }
 
     /**
@@ -41,10 +41,9 @@ class ProjectAssigned extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Congratulations!!! You’ve just been assigned to project:')
-            ->line('" '.$this->arr['title'].' "')
-            ->action('Find out more', url($this->arr['link']))
-            ->line('Thank you for using our application!');
+                    ->line('Congratulations! Submitted ethical form was approved.')
+                    ->action('Login for more details', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**

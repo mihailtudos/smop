@@ -42,13 +42,13 @@
             @endforeach
         </div>
 
-
     @endif
-        <div class="profile-work">
-            <p class="proile-rating text-left">MONITORED PROJECTS :</p>
+        <div class="profile-work overflow-auto " style="height: 250px">
+            <p class="proile-rating text-left mt-n2">MONITORED PROJECTS :</p>
             <ol class="">
                 @foreach($profile->user->monitoredProjects as $project)
-                    <li ><a class="text-primary" href="{{ $project->path() }}">{{ $project->title }}</a></li>
+                    <li class="mt-3"><a class="text-primary" href="{{ $project->path() }}">{{ $project->title }}</a></li>
+                    <hr class="border-success border-bottom">
                 @endforeach
             </ol>
         </div>
@@ -58,7 +58,7 @@
 <div class="col-md-8 border-left border-success">
     <div class="">
         <div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mt-4">
                 <div>
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">

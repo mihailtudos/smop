@@ -2,13 +2,14 @@
 
 @section('createCard')
 
-    <h5 class="card-header">Create New Project Suggestion</h5>
+    <h5 class="card-header">Edit ethical form</h5>
 
     <div class="card-body px-5">
 
-        <form action="{{ route('student.topics.update', $topic) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('student.form.update', $form) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            {{--
             <div class="form-group ">
                 <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
                 <div class="">
@@ -67,12 +68,12 @@
                     @enderror
                 </div>
             </div>
-
+            --}}
             <div class="form-group ">
                 <label for="body" class=" col-form-label text-md-right">Body<span class="text-danger">*</span></label>
 
                 <div class="">
-                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="40" rows="6" required >{{ old('body', $topic->body) }}</textarea>
+                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="40" rows="6" required >{{ old('body', $form->body) }}</textarea>
                     <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
 
                     @error('body')
@@ -83,7 +84,7 @@
                 </div>
             </div>
 
-
+            {{--
             <div class="form-group ">
                 <label for="subject" class="col-form-label text-md-right">Area of interest<span class="text-danger">*</span></label>
 
@@ -105,7 +106,6 @@
                 </div>
             </div>
 
-
             <div class="form-group ">
                 <label for="image" class=" col-form-label text-md-right">Image</label>
 
@@ -125,13 +125,13 @@
                     @enderror
                 </div>
             </div>
-
+            --}}
             <div class="form-group row mb-0 ">
                 <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
                     <button type="submit" class="btn btn-primary">
                         Update
                     </button>
-                    <a role="button" href="{{route('student.topics.index')}}" class="btn btn-secondary mr-2">
+                    <a role="button" href="{{route('student.form.index')}}" class="btn btn-secondary mr-2">
                         Cancel
                     </a>
                 </div>

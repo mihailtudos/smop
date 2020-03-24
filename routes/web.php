@@ -53,7 +53,7 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::get('/dashboard', function () {
         return view('supervisor.dashboard');
     });
-
+    Route::resource('diaries', 'DiariesController');
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
     Route::resource('emails', 'EmailsController');
@@ -63,6 +63,7 @@ Route::namespace('Student')->prefix('student')->name('student.')->middleware('au
     Route::resource('/topics', 'TopicsController');
     Route::resource('/diaries', 'DiariesController');
     Route::resource('/ethics/form', 'EthicFormsController');
+    Route::post('/ethics/form/approve{form}', 'EthicFormsController@approve')->name('ethic.form.approve');
 });
 
 Route::middleware('can:admin-supervise')->group(function () {

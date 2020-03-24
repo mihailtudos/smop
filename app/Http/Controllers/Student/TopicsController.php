@@ -115,10 +115,14 @@ class TopicsController extends Controller
         ]);
 
         $topic->subjects()->sync($request->subject);
+        $activity = ActivityTitle::where('activity_title', 'new topic submitted')->first();
 
-        auth()->user()->activities()->create([
-            'activity_title_id' =>  ActivityTitle::where('activity_title', 'new topic submitted')->first()->id
-        ]);
+        if ($activity){
+            auth()->user()->activities()->create([
+                'activity_title_id' =>  $activity->id
+            ]);
+        }
+
 
         if ($topic) {
             $request->session('success')->flash('success', "Topic has been submitted successfully");

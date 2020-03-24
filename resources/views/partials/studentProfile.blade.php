@@ -27,7 +27,7 @@
     <div class="profile-work">
         <p>SUPERVISOR :</p>
         @if($profile->user->projects != null)
-            <a href="#">{{ $profile->user->projects->supervisor->name }}</a><br/>
+            <a class="text-primary" href="{{ $profile->user->projects->supervisor->profile->path() }}">{{ $profile->user->projects->supervisor->name }}</a><br/>
         @endif
 
     </div>
@@ -88,6 +88,20 @@
                                 <p>{{ $profile->user->created_at->format('d-m-yy') }}</p>
                             </div>
                         </div>
+                        @if($profile->user->ethicalForm->count())
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if($profile->user->ethicalForm->approved)
+                                        <td> {{ 'Approved'  }}</td>
+                                    @else
+                                        <td><a href="{{$profile->user->ethicalForm->path()}}">{{ 'Pending'  }}</a> </td>
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $profile->user->ethicalForm->updated_at->format('d-m-yy') }}</p>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

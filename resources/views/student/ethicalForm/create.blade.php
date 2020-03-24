@@ -8,6 +8,8 @@
 
         <form action="{{ route('student.form.store') }}" method="post">
             @csrf
+
+            {{--
             <div class="form-group ">
                 <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
                 <div class="">
@@ -21,8 +23,6 @@
                     @enderror
                 </div>
             </div>
-            {{--
-
             <div class="form-group ">
                 <label for="description" class=" col-form-label text-md-right">Description<span class="text-danger">*</span></label>
 

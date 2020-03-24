@@ -228,12 +228,22 @@ class ProjectsController extends Controller
             $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
 
             $project->student->activities()->create([ 'activity_title_id' => $activity ]);
+
             $project->student->notify(new ProjectAssigned([
-                'title' => $project->title,
-                'link' => $project->path(),
+
+                'title'     => $project->title,
+                'link'      => $project->path(),
+
             ]));
 
-            $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
+            $project->supervisor->notify(new ProjectAssigned([
+
+                'title'     => $project->title,
+                'link'      => $project->path(),
+
+            ]));
+
+            $project->student->activities()->create(['activity_title_id' =>  $activity]);
             $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
         }
 

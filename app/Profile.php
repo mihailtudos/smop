@@ -31,6 +31,6 @@ class Profile extends Model
 
     public function path()
     {
-        return 'profiles/'. $this->user->id;
+        return '/profiles/'. $this->user->id;
     }
 }

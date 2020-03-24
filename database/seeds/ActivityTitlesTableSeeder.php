@@ -17,6 +17,10 @@ class ActivityTitlesTableSeeder extends Seeder
         ]);
 
         ActivityTitle::create([
+            'activity_title'=>'ethical form approved'
+        ]);
+
+        ActivityTitle::create([
             'activity_title'=>'new post created'
         ]);
 
