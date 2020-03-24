@@ -126,12 +126,7 @@ class User extends Authenticatable
 
     public function diaries()
     {
-        return $this->hasMany(Diary::class);
-    }
-
-    public function meetings()
-    {
-        return $this->hasMany(Meetings::class);
+        return $this->hasMany(Diary::class)->orderBy('created_at', 'desc');
     }
 
     public function profile()
@@ -177,5 +172,22 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class)->orderBy('created_at', 'desc');
     }
 
+    public function supervisesTheStudent(User $user)
+    {
+        if ($this->hasRole('supervisor') and $this->monitoredProjects != null){
+
+            if ($this->monitoredProjects->contains('student_id', $user->id)){
+                return true;
+            }
+                return false;
+
+        }
+        return false;
+    }
+
+    public function meetings()
+    {
+        return $this->hasMany(Meetings::class)->orderBy('created_at', 'desc');
+    }
 
 }

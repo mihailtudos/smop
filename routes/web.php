@@ -53,7 +53,7 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::get('/dashboard', function () {
         return view('supervisor.dashboard');
     });
-    Route::resource('diaries', 'DiariesController');
+    Route::resource('/diaries', 'DiariesController');
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
     Route::resource('emails', 'EmailsController');
@@ -72,6 +72,7 @@ Route::middleware('can:admin-supervise')->group(function () {
 });
 
 Route::get('/projects/{project}', 'ProjectsController@show');
+Route::get('/diary/record/{diary}', 'DiariesController@show')->name('diary.record');
 Route::get('/profiles/{profile}', 'ProfilesController@show')->name('profile.');
 Route::put('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
 Route::put('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject')->name('profile.updateSubject');

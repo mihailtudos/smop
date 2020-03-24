@@ -88,7 +88,7 @@
                                 <p>{{ $profile->user->created_at->format('d-m-yy') }}</p>
                             </div>
                         </div>
-                        @if($profile->user->ethicalForm->count())
+                        @if($profile->user->ethicalForm != null)
                             <div class="row">
                                 <div class="col-md-6">
                                     @if($profile->user->ethicalForm->approved)
@@ -107,7 +107,7 @@
 
             </div>
             <div class="tab-pane  fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="overflow-auto" style="height: 380px">
+                <div class="overflow-auto" style="height: 460px">
                     <table class="table text-center ">
                         <thead>
                         <tr>

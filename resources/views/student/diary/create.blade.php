@@ -81,7 +81,7 @@
                             <option value="">No meetings set</option>
                         @endforelse
                     </select>
-                    <small id="emailHelp" class="form-text text-muted">You could link the diary record to an existing meeting. If meeting not found <a href="{{ route('emails.create') }}"> contact </a> your supervisor.</small>
+                    <small id="emailHelp" class="form-text text-muted">You could link the diary record to an existing meeting. If desired meeting was not found <a href="{{ route('emails.create') }}"> contact </a> your supervisor.</small>
 
                     @error('meeting')
                     <span class="invalid-feedback" role="alert">

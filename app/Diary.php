@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diary extends Model
 {
     protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -14,6 +15,12 @@ class Diary extends Model
 
     public function path()
     {
-        return '/student/diaries/'. $this->id;
+        return '/diary/record/'. $this->id;
     }
+
+    public function meeting()
+    {
+        return $this->hasOne(Meetings::class);
+    }
+
 }

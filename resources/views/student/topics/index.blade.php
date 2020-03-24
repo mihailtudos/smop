@@ -33,6 +33,7 @@
                                 <td class="font-weight-bold"><a href="{{$topic->path()}}">{{ Str::limit($topic->title, '55') }}</a></td>
                                 <td > {{ Str::limit($topic->description, '200') }} </td>
                                 <td> {{  $topic->created_at->diffForHumans() }}</td>
+                                @if(!$topic->user->projects()->count())
                                 <td> @can('student')
                                         <a href="{{ route( 'student.topics.edit', $topic->id ) }}">
                                             <button class="btn btn-primary float-left float-left" type="button">
@@ -54,6 +55,7 @@
                                         </form>
                                     @endcan
                                 </td>
+                                @endif
                             </tr>
                         @empty
                         @endforelse

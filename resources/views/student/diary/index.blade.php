@@ -16,25 +16,34 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @forelse($records as $record)
-                            <div class="col-xl-6 mb-4">
+                        @forelse($records as $diary)
+                            <div class="col-lg-6 mb-4">
                                 <div class="card dashCardMini">
                                     <div class="card-header">
-                                        <span class="mr-2 diaryIcon"><i class="fas fa-calendar-day"></i> {{ $record->created_at->toDateString() }}</span>
+                                        <span class="mr-2 diaryIcon"><i class="fas fa-calendar-day"></i> {{ $diary->created_at->toDateString() }}</span>
                                     </div>
                                     <div class="card-body border-top border-success ">
                                         <div class="overflow-auto border-bottom border-dark" style="height: 150px">
-                                            <h5 class="card-title mb-2">{{ Str::limit($record->title, '150') }}</h5>
+                                            <h5 class="card-title mb-2">{{ Str::limit($diary->title, '150') }}</h5>
                                         </div>
                                         <div class="form-group row mx-2 d-flex justify-content-between">
-                                            <div class="mt-2 float-left">
-                                                <a href="{{ route('student.diaries.edit', $record->id) }}" role="button" class="btn btn-secondary mr-2">
+                                            <div class="mt-2 float-left d-flex justify-content-between">
+
+                                                <a href="{{ route('student.diaries.edit', $diary->id) }}" role="button" class="btn btn-secondary mr-2">
                                                     Edit
                                                 </a>
+                                                <form action="{{ route('student.diaries.destroy', $diary->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+
+                                                    <button role="button" type="submit" class="btn btn-danger mr-2 px-1">
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             </div>
 
                                             <div class="mt-2 float-right">
-                                                <a href="{{$record->path()}}" class="btn btn-primary">Mode details...</a>
+                                                <a href="{{ $diary->path() }}" class="btn btn-primary">More details...</a>
                                             </div>
                                         </div>
                                     </div>

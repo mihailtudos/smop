@@ -40,4 +40,9 @@ class Project extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function meetings()
+    {
+        return $this->hasMany(Meetings::class)->orderBy('created_at', 'desc')->paginate('10');
+    }
 }
