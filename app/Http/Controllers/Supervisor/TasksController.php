@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,10 +39,24 @@ class TasksController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        if (\auth()->user()->hasAnyRoles(['admin', 'supervisor']) and $project->ethicalForm->approved)
+        {
+            $data = $request->validate([
+                'title'         => 'required|max:250',
+                'description'   => 'required|max:250',
+            ]);
 
-        $project->addTask($request->title, Auth::user()->id);
 
-        return redirect($project->path());
+            Task::create([
+                'title'         =>  'sasas',
+                'description'   =>  $data['description'],
+                'user_id'       => auth()->user()->id,
+                'project_id'       => $project->id
+            ]);
+
+            return redirect($project->path())->with('success', 'Task added!');
+        }
+        return abort(403, 'Unauthorised');
     }
 
     /**

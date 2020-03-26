@@ -79,10 +79,12 @@
             <div class="container">
                 @include('partials.alerts')
                 @yield('content')
+
             </div>
         </main>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     {{--    ajax requiest --}}
     <script>
         $(document).ready(function(){
@@ -202,7 +204,6 @@
             dateFormat: "yy-mm-dd"
         });
     </script>
-
     <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 </html>

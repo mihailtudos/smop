@@ -17,6 +17,7 @@ class CreateEthicFormsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id')->unique();
             $table->unsignedBigInteger('user_id')->unique();
+            $table->string('title');
             $table->text('body');
             $table->boolean('approved')->nullable()->default(false);
             $table->timestamps();

@@ -8,38 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        dd('sda');
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -48,9 +23,13 @@ class ProjectsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
-    {
+    {;
+
         if ($project->student->id === auth()->user()->id or $project->supervisor->id === auth()->user()->id or auth()->user()->hasRole('admin')){
-            return view('projects.show', compact('project'));
+            $form = $project->student->ethicalForm;
+
+            $tasks = $project->tasks()->orderBy('updated_at','desc')->get();
+            return view('projects.show', compact('project', 'form', 'tasks'));
         }else {
             return redirect()->route('home');
         }

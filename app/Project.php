@@ -28,7 +28,7 @@ class Project extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)->orderBy('updated_at', 'desc');
     }
 
     public function addTask($title, $user_id)
@@ -44,5 +44,10 @@ class Project extends Model
     public function meetings()
     {
         return $this->hasMany(Meetings::class)->orderBy('created_at', 'desc')->paginate('10');
+    }
+
+    public function ethicalForm()
+    {
+        return $this->hasOne(EthicForm::class);
     }
 }

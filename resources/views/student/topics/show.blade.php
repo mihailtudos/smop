@@ -32,7 +32,7 @@
                                {{$topic->description}}
                            </p>
                        </div>
-x§                        <div class="mb-5">
+                        <div class="mb-5">
                             <h1 class="text-left">Methodology</h1>
                             <p>
                                 {{$topic->methodology}}

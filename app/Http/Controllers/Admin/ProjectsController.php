@@ -225,9 +225,8 @@ class ProjectsController extends Controller
         ]);
 
         if(ActivityTitle::where('activity_title', 'assigned to project')->first() != null){
-            $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
 
-            $project->student->activities()->create([ 'activity_title_id' => $activity ]);
+            $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
 
             $project->student->notify(new ProjectAssigned([
 

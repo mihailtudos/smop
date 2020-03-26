@@ -190,4 +190,9 @@ class User extends Authenticatable
         return $this->hasMany(Meetings::class)->orderBy('created_at', 'desc');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }
