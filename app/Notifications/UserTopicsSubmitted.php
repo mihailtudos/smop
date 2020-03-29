@@ -43,7 +43,7 @@ class UserTopicsSubmitted extends Notification implements ShouldQueue
 
         return (new MailMessage)
                     ->line('Student ' .$this->arr['name'] .' submitted three topics')
-                    ->action('Check student\'s topics', url('/'.$this->arr['link']))
+                    ->action('Check student\'s topics', url('http://127.0.0.1:8000'.$this->arr['link']))
                     ->line('Thank you for using our application!');
     }
 

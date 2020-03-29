@@ -43,7 +43,7 @@ class ProjectAssigned extends Notification implements ShouldQueue
         return (new MailMessage)
             ->line('Congratulations!!! You’ve just been assigned to project:')
             ->line('" '.$this->arr['title'].' "')
-            ->action('Find out more', url($this->arr['link']))
+            ->action('Find out more', url('http://127.0.0.1:8000'. $this->arr['link']))
             ->line('Thank you for using our application!');
     }
 

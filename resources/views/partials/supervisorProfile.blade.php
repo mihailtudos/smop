@@ -32,7 +32,7 @@
 
     @else
 
-        <div class="profile-work">
+        <div class="">
             <p>SUBJECTS :</p>
             @foreach($profile->subjects as $subject)
 
@@ -43,12 +43,13 @@
         </div>
 
     @endif
-        <div class="profile-work overflow-auto " style="height: 250px">
-            <p class="proile-rating text-left mt-n2">MONITORED PROJECTS :</p>
+        <div class=" overflow-auto mt-4 " style="height: 250px">
+            <p class=" text-left ">MONITORED PROJECTS :</p>
             <ol class="">
                 @foreach($profile->user->monitoredProjects as $project)
-                    <li class="mt-3"><a class="text-primary" href="{{ $project->path() }}">{{ $project->title }}</a></li>
-                    <hr class="border-success border-bottom">
+                    <li class="mt-3">
+                        <a class="text-primary" href="{{ $project->path() }}">{{ $project->title }}</a>
+                    </li>
                 @endforeach
             </ol>
         </div>

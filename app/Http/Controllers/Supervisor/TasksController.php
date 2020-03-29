@@ -48,7 +48,7 @@ class TasksController extends Controller
 
 
             Task::create([
-                'title'         =>  'sasas',
+                'title'         =>   $data['title'],
                 'description'   =>  $data['description'],
                 'user_id'       => auth()->user()->id,
                 'project_id'       => $project->id

@@ -79,11 +79,14 @@ Route::put('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject'
 Route::get('/profiles/{profile}/detachSubject', 'ProfilesController@detachSubject')->name('profile.detachSubject');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::resource('/emails', 'EmailsController');
+Route::resource('/projects/{project}/meetings', 'MeetingsController');
+Route::put('/projects/meetings/{meeting}', 'MeetingsController@attendance')->name('project.meeting.attendance');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');
 Route::get('/suggestions/fields/{field}', 'SuggestionsController@byFields')->name('fields.suggestions.list');
 Route::get('/suggestions/subjects/{subject}', 'SuggestionsController@bySubject')->name('subject.suggestions.list');
 //Route::get('suggestions/subjects/{subject}', 'SuggestionsController@subject')->name('subject.suggestions');
 Route::get('/projects/{project}', 'ProjectsController@show')->name('studentProjects');
+Route::put('/projects/{project}/tasks/{task}', 'TasksController@complete')->name('projects.tasks.complete');
 Route::post('projects/dynamic', 'ProjectsController@fetch')->name('projectscontroller.fetch');
 
 

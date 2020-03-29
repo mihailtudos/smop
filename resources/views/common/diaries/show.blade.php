@@ -19,7 +19,7 @@
                             <div class="col-12 mb-4">
                                 <div class="card dashCardMini">
                                     <div class="card-header">
-                                        <span class="mr-2 diaryIcon"><i class="fas fa-calendar-day"></i> {{ $diary->title }} </span>
+                                        <span class="mr-2 diaryIcon"> {{ $diary->title }} </span>
                                     </div>
 
                                     <div class="card-body border-top border-successdashCardMini jumbotron">

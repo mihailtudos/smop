@@ -17,11 +17,13 @@ class CreateMeetingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
-            $table->string('title');
+            $table->string('subject');
             $table->string('location');
-            $table->date('date');
-            $table->time('time');
-            $table->text('notes');
+            $table->string('meeting_form');
+            $table->text('meeting_notes');
+            $table->dateTime('date');
+            $table->boolean('accepted')->nullable()->default(0);
+            $table->boolean('attended')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -38,12 +38,12 @@ class EmailsController extends Controller
         if(auth()->user()->projects == null){
             $supervisors = null;
         }else {
-            $supervisors = auth()->user()->projects->supervisor;
+            $supervisor = auth()->user()->projects->supervisor;
         }
 
         $coordinators = User::whereHas('roles', function($q){$q->where('name', 'admin');})->get();
 
-        return view('emails.create', compact(['coordinators', 'supervisors']));
+        return view('emails.create', compact(['coordinators', 'supervisor']));
     }
 
     /**

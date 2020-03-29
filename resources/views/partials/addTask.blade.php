@@ -2,7 +2,7 @@
     @csrf
     <div class="form-group">
         <label for="title">Task<span class="text-danger">*</span></label>
-        <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" id="title" name="title"  required autofocus placeholder="Task title">
+        <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" id="title" name="title"  required  placeholder="Task title">
         <small id="title" class="form-text text-muted">Shouldn't be longer than 250 characters</small>
 
         @error('title')
@@ -18,5 +18,5 @@
         <span class="text-danger">{{$message}}</span>
         @enderror
     </div>
-    <button type="submit" class="btn btn-success float-right">Add task</button>
+    <button type="submit" class="btn btn-primary float-right">Add task</button>
 </form>

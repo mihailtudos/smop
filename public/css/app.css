@@ -5772,6 +5772,8 @@ a.badge-dark.focus {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
+  background-color: #3490dc;
+  border-color: #3490dc;
 }
 
 .list-group-item + .list-group-item {

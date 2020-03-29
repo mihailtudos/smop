@@ -5,11 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Meetings extends Model
+class Meeting extends Model
 {
-    protected $guarded = [];
     use Notifiable;
-
+    protected $guarded = [];
 
     public function project()
     {

@@ -196,6 +196,6 @@ class EthicFormsController extends Controller
 
         $student->notify(new EthicalFormApproved());
 
-        return redirect()->back()->with('success', 'Student ethical form approved!');
+        return redirect()->to($form->project->path())->with('success', 'Student ethical form approved!');
     }
 }

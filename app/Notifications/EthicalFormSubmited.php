@@ -42,7 +42,7 @@ class EthicalFormSubmited extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->line( $this->arr['name'].' submitted an ethical form.')
-                    ->action('Login to approve it', url($this->arr['link']))
+                    ->action('Login to approve it', url('http://127.0.0.1:8000/'.$this->arr['link']))
                     ->line('Thank you for using our application!');
     }
 

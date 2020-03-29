@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +20,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/datepicker.min.js') }}"></script>
+
+    <!-- Include English language -->
+    <script src="{{ asset('js/i18n/datepicker.en.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -26,8 +32,8 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
 
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand text-white font-weight-bold" href="{{ url('/') }}">
+                    {{ config('app.name', 'QA-SMOP') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,24 +48,19 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white font-weight-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-{{--                            @if (Route::has('register'))--}}
-{{--                                <li class="nav-item">--}}
-{{--                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
-{{--                                </li>--}}
-{{--                            @endif--}}
                         @else
-                            {{-- dropw down for emails --}}
+                        <!-- dropw down for emails -->
 
                             <li class="nav-item dropdown ">
                                @include('partials.emailDrop')
                             </li>
-                            {{-- drop down for logout,registration, etc--}}
+
+                            <!-- drop down for logout,registration, etc -->
                             <li class="nav-item dropdown ">
                                 <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -83,7 +84,6 @@
             </div>
         </main>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     {{--    ajax requiest --}}
     <script>
@@ -186,24 +186,9 @@
 
         }
 
-        // function checkValidation() {
-        //     if (studentsCheck.checked == true || coordinatorCheck.checked == true) {
-        //         if(studentsCheck.checked == true){
-        //             errorMessageDestination.style.display = "none";
-        //             alert('sda');
-        //         }
-        //     } else {
-        //         errorMessageDestination.style.display = "block";
-        //         $("#coordinator").prop('required', true);
-        //     }
-        // }
-    </script>
-    <script>
-        $('.date').datepicker({
-            autoclose: true,
-            dateFormat: "yy-mm-dd"
-        });
     </script>
     <script src="{{ asset('js/scripts.js') }}"></script>
+
 </body>
+
 </html>

@@ -15,10 +15,8 @@
                         @foreach($coordinators as $coordinator)
                             <option value="{{$coordinator->email}}">{{$coordinator->name}}</option>
                         @endforeach
-                        @if($supervisors)
-                            @foreach($supervisors as $supervisor)
+                        @if(isset($supervisor))
                                 <option value="{{$supervisor->email}}">{{$supervisor->name}}</option>
-                            @endforeach
                         @endif
                     </select>
                     <small id="emailHelp" class="form-text text-muted">If supervisor is not in the list <a role="button" href="#" class="list-inline" onclick="$('#to').val($('#to option:first').val());"> contact </a> your coordinator to assign you one.</small>

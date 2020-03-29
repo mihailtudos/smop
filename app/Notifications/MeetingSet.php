@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notification;
 
 class MeetingSet extends Notification implements ShouldQueue
 {
+    protected $arr;
     use Queueable;
 
 
@@ -17,9 +18,9 @@ class MeetingSet extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $arr)
     {
-        //
+        $this->arr = $arr;
     }
 
     /**
@@ -41,10 +42,18 @@ class MeetingSet extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        if ($this->arr['meeting_form'] == 'other'){
+            return (new MailMessage)
+                ->line('Your project supervisor scheduled a new meeting for ' .$this->arr['date'])
+                ->action('See your project for more details', url('http://127.0.0.1:8000'.$this->arr['link']))
+                ->line('Thank you for using our application!');
+        } else{
+            return (new MailMessage)
+                ->line('Your project supervisor scheduled a '.$this->arr['meeting_form'] .' meeting for ' .$this->arr['date'])
+                ->action('See your project for more details', url('http://127.0.0.1:8000'.$this->arr['link']))
+                ->line('Thank you for using our application!');
+        }
+
     }
 
     /**

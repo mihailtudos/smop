@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+
                     <div class="row">
                         @forelse($records as $diary)
                             <div class="col-lg-6 mb-4">

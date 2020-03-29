@@ -5,7 +5,7 @@ namespace App\Http\Controllers\student;
 use App\ActivityTitle;
 use App\Diary;
 use App\Http\Controllers\Controller;
-use App\Meetings;
+use App\Meeting;
 use Illuminate\Http\Request;
 
 class DiariesController extends Controller
@@ -28,10 +28,12 @@ class DiariesController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->projects == null){
+        $user = auth()->user();
+        if ($user->projects == null){
             $meetings = [];
         }else{
-            $meetings = auth()->user()->projects->meetings;
+//            $meetings = $user->projects->first()->meetings;
+            $meetings = [];
         }
         return view('student.diary.create', compact('meetings'));
     }

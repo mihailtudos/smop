@@ -20,7 +20,7 @@ class Diary extends Model
 
     public function meeting()
     {
-        return $this->hasOne(Meetings::class);
+        return $this->hasOne(Meeting::class);
     }
 
 }

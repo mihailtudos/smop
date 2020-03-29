@@ -42,7 +42,7 @@ class EthicalFormApproved extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->line('Congratulations! Submitted ethical form was approved.')
-                    ->action('Login for more details', url('/'))
+                    ->action('Login for more details', url('http://127.0.0.1:8000/'))
                     ->line('Thank you for using our application!');
     }
 
