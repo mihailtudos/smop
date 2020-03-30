@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -87,8 +88,8 @@ class TasksController extends Controller
         //
     }
 
-    public function complete()
+    public function complete(Request $request, Project $project, Task $task)
     {
-        dd('');
+
     }
 }

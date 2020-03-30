@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\NewTaskAdded;
 use App\Project;
 use App\Task;
 use Illuminate\Http\Request;
@@ -53,6 +54,10 @@ class TasksController extends Controller
                 'user_id'       => auth()->user()->id,
                 'project_id'       => $project->id
             ]);
+
+            $project->student->notify(new NewTaskAdded([
+                'link' => $project->path(),
+            ]));
 
             return redirect($project->path())->with('success', 'Task added!');
         }
