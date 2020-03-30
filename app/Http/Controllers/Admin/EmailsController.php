@@ -7,11 +7,12 @@ use App\Field;
 use App\Http\Controllers\Controller;
 use App\Mail\SendEmailMailable;
 use App\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class EmailsController extends Controller
+class EmailsController extends Controller implements ShouldQueue
 {
     public function __construct()
     {

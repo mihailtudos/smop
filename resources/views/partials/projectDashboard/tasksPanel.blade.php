@@ -36,14 +36,8 @@
 
                     @if(auth()->user()->id == $project->student->id)
                         <div class="mt-2">
-                            <form id="competeTask" action="{{route('projects.tasks.complete', [$project, $task])}}" method="post">
-                                @csrf
-                                @method('put')
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" onchange="$('#competeTask').submit();" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Complete</label>
-                                </div>
-                            </form>
+
+
                         </div>
                     @else
                         <div>

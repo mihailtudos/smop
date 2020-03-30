@@ -6,11 +6,12 @@ use App\Email;
 use App\EmailLog;
 use App\Mail\SendEmailMailable;
 use App\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class EmailsController extends Controller
+class EmailsController extends Controller implements ShouldQueue
 {
     public function __construct()
     {
@@ -36,7 +37,7 @@ class EmailsController extends Controller
     public function create()
     {
         if(auth()->user()->projects == null){
-            $supervisors = null;
+            $supervisor = null;
         }else {
             $supervisor = auth()->user()->projects->supervisor;
         }
