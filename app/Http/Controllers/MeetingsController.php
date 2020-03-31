@@ -49,7 +49,7 @@ class MeetingsController extends Controller
             'subject'       => 'required',
             'meeting_form'  => 'required',
             'location'      => 'required_if:meeting_form,==,other|required_if:meeting_form,==,face-to-face',
-            'date'          => 'required|date_format:Y-m-d H:i|after:today',
+            'date'          => 'required|date_format:Y-m-d H:i|after:tomorrow',
             'meeting_notes' => 'required',
         ]);
 
@@ -73,7 +73,7 @@ class MeetingsController extends Controller
             'link'          => $project->path(),
         ]));
 
-        return redirect()->back()->with('success', 'Proposed meeting sent to your supervisee! The meeting will appear under "scheduled meetings" section as soon as the student confirms he can attend it.');
+        return redirect()->back()->with('success', 'Proposed meeting sent! The meeting will appear under "scheduled meetings".');
     }
 
     /**
@@ -123,7 +123,7 @@ class MeetingsController extends Controller
 
     public function attendance(Request $request, Meeting $meeting)
     {
-        $request->session()->flash('attendance', 'active');
+            $request->session()->flash('attendance', 'active');
 
         $data = $request->validate([
            'attended' => 'required'
@@ -134,5 +134,16 @@ class MeetingsController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Attendance recorded!');
+    }
+
+    public function confirmation(Request $request, Meeting $meeting)
+    {
+        $request->session()->flash('upcoming', 'active');
+
+        $meeting->update([
+            'accepted' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Confirmation registered');
     }
 }

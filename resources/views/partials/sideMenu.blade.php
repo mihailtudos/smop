@@ -12,6 +12,7 @@
     @endcan
 
     @can('supervise')
+        <a href="{{ route('diaries.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-calendar-day"></i> Diary <span class="badge badge-success badge-pill">{{ auth()->user()->diaries->count() }}</span></a>
         <a href="{{ '/suggestions' }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{auth()->user()->suggestions()->count()}}</span></a>
         <a href="{{ route('supervisor.projects.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Projects <span class="badge badge-success badge-pill">{{auth()->user()->monitoredProjects()->count()}}</span></a>
     @endcan
@@ -22,7 +23,7 @@
         <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#suggestionsModal">
             <i class="fas fa-lightbulb"></i> Ideas <span class="badge badge-success badge-pill">{{ \App\ProjectSuggestion::all()->count() }}</span>
         </button>
-        <a href="{{ route('student.diaries.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-calendar-day"></i> Diary <span class="badge badge-success badge-pill">{{ auth()->user()->diaries->count() }}</span></a>
+        <a href="{{ route('diaries.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-calendar-day"></i> Diary <span class="badge badge-success badge-pill">{{ auth()->user()->diaries->count() }}</span></a>
         @if(auth()->user()->projects)
             <a  href="{{ route('studentProjects', auth()->user()->projects)  }}"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-project-diagram"></i> Project <span class="badge badge-success badge-pill">{{ auth()->user()->projects()->count() }}</span></a>
             <a  href="{{ route('student.form.index') }}"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><i class="fas fa-gavel"></i>Ethics <span class="badge badge-success badge-pill">{{ auth()->user()->ethicalForm()->count() }}</span></a>

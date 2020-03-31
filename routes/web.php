@@ -53,7 +53,6 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
     Route::get('/dashboard', function () {
         return view('supervisor.dashboard');
     });
-    Route::resource('/diaries', 'DiariesController');
     Route::resource('projects', 'ProjectsController'); //['except' =>'index']
     Route::resource('projects/{project}/tasks', 'TasksController');
     Route::resource('emails', 'EmailsController');
@@ -61,7 +60,6 @@ Route::namespace('Supervisor')->prefix('supervisor')->name('supervisor.')->middl
 
 Route::namespace('Student')->prefix('student')->name('student.')->middleware('auth')->group(function () {
     Route::resource('/topics', 'TopicsController');
-    Route::resource('/diaries', 'DiariesController');
     Route::resource('/ethics/form', 'EthicFormsController');
     Route::post('/ethics/form/approve{form}', 'EthicFormsController@approve')->name('ethic.form.approve');
 });
@@ -72,7 +70,7 @@ Route::middleware('can:admin-supervise')->group(function () {
 });
 
 Route::get('/projects/{project}', 'ProjectsController@show');
-Route::get('/diary/record/{diary}', 'DiariesController@show')->name('diary.record');
+Route::resource('/diaries', 'DiariesController');
 Route::get('/profiles/{profile}', 'ProfilesController@show')->name('profile.');
 Route::put('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
 Route::put('/profiles/{profile}/updateSubjects', 'ProfilesController@addSubject')->name('profile.updateSubject');
@@ -81,6 +79,7 @@ Route::get('/posts/{post}', 'PostsController@show');
 Route::resource('/emails', 'EmailsController');
 Route::resource('/projects/{project}/meetings', 'MeetingsController');
 Route::put('/projects/meetings/{meeting}', 'MeetingsController@attendance')->name('project.meeting.attendance');
+Route::patch('/projects/meetings/{meeting}', 'MeetingsController@confirmation')->name('project.meeting.confirmation');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');
 Route::get('/suggestions/fields/{field}', 'SuggestionsController@byFields')->name('fields.suggestions.list');
 Route::get('/suggestions/subjects/{subject}', 'SuggestionsController@bySubject')->name('subject.suggestions.list');

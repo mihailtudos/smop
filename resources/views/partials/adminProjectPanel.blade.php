@@ -19,11 +19,13 @@
                     <div class="tab-content p-3" id="nav-tabContent">
                         <div class="tab-pane fade @if(session()->has('meeting') or session()->has('form') or session()->has('attendance'))  @else show active @endif" id="nav-tasks" role="tabpanel" aria-labelledby="nav-tasks-tab">
                             @if($form != null)
-                                @include('partials.projectDashboard.tasksPanel')
-                            @else
-                                <div class="jumbotron text-center">
-                                    <p>Before project kick out there must be an ethical form submitted and approved.</p>
-                                </div>
+                                @if($form->approved)
+                                    @include('partials.projectDashboard.tasksPanel')
+                                @else
+                                    <div class="jumbotron text-center">
+                                        <p>Before project kick out there must be an ethical form submitted and approved.</p>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                         <div class="tab-pane fade @if(session()->has('form')) show active  @else @endif" id="nav-form" role="tabpanel" aria-labelledby="nav-form-tab">

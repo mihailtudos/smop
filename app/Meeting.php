@@ -19,4 +19,9 @@ class Meeting extends Model
     {
         return $this->belongsTo(User::class)->orderBy('created_at', 'desc');
     }
+
+    public function diary()
+    {
+        return $this->hasOne(Diary::class);
+    }
 }

@@ -6,7 +6,7 @@
 
     <div class="card-body px-5">
 
-        <form action="{{ route('student.diaries.update', $diary) }}" method="post">
+        <form action="{{ route('diaries.update', $diary) }}" method="post">
             @csrf
            @method('PUT')
 
@@ -72,41 +72,34 @@
                 </div>
             </div>
 
+            @if($diary->meeting_id)
                 <div class="form-group ">
                     <label for="meeting" class="col-form-label text-md-right">Meetings</label>
                     <div class="">
-                        @if(!$diary->meeting_id)
-                            <select name="meeting_id" id="meeting" class="form-control @error('meeting') is-invalid @enderror input-lg" >
-                                    <option value="">Select a meeting</option>
-                                @forelse($meetings as $meeting)
-                                    <option value="{{$meeting->id}}">{{ $meeting->name }}</option>
-                                @empty
-                                    <option value="">No meetings set</option>
-                                @endforelse
-                            </select>
+                        <select name="meeting_id" id="meeting" class="form-control @error('meeting') is-invalid @enderror input-lg" >
+                            @forelse($meetings as $meeting)
+                                <option @if($meeting->id == $diary->meeting_id) selected @endif  value="{{$meeting->id}}">{{'meeting of form: ' .$meeting->meeting_form .' from: '. substr(  $meeting->date, 0, -3) }}</option>
+                            @empty
+                                <option value="">No meetings set</option>
+                            @endforelse
+                        </select>
                         <small id="emailHelp" class="form-text text-muted">You could link the diary record to an existing meeting. If desired meeting was not found <a href="{{ route('emails.create') }}"> contact </a> your supervisor.</small>
 
                         @error('meeting')
-                            <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        @else
-                            <div class="">
-                                <input id="meeting" disabled class="form-control" value="{{ $diary->meeting->title }}">
-                                <small id="emailHelp" class="form-text text-muted">Assigned meeting cannot be changed anymore.</small>
-                            </div>
-                        @endif
                     </div>
                 </div>
-
+            @endif
 
             <div class="form-group row mb-0 ">
                 <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
                     <button type="submit" class="btn btn-primary">
                         Update
                     </button>
-                    <a role="button" href="{{ route('student.diaries.index') }}" class="btn btn-secondary mr-2 text-white">
+                    <a role="button" href="{{ route('diaries.index') }}" class="btn btn-secondary mr-2 text-white">
                         Cancel
                     </a>
                 </div>

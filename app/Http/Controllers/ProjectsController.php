@@ -24,14 +24,16 @@ class ProjectsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
-    {;
-
+    {
         if ($project->student->id === auth()->user()->id or $project->supervisor->id === auth()->user()->id or auth()->user()->hasRole('admin')){
             $form = $project->student->ethicalForm;
-            $tasks = $project->tasks()->orderBy('updated_at','desc')->paginate(7);
-            $meetings = Meeting::where('project_id', $project->id)->where('attended', null)->get();
-            $completedMeetings = Meeting::where('project_id', $project->id)->where('attended', 1)->orWhere('attended', 0)->orderBy('updated_at', 'desc')->get();
-            return view('projects.show', compact('project', 'form', 'tasks', 'meetings', 'completedMeetings'));
+            $tasks = $project->tasks()->orderBy('created_at','desc')->get();
+            $incompletedTasks = $project->tasks()->where('completed', 0)->get();
+            $completedTasks = $project->tasks()->where('completed', 1)->get();
+            $meetings = Meeting::where('project_id', $project->id)->orderBy('created_at', 'desc')->get();
+            $completedMeetings = Meeting::where('project_id', $project->id)->where('attended','!=', null)->orderBy('updated_at', 'desc')->get();
+
+            return view('projects.show', compact('project', 'form', 'tasks', 'meetings', 'completedMeetings', 'incompletedTasks', 'completedTasks'));
         }else {
             return redirect()->route('home');
         }

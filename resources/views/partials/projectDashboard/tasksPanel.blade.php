@@ -1,54 +1,28 @@
 <div>
-    @forelse($tasks as $task)
-        @if($task->completed)
-            <div class="card p-3 mb-3 border-bottom border-success">
-                <div>
-                    <h3><span class="display-4">#</span>{{'SMOP-mt0'.$task->id}}</h3>
-                    <h4>{{$task->title}}</h4>
-                </div>
-                <div>
-                    <input class="w-100 form-control form-control-lg " type="text" name="" id="" value="{{$task->description}}" disabled>
-                </div>
-                <div class="d-flex align-content-end justify-content-end mt-5 border-success border-top">
-                    <div class="mt-2">
-                        <form id="competeTask" action="{{route('projects.tasks.complete', [$project, $task])}}" method="post">
-                            @csrf
-                            @method('put')
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" onchange="$('#competeTask').submit();" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Complete</label>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item text-dark font-weight-bold nav-link active" id="nav-incomplete-tab" data-toggle="tab" href="#nav-incomplete" role="tab" aria-controls="nav-incomplete" aria-selected="true">Incomplete</a>
+            <a class="nav-item text-dark font-weight-bold nav-link" id="nav-completed-tab" data-toggle="tab" href="#nav-completed" role="tab" aria-controls="nav-completed" aria-selected="false">Completed</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-incomplete" role="tabpanel" aria-labelledby="nav-incomplete-tab">
+            <div class="mt-4">
+                @forelse($incompletedTasks as $task)
+                        @include('partials.tasks.tasksCard')
+                @empty
+                    <h4>There are no tasks assigned to this project.</h4>
+                @endforelse
             </div>
-        @else
-            <div class="card p-3 mb-3 border-bottom border-success">
-                <div>
-                    <h3><span class="display-4">#</span>{{'SMOP-mt0'.$task->id}}</h3>
-                    <h4>{{$task->title}}</h4>
-                </div>
-                <div>
-                    <input class="w-100 form-control form-control-lg " type="text" name="" id="" value="{{$task->description}}" disabled>
-                </div>
-                <div class="d-flex align-content-end justify-content-end mt-5 border-success border-top">
-
-                    @if(auth()->user()->id == $project->student->id)
-                        <div class="mt-2">
-
-
-                        </div>
-                    @else
-                        <div>
-                            <p class="pt-3">Awaiting student completion</p>
-                        </div>
-                    @endif
-
-                </div>
+        </div>
+        <div class="tab-pane fade" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
+            <div class="mt-4">
+                @forelse($completedTasks as $task)
+                        @include('partials.tasks.completedTasksCard')
+                @empty
+                    <h4>There are no tasks assigned to this project.</h4>
+                @endforelse
             </div>
-        @endif
-    @empty
-        <h4>No tasks found</h4>
-    @endforelse
+        </div>
+    </div>
 </div>

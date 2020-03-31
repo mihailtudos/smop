@@ -17,6 +17,15 @@ class Task extends Model
 
     public function project()
     {
-        return $this->belongsTo(Project::class)->orderBy('updated_at', 'desc');
+        return $this->belongsTo(Project::class)->orderBy('created_at', 'desc');
+    }
+
+    public function completed()
+    {
+        $this->update([
+            'completed' => 1
+        ]);
+
+        return true;
     }
 }

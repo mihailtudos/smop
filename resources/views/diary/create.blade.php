@@ -6,7 +6,7 @@
 
     <div class="card-body px-5">
 
-        <form action="{{ route('student.diaries.store') }}" method="post">
+        <form action="{{ route('diaries.store') }}" method="post">
             @csrf
             <div class="form-group ">
                 <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
@@ -70,34 +70,12 @@
                 </div>
             </div>
 
-            <div class="form-group ">
-                <label for="meeting" class="col-form-label text-md-right">Meetings</label>
-
-                <div class="">
-                    <select name="meeting" id="meeting" class="form-control @error('meeting') is-invalid @enderror input-lg">
-                        @forelse($meetings as $meeting)
-                            <option value="{{$meeting->id}}">{{ $meeting->name }}</option>
-                        @empty
-                            <option value="">No meetings set</option>
-                        @endforelse
-                    </select>
-                    <small id="emailHelp" class="form-text text-muted">You could link the diary record to an existing meeting. If desired meeting was not found <a href="{{ route('emails.create') }}"> contact </a> your supervisor.</small>
-
-                    @error('meeting')
-                    <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-
-                </div>
-            </div>
-
             <div class="form-group row mb-0 ">
                 <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
                     <button type="submit" class="btn btn-primary">
                         Create
                     </button>
-                    <a role="button" href="{{ route('student.diaries.index') }}" class="btn btn-secondary mr-2 text-white">
+                    <a role="button" href="{{ route('diaries.index') }}" class="btn btn-secondary mr-2 text-white">
                         Cancel
                     </a>
                 </div>

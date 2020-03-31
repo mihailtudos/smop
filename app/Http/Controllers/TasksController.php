@@ -90,6 +90,11 @@ class TasksController extends Controller
 
     public function complete(Request $request, Project $project, Task $task)
     {
-
+        if (auth()->user()->id == $project->student->id){
+            $task->completed();
+            return redirect()->back()->with('success', 'Task successfully marked as completed');
+        }else{
+            return abort(403,'Unauthorised');
+        }
     }
 }

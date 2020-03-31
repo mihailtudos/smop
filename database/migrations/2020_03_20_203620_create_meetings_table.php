@@ -18,11 +18,11 @@ class CreateMeetingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
             $table->string('subject');
-            $table->string('location');
+            $table->string('location')->nullable()->default('virtual');
             $table->string('meeting_form');
             $table->text('meeting_notes');
             $table->dateTime('date');
-            $table->boolean('accepted')->nullable()->default(0);
+            $table->boolean('accepted')->nullable()->default(null);
             $table->boolean('attended')->nullable()->default(null);
             $table->timestamps();
 

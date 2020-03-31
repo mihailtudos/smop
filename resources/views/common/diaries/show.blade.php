@@ -11,16 +11,19 @@
                 <div class="card-header d-flex justify-content-between align-items-end">
                     <span class="mr-2 diaryIcon"><h4><i class="fas fa-calendar-day"></i>  Record of {{ $diary->created_at->toDateString() }} </h4></span>
                     <div>
-                        <a class="btn btn-success border-dark" href="{{ route('student.diaries.create') }}" role="button">Create</a>
+                        <a class="btn btn-success border-dark" href="{{ route('diaries.create') }}" role="button">Create</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                             <div class="col-12 mb-4">
                                 <div class="card dashCardMini">
-                                    <div class="card-header">
-                                        <span class="mr-2 diaryIcon"> {{ $diary->title }} </span>
-                                    </div>
+
+                                    @if($diary->meeting_id)
+                                        <div class="card-header">
+                                            <span class="mr-2 diaryIcon"> {{ substr( 'ref. to supervisory meeting of '. $diary->meeting->date, 0, -3) }} </span>
+                                        </div>
+                                    @endif
 
                                     <div class="card-body border-top border-successdashCardMini jumbotron">
 
@@ -44,10 +47,10 @@
 
                                             <div class="mt-2 float-left d-flex justify-content-between">
                                                 @if($owner->id == auth()->user()->id)
-                                                    <a href="{{ route('student.diaries.edit', $diary->id) }}" role="button" class="btn btn-secondary mr-2">
+                                                    <a href="{{ route('diaries.edit', $diary->id) }}" role="button" class="btn btn-secondary mr-2">
                                                         Edit
                                                     </a>
-                                                    <form action="{{ route('student.diaries.destroy', $diary->id) }}" method="post">
+                                                    <form action="{{ route('diaries.destroy', $diary->id) }}" method="post">
                                                         @csrf
                                                         @method('delete')
 
@@ -58,7 +61,7 @@
                                                 @endif
                                             </div>
                                             <div class="mt-2 float-right">
-                                                <a href="" onclick="window.history.go(-1); return false;" class="btn btn-primary">Back</a>
+                                                <a href="{{ route('diaries.index') }}" class="btn btn-primary">Back</a>
                                             </div>
                                         </div>
                                     </div>

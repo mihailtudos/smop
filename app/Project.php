@@ -43,7 +43,7 @@ class Project extends Model
 
     public function meetings()
     {
-        return $this->hasMany(Meeting::class)->orderBy('created_at', 'desc')->paginate('10');
+        return $this->hasMany(Meeting::class)->orderBy('updated_at', 'desc');
     }
 
     public function ethicalForm()

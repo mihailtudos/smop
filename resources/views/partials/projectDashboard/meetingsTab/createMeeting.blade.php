@@ -1,4 +1,4 @@
-<div class="tab-pane fade @if(session()->has('attendance')) @else show active @endif " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+<div class="tab-pane fade @if(session()->has('attendance') or session()->has('upcoming')) @else show active @endif " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
     <div class=" mt-4 jumbotron">
         <h4>Here you can schedule new meetings by filling all below requirements.</h4>
     </div>

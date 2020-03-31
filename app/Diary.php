@@ -15,12 +15,12 @@ class Diary extends Model
 
     public function path()
     {
-        return '/diary/record/'. $this->id;
+        return '/diaries/'. $this->id;
     }
 
     public function meeting()
     {
-        return $this->hasOne(Meeting::class);
+        return $this->belongsTo(Meeting::class);
     }
 
 }

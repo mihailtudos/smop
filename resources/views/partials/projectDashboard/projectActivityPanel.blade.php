@@ -2,7 +2,7 @@
     <table class="table text-center">
         <thead>
         <tr >
-            <th scope="col">Latest</th>
+            <th scope="col">Latest task</th>
             <th scope="col">Task</th>
         </tr>
         </thead>
@@ -11,17 +11,17 @@
             @foreach($tasks as $task)
                 @if(!$task->completed)
                     <tr>
-                        <th scope="row">{{   $task->created_at->format('d-m-yy') }}</th>
-                        <td> {{  'the '}} <strong class="text-danger">supervisor</strong> {{' created task '. ' SMOP-mt0'.$task->id}} </td>
+                        <th scope="row">{{   $task->created_at->diffForHumans() }}</th>
+                        <td> {{  'the '}} <strong class="text-danger">supervisor</strong> {{' created task '}} <span class="text-success"># </span>{{'SMOP-mt0'.$task->id}} </td>
                     </tr>
                 @else
                     <tr>
-                        <th scope="row">{{   $task->created_at->format('d-m-yy') }}</th>
-                        <td> {{  'the '}} <strong class="text-danger">supervisor</strong> {{' created task no.'. $task->id}} </td>
+                        <th scope="row">{{   $task->updated_at->diffForHumans() }}</th>
+                        <td> {{  'the '}} <strong class="text-primary">student</strong> {{' completed task '}} <span class="text-success"># </span>{{'SMOP-mt0'.$task->id}} </td>
                     </tr>
                     <tr>
-                        <th scope="row">{{   $task->updated_at->format('d-m-yy') }}</th>
-                        <td> {{  'the '}} <strong class="text-primary">student</strong> {{' completed task ID'. 'SMOP-mt0'.$task->id}} </td>
+                        <th scope="row">{{   $task->created_at->diffForHumans() }}</th>
+                        <td> {{  'the '}} <strong class="text-danger">supervisor</strong> {{' created task'}} <span class="text-success"># </span>{{'SMOP-mt0'.$task->id}} </td>
                     </tr>
                 @endif
 
@@ -29,16 +29,16 @@
             @if($form != null)
                 @if($form->aproved and $tasks == null)
                     <tr>
-                        <th scope="row">{{   $form->created_at->format('d-m-yy') }}</th>
+                        <th scope="row">{{   $form->created_at->diffForHumans() }}</th>
                         <td> <strong class="text-danger">student</strong> submitted an ethical form </td>
                     </tr>
                 @else
                     <tr>
-                        <th scope="row">{{   $form->updated_at->format('d-m-yy') }}</th>
+                        <th scope="row">{{   $form->updated_at->diffForHumans() }}</th>
                         <td> the <strong class="text-danger">supervisor</strong> approved student's ethical form </td>
                     </tr>
                     <tr>
-                        <th scope="row">{{   $form->created_at->format('d-m-yy') }}</th>
+                        <th scope="row">{{   $form->created_at->diffForHumans() }}</th>
                         <td> the <strong class="text-primary">student</strong> submitted an ethical form </td>
                     </tr>
                 @endif

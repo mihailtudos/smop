@@ -1,20 +1,20 @@
 <form action="{{route('supervisor.tasks.store', $project)}}" method="post">
     @csrf
     <div class="form-group">
-        <label for="title">Task<span class="text-danger">*</span></label>
-        <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" id="title" name="title"  required  placeholder="Task title">
-        <small id="title" class="form-text text-muted">Shouldn't be longer than 250 characters</small>
+        <label for="taskTitle">Task title<span class="text-danger">*</span></label>
+        <input type="text" class="form-control @error('taskTitle') is-invalid @enderror" value="{{ old('taskTitle') }}" id="taskTitle" name="taskTitle"  required  placeholder="Task taskTitle">
+        <small id="taskTitle" class="form-text text-muted">Shouldn't be longer than 250 characters</small>
 
-        @error('title')
+        @error('taskTitle')
             <span class="text-danger">{{$message}}</span>
         @enderror
     </div>
     <div class="form-group">
-        <label for="description">Description<span class="text-danger">*</span></label>
-        <textarea name="description" class="form-control @error('title') is-invalid @enderror" id="description" required placeholder="Short task description">{{ old('Description') }}</textarea>
-        <small id="title" class="form-text text-muted">Shouldn't be longer than 400 characters</small>
+        <label for="taskDescription">Task description<span class="text-danger">*</span></label>
+        <textarea name="taskDescription" class="form-control @error('taskTitle') is-invalid @enderror" id="taskDescription" required placeholder="Short task description">{{ old('Description') }}</textarea>
+        <small id="taskTitle" class="form-text text-muted">Shouldn't be longer than 400 characters</small>
 
-        @error('title')
+        @error('taskTitle')
         <span class="text-danger">{{$message}}</span>
         @enderror
     </div>

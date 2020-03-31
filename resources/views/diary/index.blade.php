@@ -11,7 +11,8 @@
                 <div class="card-header d-flex justify-content-between align-items-end">
                     <h4>Your Diary Records</h4>
                     <div>
-                        <a class="btn btn-success border-dark" href="{{ route('student.diaries.create') }}" role="button">Create</a>
+                        <a class="btn btn-secondary border-dark" href="{{ route('diaries.create') }}" role="button">Export</a>
+                        <a class="btn btn-primary border-dark" href="{{ route('diaries.create') }}" role="button">Create</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,10 +31,10 @@
                                         <div class="form-group row mx-2 d-flex justify-content-between">
                                             <div class="mt-2 float-left d-flex justify-content-between">
 
-                                                <a href="{{ route('student.diaries.edit', $diary->id) }}" role="button" class="btn btn-secondary mr-2">
+                                                <a href="{{ route('diaries.edit', $diary->id) }}" role="button" class="btn btn-secondary mr-2">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('student.diaries.destroy', $diary->id) }}" method="post">
+                                                <form action="{{ route('diaries.destroy', $diary->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
 
