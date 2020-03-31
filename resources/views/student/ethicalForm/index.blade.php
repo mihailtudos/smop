@@ -5,7 +5,10 @@
         <h4>Ethical form</h4>
         <div>
             @if(auth()->user()->ethicalForm()->count() == 0)
-                <a class="btn btn-success border-dark" href="{{ route('student.form.create') }}" role="button">Create</a>
+                <a class="btn btn-secondary border-dark" href="{{ route('student.form.export') }}" role="button">Export</a>
+                <a class="btn btn-primary border-dark" href="{{ route('student.form.create') }}" role="button">Create</a>
+            @else
+                <a class="btn btn-secondary border-dark" href="{{ route('student.form.export') }}" role="button">Export</a>
             @endif
         </div>
     </div>

@@ -12,6 +12,7 @@ use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 class EthicFormsController extends Controller
 {
@@ -197,5 +198,15 @@ class EthicFormsController extends Controller
         $student->notify(new EthicalFormApproved());
 
         return redirect()->to($form->project->path())->with('success', 'Student ethical form approved!');
+    }
+
+    public function export()
+    {
+        if (auth()->user()->ethicalForm != null){
+            $form = auth()->user()->ethicalForm;
+            $pdf = PDF::loadView('student.form.index', ['form' => $form]);
+            return $pdf->download('student.form.index');
+        }
+        return redirect()->back()->with('error', 'You have not submitted any form yet.');
     }
 }

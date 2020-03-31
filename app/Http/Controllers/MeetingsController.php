@@ -146,7 +146,7 @@ class MeetingsController extends Controller
             'accepted' => 1
         ]);
 
-        return redirect()->back()->with('success', 'Confirmation registered');
+        return redirect()->back()->with('success', 'Confirmation registered!');
     }
 
     public function cancel(Request $request, Meeting $meeting)

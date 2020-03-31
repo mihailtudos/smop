@@ -62,6 +62,7 @@ Route::namespace('Student')->prefix('student')->name('student.')->middleware('au
     Route::resource('/topics', 'TopicsController');
     Route::resource('/ethics/form', 'EthicFormsController');
     Route::post('/ethics/form/approve{form}', 'EthicFormsController@approve')->name('ethic.form.approve');
+    Route::get('/form/export', 'EthicFormsController@export')->name('form.export');
 });
 
 Route::middleware('can:admin-supervise')->group(function () {

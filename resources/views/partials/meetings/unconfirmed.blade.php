@@ -42,7 +42,10 @@
                             @if(auth()->user()->id != $meeting->user->id )
                                 <div>
                                     <form action="{{ route('project.meeting.confirmation', $meeting) }}" method="post">
-                                        <button type="button" class="btn btn-primary mr-2 px-1" >
+                                        @csrf
+                                        @method('patch')
+                                        
+                                        <button type="submit" class="btn btn-primary mr-2 px-1" >
                                             Confirm
                                         </button>
                                     </form>
