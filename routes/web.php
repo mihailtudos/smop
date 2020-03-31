@@ -80,6 +80,7 @@ Route::resource('/emails', 'EmailsController');
 Route::resource('/projects/{project}/meetings', 'MeetingsController');
 Route::put('/projects/meetings/{meeting}', 'MeetingsController@attendance')->name('project.meeting.attendance');
 Route::patch('/projects/meetings/{meeting}', 'MeetingsController@confirmation')->name('project.meeting.confirmation');
+Route::put('/projects/meetings/cancel/{meeting}', 'MeetingsController@cancel')->name('project.meeting.cancel');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');
 Route::get('/suggestions/fields/{field}', 'SuggestionsController@byFields')->name('fields.suggestions.list');
 Route::get('/suggestions/subjects/{subject}', 'SuggestionsController@bySubject')->name('subject.suggestions.list');

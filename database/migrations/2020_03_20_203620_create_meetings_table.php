@@ -17,6 +17,7 @@ class CreateMeetingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id')->nullable()->default(null);
+            $table->unsignedBigInteger('cancelled_by')->nullable()->default(null);
             $table->string('subject');
             $table->string('location')->nullable()->default('virtual');
             $table->string('meeting_form');
@@ -24,9 +25,12 @@ class CreateMeetingsTable extends Migration
             $table->dateTime('date');
             $table->boolean('accepted')->nullable()->default(null);
             $table->boolean('attended')->nullable()->default(null);
+            $table->text('reason')->nullable()->default(null);
+            $table->timestamp('deleted_at')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }

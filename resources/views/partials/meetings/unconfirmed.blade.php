@@ -35,7 +35,7 @@
                 <div class="d-flex justify-content-end">
 
                     @if(now()->format('yy-m-d h:i') < $meeting->date)
-                        @if((new DateTime('+48 hours'))->format('yy-m-d h:i') < $meeting->date)
+                        @if((new DateTime('+25 hours'))->format('yy-m-d h:i') < $meeting->date)
                             <button type="button" class="btn btn-danger mr-2 px-1" data-toggle="modal" data-target="#staticBackdrop">
                                 Cancel
                             </button>

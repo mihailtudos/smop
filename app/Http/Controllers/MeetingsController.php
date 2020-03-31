@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\CancelledMeeting;
 use App\Meeting;
+use App\Notifications\MeetingCancelled;
 use App\Notifications\MeetingSet;
 use App\Project;
 use Illuminate\Http\Request;
@@ -73,10 +75,10 @@ class MeetingsController extends Controller
             'link'          => $project->path(),
         ]));
 
-        return redirect()->back()->with('success', 'Proposed meeting sent! The meeting will appear under "scheduled meetings".');
+        return redirect()->back()->with('success', 'Proposed meeting sent! The meeting will appear under "upcoming" section.');
     }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  \App\Meeting  $meeting
@@ -145,5 +147,27 @@ class MeetingsController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Confirmation registered');
+    }
+
+    public function cancel(Request $request, Meeting $meeting)
+    {
+        $request->session()->flash('cancelled', 'active');
+
+        $data = $request->validate([
+            'reason' => 'required|min:5'
+        ]);
+
+        $meeting->update([
+            'reason' => $data['reason'],
+            'cancelled_by' => auth()->user()->id,
+        ]);
+
+
+        $meeting->project->student->notify(new MeetingCancelled(['name' => auth()->user()->name]));
+        $meeting->project->supervisor->notify(new MeetingCancelled(['name' => auth()->user()->name]));
+        $meeting->delete();
+
+
+        return redirect()->back()->with('success', 'Meeting cancelled successfully');
     }
 }
