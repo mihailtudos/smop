@@ -71,7 +71,7 @@ class TopicsController extends Controller
         }
 
         $data = $request->validate([
-            'title'         => 'required|min:15',
+            'title'         => 'required|min:15|max:160',
             'description'   => 'required|min:150|max:1500',
             'methodology'   => 'required|min:150|max:1500',
             'deliverables'  => 'required|min:150|max:1500',
@@ -178,7 +178,7 @@ class TopicsController extends Controller
     public function update(Request $request, Topic $topic)
     {
         $request->validate([
-            'title'         => 'required|min:15',
+            'title'         => 'required|min:15|max:160',
             'description'   => 'required|min:150|max:1500',
             'methodology'   => 'required|min:150|max:1500',
             'deliverables'  => 'required|min:150|max:1500',

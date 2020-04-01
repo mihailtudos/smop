@@ -6,93 +6,136 @@
 
     <div class="card-body px-5">
 
+        <div class="d-flex justify-content-center p-2 border-top border-bottom border-dark mb-4">
+            <h3>
+                Ethical Approval Form
+            </h3>
+        </div>
+
+        <div class="border border-danger p-3">
+            <ul>
+                <li>
+                    <h5>This form must be completed, signed and submitted by the due date</h5>
+                </li>
+                <li>
+                    <h5>No work may be carried out on the project until the form has been submitted</h5>
+                </li>
+                <li>
+                    <h5>Late submission will result in a penalty</h5>
+                </li>
+                <li>
+                    <h5>Failure to submit the form will result in an automatic fail for the module. You may also be subject to disciplinary action</h5>
+                </li>
+            </ul>
+        </div>
+
+
+
+
         <form action="{{ route('student.form.store') }}" method="post">
             @csrf
 
-            {{--
-            <div class="form-group ">
-                <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
-                <div class="">
-                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Indicative title" required autofocus>
-                    <small id="titleHelper" class="form-text text-muted">Must be longer than 25 characters</small>
-
-                    @error('title')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-            <div class="form-group ">
-                <label for="description" class=" col-form-label text-md-right">Description<span class="text-danger">*</span></label>
-
-                <div class="">
-                    <textarea id="description" class="form-control @error('description') is-invalid @enderror" rows="5" name="description"
-                              placeholder="Topic description" required >{{ old('description') }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
+            <div class="my-5">
+                <h3>Declaration</h3>
             </div>
 
-            <div class="form-group ">
-                <label for="methodology" class="col-form-label text-md-right">Methodology<span class="text-danger">*</span></label>
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm') is-invalid @enderror" @if(old('confirm')) checked @endif id="confirm" name="confirm" required>
+                <label class="custom-control-label" for="confirm">I confirm that I have read and understood the Research Ethical Guidelines and agree to abide by them in conducting my project</label>
 
-                <div class="">
-                    <textarea id="methodology"  class="form-control @error('methodology') is-invalid @enderror" rows="5" name="methodology"
-                              placeholder="The methodology of a topic section is used to support the reliability and validity of your research." required >{{ old('methodology') }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
+                @error('confirm')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
 
-                    @error('methodology')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm1') is-invalid @enderror" @if(old('confirm1')) checked @endif id="confirm1" name="confirm1" required>
+                <label  class="custom-control-label" for="confirm1">I confirm that I understand the importance of adhering to the Research Ethical Guidelines and I am aware of the penalties for breaching them</label>
+
+                @error('confirm1')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm2') is-invalid @enderror" @if(old('confirm2')) checked @endif id="confirm2" name="confirm2" required>
+                <label class="custom-control-label" for="confirm2">I agree to notify my academic supervisor if there is a change to my project and/or further ethical approval is needed</label>
+
+                @error('confirm2')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm3') is-invalid @enderror" @if(old('confirm3')) checked @endif id="confirm3" name="confirm3" required>
+                <label class="custom-control-label" for="confirm3">I agree to notify my academic supervisor if there is a change to my project and/or further ethical approval is needed</label>
+
+                @error('confirm3')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+
+            <div class="my-5">
+                <h4>To the best of my knowledge, I confirm that:</h4>
+            </div>
+
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm4') is-invalid @enderror" @if(old('confirm4')) checked @endif id="confirm4" name="confirm4" required>
+                <label class="custom-control-label" for="confirm4">There is no risk to any participants</label>
+
+                @error('confirm4')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm5') is-invalid @enderror" @if(old('confirm5')) checked @endif id="confirm5" name="confirm5" required>
+                <label class="custom-control-label" for="confirm5">There is no risk to me</label>
+
+                @error('confirm5')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="custom-control custom-switch mb-4">
+                <input type="checkbox"  class="custom-control-input @error('confirm6') is-invalid @enderror" @if(old('confirm6')) checked @endif id="confirm6" name="confirm6" required>
+                <label class="custom-control-label" for="confirm6">There is no risk to the institution or QA in terms of liability or reputation</label>
+
+                @error('confirm6')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="form-group ">
-                <label for="deliverables" class="col-form-label text-md-right">Deliverables<span class="text-danger">*</span></label>
+                <label for="user" class=" col-form-label text-md-right">Student name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('user') is-invalid @enderror"  name="user" id="user" value="{{ old('user') }}" disabled placeholder="{{ auth()->user()->name }}" required >
+                <small id="bodyHelper" class="form-text text-muted">This declaration will be signed with your name.</small>
 
-                <div class="">
-                    <textarea id="deliverables" class="form-control @error('deliverables') is-invalid @enderror" rows="5" name="deliverables"
-                              placeholder="Describe the proposed deliverables as a result of your project." required >{{ old('deliverables') }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('deliverables')
-                    <span class="invalid-feedback" role="alert">
+                @error('user')
+                <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
+                @enderror
             </div>
-            --}}
 
             <div class="form-group ">
-                <label for="body" class=" col-form-label text-md-right">Body<span class="text-danger">*</span></label>
+                <label for="student_id" class=" col-form-label text-md-right">Student ID<span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('student_id') is-invalid @enderror"  name="student_id" id="student_id" value="{{ old('student_id') }}" minlength="11" maxlength="11" placeholder="{{ 'STU83923441' }}" required >
+                <small id="bodyHelper" class="form-text text-muted">Enter your 11 character student ID</small>
 
-                <div class="">
-                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" rows="5"
-                              placeholder="Any additional information realted to your topic." required >{{ old('body') }}</textarea>
-                    <small id="bodyHelper" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('body')
-                    <span class="invalid-feedback" role="alert">
+                @error('student_id')
+                <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
+                @enderror
             </div>
 
 
             <div class="form-group row mb-0 ">
                 <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
                     <button type="submit" class="btn btn-primary">
-                        Create
+                        Sign
                     </button>
                     <a role="button" href="{{ route('student.form.index') }}" class="btn btn-secondary mr-2 text-white">
                         Cancel

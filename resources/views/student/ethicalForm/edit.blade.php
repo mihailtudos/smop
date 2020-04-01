@@ -2,73 +2,38 @@
 
 @section('createCard')
 
-    <h5 class="card-header">Edit ethical form</h5>
+    <h5 class="card-header">Approve {{ strtok( $form->user->name, ' ') }}'s ethical form</h5>
 
     <div class="card-body px-5">
 
         <form action="{{ route('student.form.update', $form) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            {{--
-            <div class="form-group ">
-                <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
-                <div class="">
-                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $topic->title) }}" required autofocus>
-                    <small id="emailHelp" class="form-text text-muted">Must be longer than 25 characters</small>
 
-                    @error('title')
-                    <span class="invalid-feedback" role="alert">
+            <div class="form-group ">
+                <label for="user" class=" col-form-label text-md-right">Student name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('user') is-invalid @enderror"  name="user" id="user" value="{{ old('user') }}" disabled placeholder="{{ auth()->user()->name }}" required >
+                <small id="bodyHelper" class="form-text text-muted">This declaration will be signed with your name.</small>
+
+                @error('user')
+                <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
+                @enderror
             </div>
 
             <div class="form-group ">
-                <label for="description" class=" col-form-label text-md-right">Description<span class="text-danger">*</span></label>
+                <label for="student_id" class=" col-form-label text-md-right">Student ID<span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('student_id') is-invalid @enderror"  name="student_id" id="student_id" value="{{ old('student_id') }}" minlength="11" maxlength="11" placeholder="{{ 'STU83923441' }}" required >
+                <small id="bodyHelper" class="form-text text-muted">Enter your 11 character student ID</small>
 
-                <div class="">
-                    <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" rows="6" required >{{ old('description', $topic->description) }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('description')
-                    <span class="invalid-feedback" role="alert">
+                @error('student_id')
+                <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
+                @enderror
             </div>
 
-            <div class="form-group ">
-                <label for="methodology" class="col-form-label text-md-right">Methodology<span class="text-danger">*</span></label>
-
-                <div class="">
-                    <textarea id="methodology"  class="form-control @error('methodology') is-invalid @enderror" name="methodology" rows="6" required >{{ old('methodology', $topic->methodology) }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('methodology')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group ">
-                <label for="deliverables" class="col-form-label text-md-right">Deliverables<span class="text-danger">*</span></label>
-
-                <div class="">
-                    <textarea id="deliverables" class="form-control @error('deliverables') is-invalid @enderror" name="deliverables" rows="6" required >{{ old('deliverables', $topic->deliverables) }}</textarea>
-                    <small id="emailHelp" class="form-text text-muted">Must be between 150 - 1500 characters</small>
-
-                    @error('deliverables')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-            --}}
             <div class="form-group ">
                 <label for="body" class=" col-form-label text-md-right">Body<span class="text-danger">*</span></label>
 

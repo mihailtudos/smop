@@ -11,7 +11,7 @@
             <div class="form-group ">
                 <label for="title" class=" col-form-label text-md-right">Title<span class="text-danger">*</span></label>
                 <div class="">
-                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Indicative title" required autofocus>
+                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Indicative title"  required autofocus>
                     <small id="emailHelp" class="form-text text-muted">Must be longer than 25 characters</small>
 
                     @error('title')

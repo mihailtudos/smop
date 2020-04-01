@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     @if($profile->user->ethicalForm->approved)
-                                        <td> {{ 'Approved'  }}</td>
+                                        <td><a href="{{$profile->user->ethicalForm->path()}}">{{ 'Approved'  }}</a> </td>
                                     @else
                                         <td><a href="{{$profile->user->ethicalForm->path()}}">{{ 'Pending'  }}</a> </td>
                                     @endif

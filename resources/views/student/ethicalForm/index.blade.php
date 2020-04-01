@@ -5,7 +5,6 @@
         <h4>Ethical form</h4>
         <div>
             @if(auth()->user()->ethicalForm()->count() == 0)
-                <a class="btn btn-secondary border-dark" href="{{ route('student.form.export') }}" role="button">Export</a>
                 <a class="btn btn-primary border-dark" href="{{ route('student.form.create') }}" role="button">Create</a>
             @else
                 <a class="btn btn-secondary border-dark" href="{{ route('student.form.export') }}" role="button">Export</a>
@@ -34,13 +33,6 @@
                     <td> {{ $form->created_at->format('d-m-yy')  }}</td>
                     @if(!$form->approved)
                     <td class="d-flex justify-content-center">
-                        <a class="mr-2" href="{{ route( 'student.form.edit', $form->id ) }}">
-                            <button class="btn btn-primary float-left mt-n2" type="button">
-                                <h4 class="m-0">
-                                    <i class="fas fa-pen-nib"></i>
-                                </h4>
-                            </button>
-                        </a>
                         <form action="{{ route('student.form.destroy', $form->id) }}" method="post" class="float-left">
                             @csrf
                             @method('delete')

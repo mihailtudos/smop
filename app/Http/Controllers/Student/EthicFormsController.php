@@ -9,10 +9,10 @@ use App\Notifications\EthicalFormApproved;
 use App\Notifications\EthicalFormSubmited;
 use App\Policies\EthicFormPolicy;
 use App\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 class EthicFormsController extends Controller
 {
@@ -57,17 +57,25 @@ class EthicFormsController extends Controller
      */
     public function store(Request $request)
     {
+
         if (auth()->user()->hasRole('student') and auth()->user()->projects()->count() == 1 and auth()->user()->ethicalForm()->count() == 0) {
             $user = auth()->user();
 
             if ($user->hasRole('student') and $user->projects != null) {
                 $data = $request->validate([
-                    'body' => 'required|min:5',
+                    'student_id' => 'required|min:11|max:11',
+                    'confirm'   => 'required',
+                    'confirm1'   => 'required',
+                    'confirm2'   => 'required',
+                    'confirm3'   => 'required',
+                    'confirm4'   => 'required',
+                    'confirm5'   => 'required',
+                    'confirm6'   => 'required',
                 ]);
 
                 $form = $user->ethicalForm()->create([
                     'title' => auth()->user()->projects->first()->title,
-                    'body' => $data['body'],
+                    'student_id' => $data['student_id'],
                     'project_id' => auth()->user()->projects->first()->id,
                 ]);
 
@@ -102,9 +110,10 @@ class EthicFormsController extends Controller
     {
         $user = auth()->user();
 
-
-    if ( $user->hasAnyRoles(['supervisor','admin']) or $user->id == $form->user_id ){
-        return view('student.ethicalForm.show', compact('form'));
+    if ( $user->id == $form->user_id and $user->hasRole('student') ){
+        return view('student.ethicalForm.formForExport', compact('form'));
+    } else if ($user->hasAnyRoles(['supervisor','admin']) and $form->approved == 0){
+        return view('student.ethicalForm.exportform', compact('form'));
     }
         return redirect()->back()->with('error','Unauthorised action!');
     }
@@ -203,9 +212,10 @@ class EthicFormsController extends Controller
     public function export()
     {
         if (auth()->user()->ethicalForm != null){
+
             $form = auth()->user()->ethicalForm;
-            $pdf = PDF::loadView('student.form.index', ['form' => $form]);
-            return $pdf->download('student.form.index');
+            $pdf = PDF::loadView('student.ethicalForm.formForExport', ['form' => $form]);
+            return $pdf->download(strtolower(auth()->user()->name).'_ethical_form.pdf');
         }
         return redirect()->back()->with('error', 'You have not submitted any form yet.');
     }

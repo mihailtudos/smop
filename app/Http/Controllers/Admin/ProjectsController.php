@@ -58,7 +58,7 @@ class ProjectsController extends Controller
 
         $request->validate([
             'student_id' => ['required', 'unique:projects,student_id'],
-            'title' => 'required',
+            'title' => 'required|max:160',
             'studyField' => 'required',
             'supervisor' => 'required',
             'email'=>'exists:users,email',
@@ -137,7 +137,7 @@ class ProjectsController extends Controller
 
         $result = $project->update($request->validate([
            'student_id' => ['required'],
-           'title' => 'required'
+           'title' => 'required|max:160'
        ]));
 
         if($result){
