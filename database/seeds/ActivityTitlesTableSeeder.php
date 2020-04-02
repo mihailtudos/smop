@@ -21,6 +21,10 @@ class ActivityTitlesTableSeeder extends Seeder
         ]);
 
         ActivityTitle::create([
+            'activity_title'=>'ethical form not approved'
+        ]);
+
+        ActivityTitle::create([
             'activity_title'=>'new diary record created'
         ]);
 

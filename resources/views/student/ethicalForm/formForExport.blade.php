@@ -21,116 +21,258 @@
         li{
             margin-bottom: 5px;
         }
+        .container {
+            margin-top: 1cm;
+        }
     </style>
 
 </head>
 <body class="login-page" style="background: white">
-<div class="container">
-
-
+<div class="container" >
+    <div class="row">
+        <div class="col-xs-2">
+            <img style="width: 105px" src="https://i.imgur.com/PiAbXWa.png" alt="">
+        </div>
+        <div class="col-xs-8 text-center">
+            <h1>Ethical Approval Form</h1>
+        </div>
+    </div>
     <div>
-        <div class="row">
-            <div class="col-xs-2">
-                <img style="width: 105px" src="https://i.imgur.com/PiAbXWa.png" alt="">
-            </div>
-            <div class="col-xs-8 text-center">
-                <h1>Ethical Approval Form</h1>
-            </div>
-        </div>
+        <ul style="list-style-type: square;" class="">
+            <li class="m">This form must be completed, signed and submitted by the due date.</li>
+            <li>No work may be carried out on the project until the form has been submitted.</li>
+            <li>Late submission will result in a penalty.</li>
+            <li>Failure to submit the form will result in an automatic fail for the module. You may also be subject to disciplinary action.</li>
+        </ul>
+    </div>
 
-        <div>
-            <ul style="list-style-type: square;" class="">
-                <li class="m">This form must be completed, signed and submitted by the due date.</li>
-                <li>No work may be carried out on the project until the form has been submitted.</li>
-                <li>Late submission will result in a penalty.</li>
-                <li>Failure to submit the form will result in an automatic fail for the module. You may also be subject to disciplinary action.</li>
-            </ul>
-        </div>
+    <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+        <thead style="background: #F5F5F5;">
+        <tr>
+            <th>SECTION 1</th>
+            <th class="text-right">TO BE COMPLETED BY STUDENT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><div><strong>NAME:</strong></div>
+            <td style="border: 1px solid black" class="text-left">{{ strtoupper($form->user->name) }}</td>
+        </tr>
+        <tr>
+            <td><div><strong>STUDENT NO:</strong></div>
+            </td>
+            <td style="border: 1px solid black; letter-spacing: 5px" class="text-left">{{ strtoupper($form->student_id) }}</td>
+        </tr>
+        <tr>
+            <td><div><strong>COURSE:</strong></div>
+            </td>
+            <td style="border: 1px solid black; " class="text-left">{{ strtoupper($form->user->fields()->first()->name) }}</td>
+        </tr>
+        <tr>
+            <td><div><strong>MODULE:</strong></div>
+            </td>
+            <td style="border: 1px solid black; " class="text-left">DISSERTATION (MAJOR PROJECT)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><div><strong>PROJECT TITLE:</strong></div>
+                <p style="border: 1px solid black; padding: 1rem; text-align: center">{{ $form->project->title }}</p></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 
+    <h5 style="font-weight: bold">DECLARATION: </h5>
+    <div>
+        <ul style="list-style-type: square;" class="">
+            <li class="m">I confirm that I have read and understood the Research Ethical Guidelines and agree to abide by them in conducting my project.</li>
+            <li>I confirm that I understand the importance of adhering to the Research Ethical Guidelines and I am aware of the penalties for breaching them.</li>
+            <li>I agree to notify my academic supervisor if there is a change to my project and/or further ethical approval is needed.</li>
+        </ul>
+    </div>
+
+    <p>To the best of my knowledge, I confirm that:</p>
+    <ul style="list-style-type: square;" class="">
+        <li class="m">There is no risk to any participants</li>
+        <li>There is no risk to me</li>
+        <li>There is no risk to the institution or QA in terms of liability or reputation</li>
+    </ul>
+
+    <p>I undertake to report all data and findings in a responsible way</p>
+
+    <table  class="table" style="border-collapse:separate; border-spacing: 0 1rem;">
+        <thead>
+        <tr>
+            <td><h6>NAME:</h6></td>
+            <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ strtoupper($form->user->name) }}</h6></td>
+
+            <td><h6 class="text-center">SIGNATURE:</h6></td>
+            <td class="text-right" style="border: 1px solid black"><h6 class="text-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6></td>
+
+            <td><h6 class="text-center">DATE:</h6></td>
+            <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ $form->created_at->format('yy/m/d') }}</h6></td>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="page-break"></div>
+
+@if(isset($form->approved))
+    <div class="container">
         <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
             <thead style="background: #F5F5F5;">
             <tr>
-                <th>SECTION 1</th>
-                <th class="text-right">TO BE COMPLETED BY STUDENT </th>
+                <th>SECTION 2</th>
+                <th class="text-right">TO BE COMPLETED BY SUPERVISOR</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><div><strong>NAME</strong></div>
-                <td style="border: 1px solid black" class="text-left">{{ strtoupper($form->user->name) }}</td>
-            </tr>
-            <tr>
-                <td><div><strong>STUDENT NO:</strong></div>
-                   </td>
-                <td style="border: 1px solid black; letter-spacing: 5px" class="text-left">{{ strtoupper($form->student_id) }}</td>
-            </tr>
-            <tr>
-                <td><div><strong>COURSE:</strong></div>
-                </td>
-                <td style="border: 1px solid black; " class="text-left">{{ strtoupper($form->user->fields()->first()->name) }}</td>
-            </tr>
-            <tr>
-                <td><div><strong>MODULE:</strong></div>
-                </td>
-                <td style="border: 1px solid black; " class="text-left">DISSERTATION (MAJOR PROJECT)</td>
-            </tr>
-            <tr>
-                <td colspan="2"><div><strong>PROJECT TITLE:</strong></div>
-                    <p style="border: 1px solid black; padding: 1rem; text-align: center">Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt maiores placeat similique nisi. Nisi ratione, molestias exercitationem illo reiciendis cumque?</p></td>
-                <td></td>
+                <td><div><strong>NAME:</strong></div>
+                <td style="border: 1px solid black" class="text-left">{{ $form->project->supervisor->name }}</td>
             </tr>
             </tbody>
         </table>
 
-{{--        <table  class="table" style="border-collapse:separate; border-spacing: 0 10px;">--}}
-{{--            <thead style="background: #F5F5F5;  ">--}}
-{{--            <tr>--}}
-{{--                <td><h5>SECTION 1</h5></td>--}}
-{{--                <td class="text-right"><h5 class="text-right"></h5></td>--}}
-{{--            </tr>--}}
-{{--            </thead>--}}
-{{--            <tbody>--}}
-{{--            <tr>--}}
-{{--                <td ><h6>NAME:</h6></td>--}}
-{{--                <td style="border: 1px solid black"><h6>{{ strtoupper($form->user->name) }}</h6></td>--}}
-{{--            </tr>--}}
-{{--            <tr>--}}
-{{--                <td ><h6>STUDENT NO:</h6></td>--}}
-{{--                <td style="letter-spacing: 20px; border: 1px solid black"><h6>{{ strtoupper($form->student_id) }}</h6></td>--}}
-{{--            </tr>--}}
-{{--            <tr>--}}
-{{--                <td ><h6>COURSE:</h6></td>--}}
-{{--                <td style="border: 1px solid black"><h6>{{ strtoupper($form->user->fields()->first()->name) }}</h6></td>--}}
-{{--            </tr>--}}
-{{--            <tr>--}}
-{{--                <td ><h6>MODULE:</h6></td>--}}
-{{--                <td style="border: 1px solid black"><h6>DISSERTATION (MAJOR PROJECT)</h6></td>--}}
-{{--            </tr>--}}
-
-{{--            </tbody>--}}
-{{--        </table>--}}
-
-{{--        <h6>PROJECT TITLE: </h6>--}}
-{{--                <h6  style="padding: 1rem 3rem 1rem 10rem; border: 1px solid black;">{{strtoupper($form->user->projects()->first()->title) }}</h6>--}}
-{{--        <br>--}}
         <h5 style="font-weight: bold">DECLARATION: </h5>
         <div>
-            <ul style="list-style-type: square;" class="">
-                <li class="m">I confirm that I have read and understood the Research Ethical Guidelines and agree to abide by them in conducting my project.</li>
-                <li>I confirm that I understand the importance of adhering to the Research Ethical Guidelines and I am aware of the penalties for breaching them.</li>
-                <li>I agree to notify my academic supervisor if there is a change to my project and/or further ethical approval is needed.</li>
-            </ul>
+            <p>I undertake to review and approve any questions that the student intends to use for data collection, including interview questions and questionnaire items.</p>
+        </div>
+        <br>
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <tbody>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->needs_to_be_referred == 0) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>On the basis of the information provided by the student, the project <strong>DOES NOT</strong> need to be referred to the Faculty Research Ethics Committee for approval.</p></td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->needs_to_be_referred == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>On the basis of the information provided by the student, the project <strong>DOES</strong> need to be referred to the Faculty Research Ethics Committee for approval.</p></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <p>If the project needs to be referred to the Faculty Research Ethics Committee for approval, please explain why briefly.</p>
+        </div>
+        <div class="w-100" style="border: 1px solid black; height: 100px; padding: 7px">@if($form->needs_to_be_referred == 1) {{ $form->reason_to_be_referred }}  @else &nbsp; @endif</div>
+
+        <br>
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <tbody>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->project_will_contain == 1) X @else &nbsp;&nbsp;&nbsp;&nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>On the basis of the information provided by the student, I confirm that the project will contain sensitive or confidential information and should <strong>NOT</strong> be placed in the public domain</p></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <table  class="table" style="border-collapse:separate; border-spacing: 0 1rem;">
+            <thead>
+            <tr>
+                <td><h6>NAME:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ strtoupper($form->project->supervisor->name) }}</h6></td>
+
+                <td><h6 class="text-center">SIGNATURE:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6></td>
+
+                <td><h6 class="text-center">DATE:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ $form->created_at->format('yy/m/d') }}</h6></td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="container">
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <thead style="background: #F5F5F5;">
+            <tr>
+                <th>SECTION 3</th>
+                <th class="text-right">TO BE COMPLETED BY SUPERVISOR</th>
+            </tr>
+            </thead>
+        </table>
+
+        <h5 style="font-weight: bold">CHANGES TO PROJECT - DECLARATION:</h5>
+        <div>
+            <p>I have reviewed the proposed changes to the project.</p>
         </div>
 
-        <p>To the best of my knowledge, I confirm that:</p>
-        <ul style="list-style-type: square;" class="">
-            <li class="m">There is no risk to any participants</li>
-            <li>There is no risk to me</li>
-            <li>There is no risk to the institution or QA in terms of liability or reputation</li>
-        </ul>
 
-        <p>I undertake to report all data and findings in a responsible way</p>
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <tbody>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->approved == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>On the basis of the information provided by the student, I <strong>APPROVE</strong> the revised project.</p></td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->approved == 0) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>On the basis of the information provided by the student, I <strong>DO NOT APPROVE</strong> the revised project.</p></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <div>
+                <p>If the project needs to be referred to the Faculty Research Ethics Committee for approval, please explain why briefly.</p>
+            </div>
+            <div class="w-100" style="border: 1px solid black; height: 100px; padding: 7px;">{{$form->reason_to_reject}}</div>
+        </div>
+        <br>
+        <table  class="table" style="border-collapse:separate; border-spacing: 0 1rem;">
+            <thead>
+            <tr>
+                <td><h6>NAME:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ strtoupper($form->project->supervisor->name) }}</h6></td>
 
+                <td><h6 class="text-center">SIGNATURE:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6></td>
+
+                <td><h6 class="text-center">DATE:</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ $form->created_at->format('yy/m/d') }}</h6></td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="page-break"></div>
+
+@endif
+
+    <div class="container">
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <thead style="background: #F5F5F5;">
+            <tr>
+                <th>SECTION 4</th>
+                <th class="text-right">TO BE COMPLETED BY STUDENT</th>
+            </tr>
+            </thead>
+        </table>
+
+        <h5 style="font-weight: bold">CHECKLIST: </h5>
+        <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
+            <tbody>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->truthfulness == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>I have fully completed this Ethical Approval Form and have signed where appropriate.</p></td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->supervisor_completed == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>My supervisor has completed Section 2 of this Ethical Approval Form and has signed where appropriate.</p></td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->copy_of_instruments == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>I have attached a copy of any research instruments I wish to use (interview questions, questionnaires, etc.). If draft versions, I undertake to have the final versions approved by my supervisor before collecting any data.</p></td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black; padding: 0.5rem 1rem; text-align: center;"><strong>@if($form->copy_of_proposal == 1) X @else &nbsp; @endif</strong></div>
+                <td style="padding-top: 1.5rem"><p>I have attached a copy of my research proposal to this form. The proposal outlines the research methodology I will use.</p></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
         <table  class="table" style="border-collapse:separate; border-spacing: 0 1rem;">
             <thead>
             <tr>
@@ -138,112 +280,13 @@
                 <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ strtoupper($form->user->name) }}</h6></td>
 
                 <td><h6 class="text-center">SIGNATURE:</h6></td>
-                <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ strtoupper($form->user->name) }}</h6></td>
+                <td class="text-right" style="border: 1px solid black"><h6 class="text-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6></td>
 
                 <td><h6 class="text-center">DATE:</h6></td>
                 <td class="text-right" style="border: 1px solid black"><h6 class="text-left">{{ $form->created_at->format('yy/m/d') }}</h6></td>
             </tr>
             </thead>
         </table>
-        <div class="page-break"></div>
-
-        <div class="row">
-            <div class="col-xs-6">
-                <h5>To:</h5>
-                <address>
-                    <strong>Andre Madarang</strong><br>
-                    <span>andre@andre.com</span> <br>
-                    <span>123 Address St.</span>
-                </address>
-            </div>
-
-            <div class="col-xs-5">
-                <table style="width: 100%">
-                    <tbody>
-                    <tr>
-                        <th>Invoice Num:</th>
-                        <td class="text-right">56</td>
-                    </tr>
-                    <tr>
-                        <th> Invoice Date: </th>
-                        <td class="text-right">Oct 1, 2018</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div style="margin-bottom: 0px">&nbsp;</div>
-
-                <table style="width: 100%; margin-bottom: 20px">
-                    <tbody>
-                    <tr class="well" style="padding: 5px">
-                        <th style="padding: 5px"><div> Balance Due (CAD) </div></th>
-                        <td style="padding: 5px" class="text-right"><strong> $600 </strong></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <table class="table">
-            <thead style="background: #F5F5F5;">
-            <tr>
-                <th>Item List</th>
-                <th></th>
-                <th class="text-right">Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><div><strong>Service</strong></div>
-                    <p>Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt maiores placeat similique nisi. Nisi ratione, molestias exercitationem illo reiciendis cumque?</p></td>
-                <td></td>
-                <td class="text-right">$600</td>
-            </tr>
-            <tr>
-                <td><div><strong>Service</strong></div>
-                    <p>Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt maiores placeat similique nisi. Nisi ratione, molestias exercitationem illo reiciendis cumque?</p></td>
-                <td></td>
-                <td class="text-right">$600</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="row">
-            <div class="col-xs-6"></div>
-            <div class="col-xs-5">
-                <table style="width: 100%">
-                    <tbody>
-                    <tr class="well" style="padding: 5px">
-                        <th style="padding: 5px"><div> Balance Due (CAD) </div></th>
-                        <td style="padding: 5px" class="text-right"><strong> $600 </strong></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div style="margin-bottom: 0px">&nbsp;</div>
-
-        <div class="row">
-            <div class="col-xs-8 invbody-terms">
-                Thank you for your business. <br>
-                <br>
-                <h5>Payment Terms</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eius quia, aut doloremque, voluptatibus quam ipsa sit sed enim nam dicta. Soluta eaque rem necessitatibus commodi, autem facilis iusto impedit!</p>
-            </div>
-        </div>
     </div>
-    page 2
-    <h1>
-        <h5>From:</h5>
-        <strong>Company Inc.</strong><br>
-        123 Company Ave. <br>
-        Toronto, Ontario - L2R 5A4<br>
-        P: (416) 123-4567 <br>
-        E: copmany@company.com <br>
-    </h1>
-</div>
-
-
 </body>
 </html>

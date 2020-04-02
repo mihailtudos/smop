@@ -19,7 +19,20 @@ class CreateEthicFormsTable extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->string('student_id')->unique();
             $table->string('title');
-            $table->boolean('approved')->nullable()->default(false);
+
+            $table->boolean('needs_to_be_referred')->nullable()->default(0);
+            $table->text('reason_to_be_referred')->nullable()->default(null);
+
+            $table->boolean('project_will_contain')->nullable()->default(0);
+
+            $table->boolean('approved')->nullable()->default(0);
+            $table->text('reason_to_reject')->nullable()->default(null);
+
+            $table->boolean('truthfulness')->nullable()->default(null);
+            $table->boolean('supervisor_completed')->nullable()->default(null);
+            $table->boolean('copy_of_instruments')->nullable()->default(null);
+            $table->boolean('copy_of_proposal')->nullable()->default(null);
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

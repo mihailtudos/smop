@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActivityTitle;
 use App\Diary;
 use App\Meeting;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class DiariesController extends Controller
@@ -166,5 +167,21 @@ class DiariesController extends Controller
             return redirect()->back()->with('success', 'Diary record delete!');
         }
         return redirect()->route('home')->with('Not allowed to delete this record!');
+    }
+
+    public function export()
+    {
+        $diaries = auth()->user()->diaries;
+
+        if ($diaries == null){
+            return redirect()->back()->with('error', 'No records found');
+        }else {
+
+            
+
+            $pdf = PDF::loadView('diary.export', ['diaries' => $diaries]);
+            return $pdf->download(strtolower(auth()->user()->name).'_diary_records.pdf');
+        }
+        dd($diaries);
     }
 }

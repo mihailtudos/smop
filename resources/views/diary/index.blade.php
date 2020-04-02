@@ -11,7 +11,7 @@
                 <div class="card-header d-flex justify-content-between align-items-end">
                     <h4>Your Diary Records</h4>
                     <div>
-                        <a class="btn btn-secondary border-dark" href="{{ route('diaries.create') }}" role="button">Export</a>
+                        <a class="btn btn-secondary border-dark" href="{{ route('diaries.export') }}" role="button">Export</a>
                         <a class="btn btn-primary border-dark" href="{{ route('diaries.create') }}" role="button">Create</a>
                     </div>
                 </div>

@@ -62,6 +62,7 @@ Route::namespace('Student')->prefix('student')->name('student.')->middleware('au
     Route::resource('/topics', 'TopicsController');
     Route::resource('/ethics/form', 'EthicFormsController');
     Route::post('/ethics/form/approve{form}', 'EthicFormsController@approve')->name('ethic.form.approve');
+    Route::post('/ethics/form/check{form}', 'EthicFormsController@check')->name('ethic.form.check');
     Route::get('/form/export', 'EthicFormsController@export')->name('form.export');
 });
 
@@ -71,6 +72,7 @@ Route::middleware('can:admin-supervise')->group(function () {
 });
 
 Route::get('/projects/{project}', 'ProjectsController@show');
+Route::get('/diaries/export', 'DiariesController@export')->name('diaries.export');
 Route::resource('/diaries', 'DiariesController');
 Route::get('/profiles/{profile}', 'ProfilesController@show')->name('profile.');
 Route::put('/profiles/{profile}/update', 'ProfilesController@update')->name('profile.update');
