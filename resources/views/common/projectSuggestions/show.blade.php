@@ -48,6 +48,14 @@
                                 {{$suggestion->body}}
                             </p>
                         </div>
+                        @if(auth()->user()->hasRole('student') and auth()->user()->topics->count() < 4)
+                            <div class="d-flex justify-content-end">
+                                <form action="{{ route('request.suggestion', $suggestion) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Request this project suggestion</button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                     <div class=" container jumbotron dashCard">
                         <div class="row">
@@ -65,6 +73,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="d-flex justify-content-end">
                         <p>Created {{$suggestion->created_at->diffForHumans() .' by '. $suggestion->user->name}}</p>
                     </div>

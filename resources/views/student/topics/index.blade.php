@@ -12,7 +12,7 @@
                     <h4>Submitted Topics</h4>
                     @can('student')
                         <div>
-                            <a class="btn btn-success border-dark" href="{{ route('student.topics.create') }}" role="button">Create</a>
+                            <a class="btn btn-primary border-dark" href="{{ route('student.topics.create') }}" role="button">Create</a>
                         </div>
                     @endcan
                 </div>

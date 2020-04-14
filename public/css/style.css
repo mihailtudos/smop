@@ -39,7 +39,8 @@
 /*Card*/
 
 .btn-primary:hover,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-primary:active {
     background-color: #108d6f;
     border-color: #108d6f;
     box-shadow: none;
@@ -50,6 +51,12 @@
     color: #fff;
     background-color: #00ad81;
     border-color: #00ad81;
+}
+
+.btn-primary:active:focus {
+    color: #ffffff;
+    background-color: #108d6f;
+    border-color: #108d6f;
 }
 
 section {

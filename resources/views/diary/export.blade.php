@@ -41,7 +41,7 @@
             <div class="col-xs-6 text-center">
                 <h4><strong>COURSE:</strong></h4>
             </div>
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-6 text-left">
                 <h4><strong>{{ auth()->user()->fields()->first()->name }}</strong></h4>
             </div>
         </div>
@@ -50,16 +50,23 @@
             <div class="col-xs-6 text-center">
                 <h4><strong>MODULE:</strong></h4>
             </div>
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-6 text-left">
                 <h4><strong> Dissertation (Major Project) </strong></h4>
             </div>
         </div>
     </div>
 
+
+
+
+
     <table class="table"  style="border-collapse:separate; border-spacing: 0 5px;">
     @forelse($diaries as $diary)
 
+
+
             <tbody>
+
             <tr style="background: #F5F5F5;">
                 <td><strong>RECORD OF</strong></td>
                 <td class="text-right"> <strong>{{ $diary->created_at->format('Y-M-d') }}</strong> </td>
@@ -82,10 +89,12 @@
                 </td>
                 <td style="border: 1px solid black; " class="text-left">{{ $diary->notes }}</td>
             </tr>
+            <tr>
+                <td></td>
+                <td> </td>
+            </tr>
             </tbody>
-            <br>
-            <hr>
-            <br>
+
     @empty
         <div>
             <h4 class="text-center">No diary records found.</h4>

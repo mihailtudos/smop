@@ -23,29 +23,31 @@
                 <tr>
                     <td> {{ $subject->name  }}</td>
                     <td> {{ implode(', ', $subject->fields()->get()->pluck('name')->toArray())  }}</td>
-                    <td class="d-flex justify-content-center">
+                    <td class="">
                         @can('admin')
-                            <a class="mr-2" href="{{ route( 'admin.subjects.edit', $subject->id ) }}">
-                                <button class="btn btn-primary float-left" type="button">
-                                    <h4 class="m-0">
-                                        <i class="fas fa-pen-nib"></i>
-                                    </h4>
-                                </button>
-                            </a>
-                        @endcan
-                        @can('admin')
-                            <form action="{{ route('admin.subjects.destroy', $subject->id) }}" method="post" class="float-left">
-                                @csrf
-                                @method('delete')
-
-                                <a href="{{ route( 'admin.subjects.destroy', $subject->id ) }}">
-                                    <button class="btn btn-danger" type="submit">
+                            <div>
+                                <a class="mr-2" href="{{ route( 'admin.subjects.edit', $subject->id ) }}">
+                                    <button class="btn btn-primary float-left" type="button">
                                         <h4 class="m-0">
-                                            <i class="fas fa-eraser"></i>
+                                            <i class="fas fa-pen-nib"></i>
                                         </h4>
                                     </button>
                                 </a>
-                            </form>
+                            </div>
+                            <div class="mt-n3">
+                                <form action="{{ route('admin.subjects.destroy', $subject->id) }}" method="post" class="float-left">
+                                    @csrf
+                                    @method('delete')
+
+                                    <a href="{{ route( 'admin.subjects.destroy', $subject->id ) }}">
+                                        <button class="btn btn-danger" type="submit">
+                                            <h4 class="m-0">
+                                                <i class="fas fa-eraser"></i>
+                                            </h4>
+                                        </button>
+                                    </a>
+                                </form>
+                            </div>
                         @endcan
                     </td>
                 </tr>

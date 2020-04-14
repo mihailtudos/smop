@@ -85,6 +85,7 @@ Route::put('/projects/meetings/{meeting}', 'MeetingsController@attendance')->nam
 Route::patch('/projects/meetings/{meeting}', 'MeetingsController@confirmation')->name('project.meeting.confirmation');
 Route::put('/projects/meetings/cancel/{meeting}', 'MeetingsController@cancel')->name('project.meeting.cancel');
 Route::get('/suggestions/{suggestion}', 'ProjectSuggestionController@show');
+Route::post('/suggestions/request/{suggestion}', 'ProjectSuggestionController@request')->name('request.suggestion');
 Route::get('/suggestions/fields/{field}', 'SuggestionsController@byFields')->name('fields.suggestions.list');
 Route::get('/suggestions/subjects/{subject}', 'SuggestionsController@bySubject')->name('subject.suggestions.list');
 //Route::get('suggestions/subjects/{subject}', 'SuggestionsController@subject')->name('subject.suggestions');

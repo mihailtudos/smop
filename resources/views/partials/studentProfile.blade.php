@@ -53,7 +53,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="">
                         <div>
-                            <h1 class="my-4 border-success border-bottom">
+                            <h1 class="my-4 border-success border-bottom text-center">
                                 {{ $profile->user->name }}
                             </h1>
                         </div>
@@ -88,6 +88,7 @@
                                 <p>{{ $profile->user->created_at->format('d-m-yy') }}</p>
                             </div>
                         </div>
+
                         @if($profile->user->ethicalForm != null)
                             <div class="row">
                                 <div class="col-md-6">

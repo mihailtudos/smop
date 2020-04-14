@@ -51,13 +51,19 @@ class DiariesController extends Controller
     {
         $request->session()->flash('form', 'active');
 
+        if (!isset($request->meeting)){
+            $request['meeting'] = null;
+        }
+
         $data = $request->validate([
-            'title' => 'required|min:5',
-            'completed' => 'required|min:5',
-            'notes' => 'required|min:5',
-            'todo' => 'required|min:5',
+            'title' => 'required|min:25',
+            'completed' => 'required|min:150',
+            'todo' => 'required|min:150',
+            'notes' => 'required|min:150',
             'meeting' => 'sometimes'
         ]);
+
+
 
         $result = auth()->user()->diaries()->create([
 
@@ -65,7 +71,7 @@ class DiariesController extends Controller
             'completed'     => $data['completed'],
             'notes'         => $data['notes'],
             'todo'          => $data['todo'],
-            'meeting_id'       => $data['meeting'],
+            'meeting_id'    => $data['meeting'],
 
         ]);
 
@@ -176,12 +182,8 @@ class DiariesController extends Controller
         if ($diaries == null){
             return redirect()->back()->with('error', 'No records found');
         }else {
-
-            
-
             $pdf = PDF::loadView('diary.export', ['diaries' => $diaries]);
             return $pdf->download(strtolower(auth()->user()->name).'_diary_records.pdf');
         }
-        dd($diaries);
     }
 }

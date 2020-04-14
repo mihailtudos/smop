@@ -11,7 +11,9 @@
                 <div class="card-header d-flex justify-content-between align-items-end">
                     <h4>Your Diary Records</h4>
                     <div>
+                        @if (auth()->user()->diaries->count() != 0)
                         <a class="btn btn-secondary border-dark" href="{{ route('diaries.export') }}" role="button">Export</a>
+                        @endif
                         <a class="btn btn-primary border-dark" href="{{ route('diaries.create') }}" role="button">Create</a>
                     </div>
                 </div>

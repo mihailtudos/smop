@@ -20,12 +20,12 @@ class CreateEthicFormsTable extends Migration
             $table->string('student_id')->unique();
             $table->string('title');
 
-            $table->boolean('needs_to_be_referred')->nullable()->default(0);
+            $table->boolean('needs_to_be_referred')->nullable()->default(null);
             $table->text('reason_to_be_referred')->nullable()->default(null);
 
-            $table->boolean('project_will_contain')->nullable()->default(0);
+            $table->boolean('project_will_contain')->nullable()->default(null);
 
-            $table->boolean('approved')->nullable()->default(0);
+            $table->boolean('approved')->nullable()->default(null);
             $table->text('reason_to_reject')->nullable()->default(null);
 
             $table->boolean('truthfulness')->nullable()->default(null);

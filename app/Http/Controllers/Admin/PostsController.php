@@ -45,10 +45,10 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'body' => 'required',
-            'image' => 'image|sometimes|mimes:jpeg,bmp,png,jpg|max:2500',
+            'title'         => 'required|min:25',
+            'description'   => 'required|min:150|max:1500',
+            'body'          => 'required|min:150|max:1500',
+            'image'         => 'image|sometimes|mimes:jpeg,bmp,png,jpg|max:2500',
         ]);
 
         if ($request->has('image')) {

@@ -28,14 +28,16 @@
                         <td> {{ $user->deleted_at->format('d-m-yy')  }}</td>
                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                         <td>
-                            <div class="d-flex justify-content-center">
+                            <div class="">
                                 <div >
                                     <form action="{{ route('admin.users.restore', $user->id) }}" method="post" class="float-left">
                                         @csrf
                                         @method('put')
 
-                                        <button  class="mr-2 btn btn-success" type="submit">
-                                            restore
+                                        <button  class="mr-2 text-success" type="submit">
+                                            <h4 class="m-0">
+                                                <i class="fas fa-arrow-circle-left"></i>
+                                            </h4>
                                         </button>
                                     </form>
                                 </div>
@@ -44,8 +46,10 @@
                                     <form action="{{ route('admin.users.forced', $user->id) }}" method="post" class="float-left">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger" type="submit">
-                                            delete
+                                        <button class="" type="submit">
+                                            <h4 class="m-0 text-danger">
+                                                <i class="fas fa-eraser"></i>
+                                            </h4>
                                         </button>
                                     </form>
                                 </div>

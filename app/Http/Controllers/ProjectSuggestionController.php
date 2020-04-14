@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Field;
 use App\Level;
+use App\Notifications\ProjectSuggestionRequested;
 use App\Subject;
+use App\User;
 use Gate;
 use App\ProjectSuggestion;
 use Illuminate\Http\Request;
@@ -230,5 +232,21 @@ class ProjectSuggestionController extends Controller
 //            $output .= '<option value="'. $row->id.'">'.$row->name .'</option>';
 //        }
         echo $output;
+    }
+
+    public function request(ProjectSuggestion $suggestion)
+    {
+        $user = User::with(['roles' => function($q){
+            $q->where('name', 'admin');
+        }])->first();
+
+        $user->notify(new ProjectSuggestionRequested([
+
+            'project'   => $suggestion->title,
+            'name'      => auth()->user()->name,
+
+            ]));
+
+        return redirect()->back()->with('success', 'Coordination was notified about your request!');
     }
 }

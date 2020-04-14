@@ -3,7 +3,7 @@
 </a>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
     <a class="dropdown-item text-center"
-     href="{{ route('emails.index') }}">Inbox</a>
+     href="{{ route('emails.index') }}">Outbox</a>
     <a class="dropdown-item text-center"
         @can('admin') href="{{ route('admin.emails.create') }}" @endcan
         @can('supervise') href="{{ route('supervisor.emails.create') }}" @endcan

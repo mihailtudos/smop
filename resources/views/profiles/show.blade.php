@@ -10,7 +10,7 @@
         <div class="row ">
 
             <div class="col-md-4 ">
-                <div class="profile-img my-3">
+                <div class="profile-img my-0">
                     <div>
                         <img class="" src="{{ '/storage/uploads/profile.png' }} " alt="user profile image"/>
                     </div>
@@ -35,6 +35,9 @@
                             </div>
                         </div>
                     </form>
+                    <div class="text-center">
+                        <a href="{{ '/password/reset' }}">Change password</a>
+                    </div>
                 @endif
             @if($profile->user->hasRole('admin'))
                 @include('partials.adminProfile')

@@ -2,6 +2,7 @@
 
 @section('contentIndex')
                     <div class="card-header d-flex justify-content-between align-items-end">
+                        <h4>Users list</h4>
                         <div class="mt-3">
                             <div class="dropdown">
 
@@ -19,12 +20,14 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>Users list</h4>
 
-                        <div class="float-right">
+                        <div class="mx-2">
                             <a class="btn btn-secondary border-dark" href="{{ route('admin.users.import.create') }}" role="button">Upload</a>
+                        </div>
+                        <div class="">
                             <a class="btn btn-success border-dark" href="{{ route('admin.users.create') }}" role="button">Create</a>
                         </div>
+
                     </div>
 
                     <div class="card-body">
@@ -33,7 +36,6 @@
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">name</th>
-                                    <th scope="col">email</th>
                                     <th scope="col">role</th>
                                     <th class="text-right pr-5" scope="col">action</th>
                                 </tr>
@@ -42,7 +44,6 @@
                                 @forelse($users as $user)
                                     <tr>
                                         <td><a href="{{ $user->path() }}">{{ $user->name  }}</a> </td>
-                                        <td> {{ $user->email  }}</td>
                                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toarray()) }}</td>
                                         <td class="d-flex justify-content-end">
 
