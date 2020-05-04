@@ -24,7 +24,7 @@
             </div>
             <div class="mt-2 pt-2">
                 <div class="d-flex justify-content-end">
-                    <p>Meeting cancelled on {{$meeting->deleted_at->format('Y-m-d') .' by '. $meeting->cancelled_by}}</p>
+                    <p>Meeting cancelled on {{$meeting->deleted_at->format('Y-m-d') .' by '. \App\User::find($meeting->cancelled_by)->name}}</p>
                 </div>
             </div>
         </div>

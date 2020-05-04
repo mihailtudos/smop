@@ -16,6 +16,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    //user related fields that would have to be provided by the coordinator upon new user registration
     protected $fillable = [
         'name',
         'email',
@@ -40,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //returns the roles a user belongs to
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
@@ -104,8 +107,10 @@ class User extends Authenticatable
         return false;
     }
 
+    //creates a method that would allow the interaction between the objects
     public function posts()
     {
+        //return all users posts based on database relation where a user can have many posts
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 

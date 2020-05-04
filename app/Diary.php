@@ -18,8 +18,10 @@ class Diary extends Model
         return '/diaries/'. $this->id;
     }
 
+    //creates a method that would allow the interaction between the objects
     public function meeting()
     {
+        //return a single meeting record related to the diary record
         return $this->belongsTo(Meeting::class);
     }
 
