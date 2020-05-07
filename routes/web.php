@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/policy', 'PrivacyController@index')->name('policy');
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 

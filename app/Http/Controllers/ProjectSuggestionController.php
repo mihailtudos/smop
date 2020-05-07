@@ -55,6 +55,8 @@ class ProjectSuggestionController extends Controller
      */
     public function store( Request $request)
     {
+        //input validation, if the input doesn't pass the validation an error will be returned
+        //validated input is stored in a variable ($data) therefore, only the validated input can used further
         $data = $request->validate([
             'title'         => 'required|min:25',
             'description'   => 'required|min:150|max:1500',
@@ -65,6 +67,7 @@ class ProjectSuggestionController extends Controller
             'fields'        => 'required',
             'subjects'      => 'required',
         ]);
+
 
         if ($request->has('image')) {
             $imagePath = $request['image']->store('uploads', 'public');
@@ -77,6 +80,7 @@ class ProjectSuggestionController extends Controller
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(2200, 1000);
         $image->save();
 
+        //using prepared statements to create a new record using only data ($data) that passed the validation
         $suggestion = auth()->user()->suggestions()->create([
             'title'         => $data['title'],
             'description'   => $data['description'],

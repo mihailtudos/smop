@@ -63,7 +63,10 @@ class UsersController extends Controller
      */
     public function create()
     {
+
+        //retries all study degree levels from the database
         $degrees = Level::all();
+        //retries all user roles from the database
         $roles = Role::all();
 
         return view('admin.users.create', compact(['degrees', 'roles']));
@@ -79,6 +82,7 @@ class UsersController extends Controller
     {
 //        $this->authorize('create', User::class);
 
+
         $request->validate([
             'name'          => ['required', 'string', 'max:255'],
             'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -89,16 +93,21 @@ class UsersController extends Controller
 
         $passwordString = Str::random(8);
 
+        //A new user record will be created with the given data
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($passwordString),
         ]);
 
+        //inserts a new record in level_user table
         $user->levels()->sync($request->degree);
+        //inserts a new record in field_user table
         $user->fields()->sync($request->degreeFields);
+        //inserts a new record in role_user table
         $user->roles()->sync($request->role);
 
+        //creates a new profile record in the database
         $user->profile()->create([]);
 
 

@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-
         Gate::define('manage-users', function ($user){
             return $user->hasAnyRoles(['admin']);
         });

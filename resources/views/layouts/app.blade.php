@@ -27,6 +27,8 @@
     <script src="{{ asset('js/i18n/datepicker.en.js') }}"></script>
 </head>
 <body>
+@include('cookieConsent::index')
+
     <div id="app">
 
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">

@@ -30,14 +30,16 @@
 
                     </div>
 
-                    <div class="card-body">
+                    
 
-                            <table class="table">
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table class="table text-left">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">name</th>
                                     <th scope="col">role</th>
-                                    <th class="text-right pr-5" scope="col">action</th>
+                                    <th scope="col" class="text-right">action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,25 +47,25 @@
                                     <tr>
                                         <td><a href="{{ $user->path() }}">{{ $user->name  }}</a> </td>
                                         <td> {{ implode(', ', $user->roles()->get()->pluck('name')->toarray()) }}</td>
-                                        <td class="d-flex justify-content-end">
+                                        <td class="">
 
-                                                <a href="{{ route( 'admin.users.edit', $user ) }}" class="mr-2">
-                                                    <button class="btn btn-primary float-left" type="button">
-                                                        <h4 class="m-0">
-                                                            <i class="fas fa-pen-nib"></i>
-                                                        </h4>
-                                                    </button>
-                                                </a>
+                                            <a href="{{ route( 'admin.users.edit', $user ) }}" class="mr-2">
+                                                <button class="btn btn-primary float-right" type="button">
+                                                    <h4 class="m-0">
+                                                        <i class="fas fa-pen-nib"></i>
+                                                    </h4>
+                                                </button>
+                                            </a>
 
                                             @can('admin')
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" class="float-left">
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" class="float-right">
                                                     @csrf
                                                     @method('delete')
-                                                        <button class="btn btn-danger" type="submit">
-                                                            <h4 class="m-0">
-                                                                <i class="fas fa-eraser"></i>
-                                                            </h4>
-                                                        </button>
+                                                    <button class="btn btn-danger" type="submit">
+                                                        <h4 class="m-0">
+                                                            <i class="fas fa-eraser"></i>
+                                                        </h4>
+                                                    </button>
                                                 </form>
                                             @endcan
                                         </td>
@@ -73,6 +75,8 @@
                                 @endforelse
                                 </tbody>
                             </table>
+                        </div>
+
                         <div class="d-flex justify-content-center">
                             {{ $users->links() }}
                         </div>
