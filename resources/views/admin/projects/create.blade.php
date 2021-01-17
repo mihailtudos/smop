@@ -43,7 +43,7 @@
                             <label for="title" class="col-md-4 col-form-label text-md-right">Project Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required  autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}"  required  autofocus>
 
                                 @error('title')
                                 <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             <label for="studyField" class="col-md-4 col-form-label text-md-right">Study Field</label>
 
                             <div class="col-md-6">
-                                <select name="studyField" id="studyField" class="form-control @error('studyField') is-invalid @enderror  input-lg dynamic" data-dependent="supervisor">
+                                <select name="studyField" id="studyField" class="form-control @error('studyField') is-invalid @enderror input-lg dynamic" data-dependent="supervisor">
 
                                     <option value="">Select Study Field</option>
                                     @foreach($fields as $field)
@@ -91,9 +91,15 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4 d-flex flex-row-reverse ">
+
                                 <button type="submit" class="btn btn-primary">
                                     Create
                                 </button>
+
+                                <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                                    Cancel
+                                </button>
+
                             </div>
                         </div>
                     </form>

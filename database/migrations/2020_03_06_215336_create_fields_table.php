@@ -16,8 +16,11 @@ class CreateFieldsTable extends Migration
         Schema::dropIfExists('fields');
         Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name')->unique();;
+            $table->unsignedBigInteger('level_id');
+            $table->string('name')->unique();
             $table->timestamps();
+
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
         });
     }
 

@@ -3,7 +3,7 @@
 
 @section('contentIndex')
     <div class="card-header d-flex justify-content-between align-items-end">
-        <h4>Study Fields List</h4>
+        <h4>Study Courses List</h4>
         <div>
             <a class="btn btn-success border-dark" href="{{ route('admin.fields.create') }}" role="button">Create</a>
         </div>
@@ -13,8 +13,8 @@
         <table class="table text-center">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Study Field</th>
-                <th scope="col">Degree Levels</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Degree</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -22,7 +22,8 @@
             @forelse($fields as $field)
                 <tr>
                     <td> {{ $field->name  }}</td>
-                    <td> {{ implode(', ', $field->levels()->get()->pluck('name')->toArray())  }}</td>
+{{--                    <td> {{ implode(', ', $field->levels()->get()->pluck('name')->toArray())  }}</td>--}}
+                    <td> {{ $field->level->name  }}</td>
                     <td class="d-flex justify-content-center">
                         @can('admin')
                             <a class="mr-2" href="{{ route( 'admin.fields.edit', $field->id ) }}">
@@ -32,8 +33,6 @@
                                     </h4>
                                 </button>
                             </a>
-                        @endcan
-                        @can('admin')
                             <form action="{{ route('admin.fields.destroy', $field->id) }}" method="post" class="float-left">
                                 @csrf
                                 @method('delete')

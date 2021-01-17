@@ -1,5 +1,5 @@
 
-<div class="my-4 d-flex justify-content-between">
+<div class="mt-2 mb-4 d-flex justify-content-between">
     <div class=" ">
         <h1><i class="fas fa-cogs"></i> <small>Welcome to your {{ auth()->user()->roles->first()->name }}  </small></span> Dashboard </h1>
     </div>
@@ -11,9 +11,15 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                @can('student')
+                    @include('partials.userQuickLinks')
+                @endcan
+                @can('admin')
+                    @include('partials.adminQuickLinks')
+                @endcan
+                @can('supervise')
+                    @include('partials.supervisorQuickLinks')
+                @endcan
             </div>
         </div>
     </div>

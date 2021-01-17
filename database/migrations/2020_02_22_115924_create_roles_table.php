@@ -14,8 +14,11 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
+            //creates the primary key of the table and sets it to auto increment itself
             $table->bigIncrements('id');
-            $table->string('name')->unique();;
+            //creates a name field and sets it to unique
+            $table->string('name')->unique();
+            //creates two fields "created_at" and "updated_at" to track when the role was created and when was updated
             $table->timestamps();
         });
     }

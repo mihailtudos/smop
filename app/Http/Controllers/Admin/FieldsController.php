@@ -21,7 +21,7 @@ class FieldsController extends Controller
      */
     public function index()
     {
-        $fields = Field::orderBy('created_at', 'desc')->paginate(7);
+        $fields = Field::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.fields.index', compact('fields'));
     }
 
@@ -32,12 +32,12 @@ class FieldsController extends Controller
      */
     public function create(Request $request)
     {
-        $levels = Level::all();
-         if ($levels->count() !== 0){
-             return view('admin.fields.create', compact('levels'));
+        $degrees = Level::all();
+         if ($degrees->count() !== 0){
+             return view('admin.fields.create', compact('degrees'));
          }else {
              $request->session('error')->flash('error', 'First you need to create a study grade (level) to be able to create study fields');
-             return view('admin.dashboard');
+             return view('admin.levels.create');
          }
     }
 
@@ -49,22 +49,16 @@ class FieldsController extends Controller
      */
     public function store(Request $request)
     {
-        if(Gate::denies('admin')){
-            return redirect(route('admin.users.index'));
-        }
-
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:fields'],
-            'levels' => 'required',
+            'degree' => 'required',
         ]);
 
-        $field = Field::create([
-            'name' => $request->name,
-        ]);
+        $degree = Level::find($data['degree'])->first();
 
-        $field->levels()->sync($request->levels);
+        $result = $degree->fields()->create(['name' => $data['name']]);
 
-        if($field){
+        if($result){
             $request->session('success')->flash('success', "New study field was successfully created!");
         }else{
             $request->session('error')->flash('error', 'There was an error!');
@@ -81,9 +75,8 @@ class FieldsController extends Controller
      */
     public function edit(Field $field)
     {
-        $levels = Level::all();
-
-        return view('admin.fields.edit',compact(['field','levels']));
+        $degrees = Level::all();
+        return view('admin.fields.edit',compact(['field','degrees']));
     }
 
     /**
@@ -95,18 +88,18 @@ class FieldsController extends Controller
      */
     public function update(Request $request, Field $field)
     {
+        $data =
+
         $result = $field->update($request->validate([
-                'name' => 'required|unique:fields,name'
-            ])
-        );
+            'name' => 'required|unique:fields',
+            'level_id' => 'required'
+        ]));
 
         if($result){
             $request->session('success')->flash('success', "Field $field->name has been updated!");
         }else{
             $request->session('error')->flash('error', 'There was an error!');
         }
-
-        $field->levels()->sync($request->levels);
 
         return redirect()->route('admin.fields.index');
     }

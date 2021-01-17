@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Email;
+use App\EmailLog;
+use App\Mail\SendEmailMailable;
+use App\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
-class EmailsController extends Controller
+class EmailsController extends Controller implements ShouldQueue
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,8 @@ class EmailsController extends Controller
      */
     public function index()
     {
-        dd('sasad');
+        $emails = auth()->user()->emails();
+        return view('emails.index', compact('emails'));
     }
 
     /**
@@ -24,62 +36,43 @@ class EmailsController extends Controller
      */
     public function create()
     {
-        //
+        if(auth()->user()->projects == null){
+            $supervisor = null;
+        }else {
+            $supervisor = auth()->user()->projects->supervisor;
+        }
+
+        $coordinators = User::whereHas('roles', function($q){$q->where('name', 'admin');})->get();
+
+        return view('emails.create', compact(['coordinators', 'supervisor']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'to'      => 'required|array',
+            'to.*'    => 'required|email',
+            'subject' => 'required|min:3',
+            'message' => 'required|min:3',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Email  $email
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Email $email)
-    {
-        //
-    }
+        $data   = $request->all();
+        $fromUser = Auth::user();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Email  $email
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Email $email)
-    {
-        //
-    }
+        foreach ($data['to'] as $email) {
+            $toUser = User::whereEmail($email)->first();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Email  $email
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Email $email)
-    {
-        //
-    }
+            Mail::to($toUser)->send(new SendEmailMailable($fromUser, $toUser, $data['subject'], $data['message']));
+            EmailLog::create(['from_user_id' => $fromUser->id, 'to_user_id' => $toUser->id]);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Email  $email
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Email $email)
-    {
-        //
+
+        return redirect()->back()->with('success', 'Email sent!');
     }
 }

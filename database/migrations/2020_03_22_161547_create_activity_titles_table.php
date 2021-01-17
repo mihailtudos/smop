@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuggestionTable extends Migration
+class CreateActivityTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateSuggestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_suggestions', function (Blueprint $table) {
+        Schema::create('activity_titles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->text('description');
-            $table->text('body');
+            $table->string('activity_title')->unique();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -32,6 +27,6 @@ class CreateSuggestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suggestion');
+        Schema::dropIfExists('activity_titles');
     }
 }

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Activity;
+use App\ActivityTitle;
 use App\Field;
 use App\Http\Controllers\Controller;
+use App\Notifications\ProjectAssigned;
 use App\Project;
+use App\Topic;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,17 +56,17 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(['email'=>'exists:users,email']);
+        $request->validate([
+            'student_id' => ['required', 'unique:projects,student_id'],
+            'title' => 'required|max:160',
+            'studyField' => 'required',
+            'supervisor' => 'required',
+            'email'=>'exists:users,email',
+        ]);
+
         $student = User::where('email', '=', $request->email)->first();
         $request['student_id'] = $student->id;
 
-
-        $request->validate([
-            'student_id' => ['required', 'unique:projects,student_id'],
-            'title' => 'required',
-            'studyField' => 'required',
-            'supervisor' => 'required'
-        ]);
 
         $student = User::where('email', '=', $request->email)->first();
 
@@ -133,7 +137,7 @@ class ProjectsController extends Controller
 
         $result = $project->update($request->validate([
            'student_id' => ['required'],
-           'title' => 'required'
+           'title' => 'required|max:160'
        ]));
 
         if($result){
@@ -200,6 +204,51 @@ class ProjectsController extends Controller
         }
         echo $output;
 
+    }
+
+    public function assign(Request $request, Topic $topic)
+    {
+        if(!auth()->user()->hasRole('admin') and $topic->project->count() == 0 and $topic->user->projects != null){
+            return redirect()->back()->with('error', 'Unauthorised request!');
+        }
+
+        $data = $request->validate([
+            'supervisor' => 'required'
+        ]);
+
+        $project = Project::create([
+            'supervisor_id'     =>$data['supervisor'],
+            'student_id'        =>$topic->user_id,
+            'title'             =>$topic->title,
+            'description'       =>$topic->description,
+            'topic_id'          =>$topic->id
+        ]);
+
+        if(ActivityTitle::where('activity_title', 'assigned to project')->first() != null){
+
+            $activity = ActivityTitle::where('activity_title', 'assigned to project')->first()->id;
+
+            $project->student->notify(new ProjectAssigned([
+
+                'title'     => $project->title,
+                'link'      => $project->path(),
+
+            ]));
+
+            $project->supervisor->notify(new ProjectAssigned([
+
+                'title'     => $project->title,
+                'link'      => $project->path(),
+
+            ]));
+
+            $project->student->activities()->create(['activity_title_id' =>  $activity]);
+            $project->supervisor->activities()->create(['activity_title_id' =>  $activity]);
+        }
+
+
+
+        return redirect()->back()->with('success', 'Supervisor assigned and new project created!');
     }
 
 }

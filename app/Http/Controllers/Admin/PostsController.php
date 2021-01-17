@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
-use Intervention\Image\Facades\Image;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -44,20 +45,25 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'body' => 'required',
-            'image' => 'image',
+            'title'         => 'required|min:25',
+            'description'   => 'required|min:150|max:1500',
+            'body'          => 'required|min:150|max:1500',
+            'image'         => 'image|sometimes|mimes:jpeg,bmp,png,jpg|max:2500',
         ]);
 
-        if ($request->has('image')){
+        if ($request->has('image')) {
             $imagePath = $request['image']->store('uploads', 'public');
-        }else {
-                $imagePath = 'uploads/banner.jpg';
+        } else {
+            $imagePath = 'uploads/banner.jpg';
         }
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 800);
-        $image->save();
+        if ($request->has('image')) {
+            $imagePath = $request['image']->store('uploads', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(2200, 1000);
+            $image->save();
+        } else {
+            $imagePath = 'uploads/banner.jpg';
+        }
 
 
         $post = auth()->user()->posts()->create([
@@ -137,16 +143,22 @@ class PostsController extends Controller
      */
     public function destroy(Post $post, Request $request)
     {
-        //deletes the user
+        //delete stored image if post image is not the default img
+        if ($post->image != 'uploads/banner.jpg' and Storage::exists( 'public/'. $post->image)) {
+            Storage::delete('public/' .$post->image);
+        }
+
+        //deletes the post
         $response = $post->delete();
 
+
+        //return flash message
         if($response){
             $request->session('success')->flash('success', "The post has been deleted successfully!");
         }else{
             $request->session('error')->flash('error', 'There was an error!');
         }
-
-        //redirect to users page
+        //redirect to index posts page
         return redirect()->route('admin.posts.index');
     }
 }

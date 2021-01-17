@@ -19,7 +19,8 @@
                                 <label for="title" class="col-md-2 col-form-label text-md-right">Title<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autofocus>
+                                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" minlength="25" required autofocus>
+                                    <small id="emailHelp" class="form-text text-muted">Must be at least 25 characters</small>
 
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -33,11 +34,12 @@
                                 <label for="description" class="col-md-2 col-form-label text-md-right">Description<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autofocus>
+                                    <textarea id="description"  class="form-control @error('description') is-invalid @enderror" name="description" maxlength="1500" minlength="150" required >{{ old('description') }}</textarea>
+                                    <small id="emailHelp" class="form-text text-muted">Post description must be between 150 - 1500 characters</small>
 
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>s
                                     </span>
                                     @enderror
                                 </div>
@@ -47,7 +49,8 @@
                                 <label for="body" class="col-md-2 col-form-label text-md-right">Body<span class="text-danger">*</span></label>
 
                                 <div class="col-md-10">
-                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="10" value="{{ old('title') }}" required autofocus></textarea>
+                                    <textarea class="form-control @error('body') is-invalid @enderror"  name="body" id="body" cols="20" rows="7" maxlength="1500" minlength="150" required >{{ old('title') }}</textarea>
+                                    <small id="emailHelp" class="form-text text-muted">Post body must be between 150 - 1500 characters</small>
 
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">
@@ -61,7 +64,7 @@
                                 <label for="body" class="col-md-2 col-form-label text-md-right">Image</label>
 
                                 <div class="col-md-10">
-                                    <input id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
+                                    <input onchange="validateSize(this)" id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
 
                                     @error('image')
                                     <span class="invalid-feedback" role="alert">
@@ -73,8 +76,12 @@
 
                             <div class="form-group row mb-0 ">
                                 <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
+
                                     <button type="submit" class="btn btn-primary">
                                         Create
+                                    </button>
+                                    <button type="button" onclick="window.history.back();" class="btn btn-secondary mr-2">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>

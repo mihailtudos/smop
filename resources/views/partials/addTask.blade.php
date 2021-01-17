@@ -1,14 +1,24 @@
 <form action="{{route('supervisor.tasks.store', $project)}}" method="post">
     @csrf
     <div class="form-group">
-        <label for="title">Task</label>
-        <input type="text" class="form-control" value="{{ old('title') }}" id="title" name="title"  required autofocus>
-        <small id="title" class="form-text text-muted">Shouldn't be longer than 200 characters</small>
+        <label for="taskTitle">Task title<span class="text-danger">*</span></label>
+        <input type="text" class="form-control @error('taskTitle') is-invalid @enderror" value="{{ old('taskTitle') }}" id="taskTitle" name="taskTitle"  required  placeholder="Task taskTitle">
+        <small id="taskTitle" class="form-text text-muted">Shouldn't be longer than 250 characters</small>
+
+        @error('taskTitle')
+            <span class="text-danger">{{$message}}</span>
+        @enderror
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" name="description" class="form-control" id="description">
+        <label for="taskDescription">Task description<span class="text-danger">*</span></label>
+        <textarea name="taskDescription" class="form-control @error('taskTitle') is-invalid @enderror" id="taskDescription" required placeholder="Short task description">{{ old('Description') }}</textarea>
+        <small id="taskTitle" class="form-text text-muted">Shouldn't be longer than 400 characters</small>
+
+        @error('taskTitle')
+        <span class="text-danger">{{$message}}</span>
+        @enderror
     </div>
-    <input type="hidden" name="project" value="{{$project->id}}" id="project">
-    <button type="submit" class="btn btn-success">Add task</button>
+    <button type="submit" class="btn btn-primary float-right">Add task</button>
 </form>
+
+

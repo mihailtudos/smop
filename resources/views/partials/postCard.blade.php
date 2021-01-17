@@ -1,8 +1,8 @@
 <div class="col-md-12 mb-4">
-    <div class="card dashCardMini">
-        <h5 class="card-header text-center">
+    <div class="card py-3 dashCardMini">
+        <h3 class="text-center">
            {{$post->title}}
-        </h5>
+        </h3>
         <img src="{{ '/storage/'.$post->image }}" class="card-img-top" alt="post image">
         <div class="card-body">
 
@@ -13,3 +13,4 @@
         </div>
     </div>
 </div>
+

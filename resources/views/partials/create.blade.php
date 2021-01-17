@@ -2,7 +2,11 @@
 {{--{{dd($supervisors)}}--}}
 @section('content')
     <div class="d-flex flex-row-reverse mb-4">
-        <a class="btn btn-primary ml-3" href="{{ route('admin.') }}" role="button">Go to the dashboard</a>
+        @can('edit-projects')
+        <a class="btn btn-primary ml-3" href="{{ route( auth()->user()->roles->first()->name .'.') }}" role="button">Go to the dashboard</a>
+        @else
+            <a class="btn btn-primary ml-3" href="{{ route( 'home') }}" role="button">Go to the dashboard</a>
+        @endcan
     </div>
 
     <div class="row justify-content-center">

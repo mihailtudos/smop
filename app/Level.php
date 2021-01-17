@@ -10,6 +10,11 @@ class Level extends Model
 
     public function fields()
     {
-        return $this->belongsToMany(Field::class);
+        return $this->hasMany(Field::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

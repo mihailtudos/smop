@@ -61,9 +61,14 @@
 
                         <div class="form-group row mb-0 ">
                             <div class="col-md-8 offset-md-4 d-flex flex-row-reverse">
+
                                 <button type="submit" class="btn btn-primary">
                                     Update
                                 </button>
+                                <a role="button" href="{{ route('admin.posts.index') }}" class="btn btn-secondary mr-2">
+                                    Cancel
+                                </a>
+
                             </div>
                         </div>
                     </form>
